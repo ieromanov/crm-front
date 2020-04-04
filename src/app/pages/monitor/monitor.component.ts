@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
+import { catchError } from 'rxjs/operators'
 
 @Component({
   selector: 'app-monitor',
@@ -6,7 +9,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./monitor.component.scss']
 })
 export class MonitorComponent implements OnInit {
-  constructor() {}
+  constructor(private readonly httpClient: HttpClient) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.httpClient
+      .get('http://localhost:3000/request/all', {
+        withCredentials: true
+      })
+      .pipe(
+        catchError((error) => of(error))
+      )
+      .subscribe(requests => {
+        console.log('requests: ', requests);
+      });
+  }
 }
