@@ -9,14 +9,19 @@ import en from '@angular/common/locales/en';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { IconsProviderModule } from './icons-provider.module';
-import { NgZorroAntdModule, NzButtonModule, NZ_I18N, en_US } from 'ng-zorro-antd';
+import {
+  NgZorroAntdModule,
+  NzButtonModule,
+  NZ_I18N,
+  en_US,
+} from 'ng-zorro-antd';
+import { CoreModule } from '@core/core.module';
 
 registerLocaleData(en);
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
+    CoreModule,
     BrowserModule,
     AppRoutingModule,
     IconsProviderModule,
@@ -24,9 +29,14 @@ registerLocaleData(en);
     FormsModule,
     BrowserAnimationsModule,
     NzButtonModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: NZ_I18N,
+      useValue: en_US,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

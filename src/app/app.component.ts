@@ -12,27 +12,10 @@ export class AppComponent {
   constructor(
     private readonly httpClient: HttpClient
   ) {}
+  public items = [1, 2, 3, 4]
+  public isCollapsed = false;
 
-  isCollapsed = false;
-
-  public handleLogin(): void {
-    window.open('http://localhost:3000/auth/login', '_self')
-  }
   public handleLogout(): void {
-    window.open('http://localhost:3000/auth/logout', '_self')
-  }
-
-  public createRequest() {
-    this.httpClient
-      .post('http://localhost:3000/request/create', {}, {
-        withCredentials: true
-      })
-      .pipe(
-        map(request => request),
-        catchError(error => of(error))
-      )
-      .subscribe((request) => {
-        console.log(request)
-      })
+    window.open('http://localhost:3000/api/auth/logout', '_self')
   }
 }

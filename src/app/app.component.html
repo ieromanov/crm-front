@@ -15,20 +15,14 @@
       <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Welcome</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/monitor">Monitor</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Workplace</a>
+            <a routerLink="/dashboard">Dashboard</a>
           </li>
         </ul>
       </li>
-      <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
+      <li nz-submenu nzOpen nzTitle="Setting" nzIcon="setting">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a>Basic Form</a>
+            <a routerLink="/setting/general">General</a>
           </li>
         </ul>
       </li>
@@ -44,9 +38,7 @@
             ></i>
         </span>
 
-        <button nz-button nzType="primary" (click)="handleLogin()">Войти</button>
         <button nz-button nzType="default" (click)="handleLogout()">Выйти</button>
-        <button nz-button nzType="danger" (click)="createRequest()">Create Request</button>
       </div>
     </nz-header>
     <nz-content>
@@ -56,3 +48,5 @@
     </nz-content>
   </nz-layout>
 </nz-layout>
+
+
