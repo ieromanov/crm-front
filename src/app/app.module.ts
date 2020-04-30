@@ -1,35 +1,51 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import en from '@angular/common/locales/en';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { IconsProviderModule } from './icons-provider.module';
 import {
-  NgZorroAntdModule,
   NzButtonModule,
+  NzLayoutModule,
   NZ_I18N,
   en_US,
+  NzMenuModule,
+  NzIconModule,
 } from 'ng-zorro-antd';
 import { CoreModule } from '@core/core.module';
 
+import { HeaderComponent } from '@shared/components/header/header.component';
+
+import {
+  MenuFoldOutline,
+  MenuUnfoldOutline,
+  FormOutline,
+  DashboardOutline,
+  SettingOutline,
+  LoadingOutline
+} from '@ant-design/icons-angular/icons';
+
 registerLocaleData(en);
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HeaderComponent],
   imports: [
     CoreModule,
     BrowserModule,
     AppRoutingModule,
-    IconsProviderModule,
-    NgZorroAntdModule,
-    FormsModule,
     BrowserAnimationsModule,
     NzButtonModule,
-    HttpClientModule,
+    NzMenuModule,
+    NzLayoutModule,
+    NzIconModule.forRoot([
+      LoadingOutline,
+      MenuFoldOutline,
+      MenuUnfoldOutline,
+      DashboardOutline,
+      FormOutline,
+      SettingOutline,
+    ])
   ],
   providers: [
     {

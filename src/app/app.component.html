@@ -8,7 +8,7 @@
     <div class="sidebar-logo">
       <a href="https://ng.ant.design/" target="_blank">
         <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-        <h1>Ant Design Of Angular</h1>
+        <h1>CRM 001</h1>
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
@@ -29,18 +29,10 @@
     </ul>
   </nz-sider>
   <nz-layout>
-    <nz-header>
-      <div class="app-header">
-        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-            <i class="trigger"
-               nz-icon
-               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-            ></i>
-        </span>
-
-        <button nz-button nzType="default" (click)="handleLogout()">Выйти</button>
-      </div>
-    </nz-header>
+    <crm-header
+      [menuCollapsed]="isCollapsed"
+      (onCollapsedChanged)="setCollapsed($event)"
+    ></crm-header>
     <nz-content>
       <div class="inner-content">
         <router-outlet></router-outlet>
