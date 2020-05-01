@@ -13,6 +13,7 @@ import {
   en_US,
   NzMenuModule,
   NzIconModule,
+  NzPageHeaderModule
 } from 'ng-zorro-antd';
 import { CoreModule } from '@core/core.module';
 
@@ -38,6 +39,7 @@ registerLocaleData(en);
     NzButtonModule,
     NzMenuModule,
     NzLayoutModule,
+    NzPageHeaderModule,
     NzIconModule.forRoot([
       LoadingOutline,
       MenuFoldOutline,

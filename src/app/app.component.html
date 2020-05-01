@@ -31,7 +31,7 @@
   <nz-layout>
     <crm-header
       [menuCollapsed]="isCollapsed"
-      (onCollapsedChanged)="setCollapsed($event)"
+      (collapsedMenu)="toggleMenuCollapsed()"
     ></crm-header>
     <nz-content>
       <div class="inner-content">
