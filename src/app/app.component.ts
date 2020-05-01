@@ -10,7 +10,7 @@ export class AppComponent {
 
   constructor() {}
 
-  public setCollapsed(value: boolean):void {
-    this.isCollapsed = value
+  public toggleMenuCollapsed():void {
+    this.isCollapsed = !this.isCollapsed
   }
 }

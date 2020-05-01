@@ -1,14 +1,6 @@
-<nz-header>
-  <div class="app-header">
-    <button nz-button nzType="link" (click)="handleMenuCollapse()">
-      <i class="trigger"
-          nz-icon
-          [nzType]="menuIcon"
-      ></i>
-    </button>
-
-    <div class="header-actions">
-      <button nz-button nzType="default" (click)="handleLogout()">Выйти</button>
-    </div>
-  </div>
-</nz-header>
+<nz-page-header [nzBackIcon]="menuIcon" (nzBack)="handleMenuCollapse()">
+  <nz-page-header-title>Title</nz-page-header-title>
+  <nz-page-header-extra>
+    <button nz-button nzType="danger" (click)="handleLogout()">Выйти</button>
+  </nz-page-header-extra>
+</nz-page-header>

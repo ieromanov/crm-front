@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { environment } from '@env/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'crm-header',
@@ -8,16 +9,16 @@ import { environment } from '@env/environment';
 })
 export class HeaderComponent {
   @Input() menuCollapsed: boolean = false;
-  @Output() onCollapsedChanged = new EventEmitter<boolean>()
+  @Output() collapsedMenu: EventEmitter<void> = new EventEmitter()
 
-  constructor() {}
+  constructor(private readonly router: Router) {}
 
-  get menuIcon() {
+  public get menuIcon() {
     return this.menuCollapsed ? 'menu-unfold' : 'menu-fold'
   }
 
-  handleMenuCollapse(): void {
-    this.onCollapsedChanged.emit(!this.menuCollapsed)
+  public handleMenuCollapse(): void {
+    this.collapsedMenu.emit()
   }
 
   handleLogout(): void {
