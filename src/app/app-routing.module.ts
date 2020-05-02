@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: 'setting',
-    loadChildren: () => import('./modules/general-setting/setting.module').then((m) => m.GeneralSettingModule),
+    loadChildren: () => import('./modules/setting/setting.module').then((m) => m.GeneralSettingModule),
   },
 ];
 
