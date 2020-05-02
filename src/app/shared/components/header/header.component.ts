@@ -5,13 +5,12 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'crm-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
   @Input() menuCollapsed: boolean = false;
   @Output() collapsedMenu: EventEmitter<void> = new EventEmitter()
 
-  constructor(private readonly router: Router) {}
+  constructor() {}
 
   public get menuIcon() {
     return this.menuCollapsed ? 'menu-unfold' : 'menu-fold'
