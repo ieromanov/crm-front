@@ -25,7 +25,8 @@ import {
   FormOutline,
   DashboardOutline,
   SettingOutline,
-  LoadingOutline
+  EditOutline,
+  DeleteOutline
 } from '@ant-design/icons-angular/icons';
 
 registerLocaleData(en);
@@ -41,12 +42,13 @@ registerLocaleData(en);
     NzLayoutModule,
     NzPageHeaderModule,
     NzIconModule.forRoot([
-      LoadingOutline,
       MenuFoldOutline,
       MenuUnfoldOutline,
       DashboardOutline,
       FormOutline,
       SettingOutline,
+      EditOutline,
+      DeleteOutline
     ])
   ],
   providers: [
