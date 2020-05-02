@@ -10,10 +10,20 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import {
+  PlusOutline,
+  EditOutline,
+  DeleteOutline
+} from '@ant-design/icons-angular/icons';
+
+import { StatusServiceProvider } from '@core/provides/status-service.provider';
 
 import { GeneralSettingRoutingModule } from './setting-routing.module';
 import { GeneralSettingComponent } from './components/general-setting/general-setting.component';
-import { StatusSettingComponent } from './components/request-status-setting/request-status-setting.component';
+import { StatusSettingComponent } from './components/status-setting/status-setting.component';
 
 @NgModule({
   imports: [
@@ -27,9 +37,16 @@ import { StatusSettingComponent } from './components/request-status-setting/requ
     NzSpinModule,
     NzFormModule,
     NzTableModule,
-    NzDividerModule
+    NzDividerModule,
+    NzModalModule,
+    NzSpaceModule,
+    NzIconModule.forChild([
+      EditOutline,
+      DeleteOutline,
+      PlusOutline
+    ])
   ],
   declarations: [GeneralSettingComponent, StatusSettingComponent],
-  exports: [],
+  providers: [StatusServiceProvider]
 })
-export class GeneralSettingModule {}
+export class SettingModule {}

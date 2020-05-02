@@ -22,11 +22,8 @@ import { HeaderComponent } from '@shared/components/header/header.component';
 import {
   MenuFoldOutline,
   MenuUnfoldOutline,
-  FormOutline,
   DashboardOutline,
   SettingOutline,
-  EditOutline,
-  DeleteOutline
 } from '@ant-design/icons-angular/icons';
 
 registerLocaleData(en);
@@ -45,10 +42,7 @@ registerLocaleData(en);
       MenuFoldOutline,
       MenuUnfoldOutline,
       DashboardOutline,
-      FormOutline,
       SettingOutline,
-      EditOutline,
-      DeleteOutline
     ])
   ],
   providers: [

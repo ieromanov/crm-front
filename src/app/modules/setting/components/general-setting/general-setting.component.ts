@@ -3,14 +3,13 @@ import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { API_SERVICE } from '@core/di-tokens';
-import { IApiService } from '@shared/interfaces/api-service.interface';
+import { IApiService } from '@shared/interfaces/service/api-service.interface';
 import { FormGroup } from '@angular/forms';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'crm-general-setting',
   templateUrl: './general-setting.component.html',
-  styleUrls: ['./general-setting.component.scss'],
   animations: [
     trigger('loading', [
       transition(':enter', [
