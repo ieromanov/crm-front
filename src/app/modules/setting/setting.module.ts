@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -11,8 +11,8 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzModalModule } from 'ng-zorro-antd/modal';
-import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import {
   PlusOutline,
   EditOutline,
@@ -24,11 +24,13 @@ import { StatusServiceProvider } from '@core/provides/status-service.provider';
 import { GeneralSettingRoutingModule } from './setting-routing.module';
 import { GeneralSettingComponent } from './components/general-setting/general-setting.component';
 import { StatusSettingComponent } from './components/status-setting/status-setting.component';
+import { StatusModalFormComponent } from './components/status-modal/status-modal-from.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     GeneralSettingRoutingModule,
     HttpClientModule,
     NzButtonModule,
@@ -39,14 +41,18 @@ import { StatusSettingComponent } from './components/status-setting/status-setti
     NzTableModule,
     NzDividerModule,
     NzModalModule,
-    NzSpaceModule,
+    NzSwitchModule,
     NzIconModule.forChild([
       EditOutline,
       DeleteOutline,
       PlusOutline
     ])
   ],
-  declarations: [GeneralSettingComponent, StatusSettingComponent],
+  declarations: [
+    GeneralSettingComponent,
+    StatusSettingComponent,
+    StatusModalFormComponent
+  ],
   providers: [StatusServiceProvider]
 })
 export class SettingModule {}

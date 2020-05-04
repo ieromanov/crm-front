@@ -1,4 +1,4 @@
-<button class="create-status-button" nz-button nzType="primary" (click)="create()">
+<button class="create-status-button" nz-button nzType="primary" (click)="showCreateStatusModal()">
   <i nz-icon nzType="plus" nzTheme="outline"></i> Add Status
 </button>
 
@@ -27,7 +27,12 @@
       <td>{{ status.description }}</td>
       <td>{{ status.active }}</td>
       <td>
-        <button nz-button nzType="link" nzShape="circle">
+        <button
+          nz-button
+          nzType="link"
+          nzShape="circle"
+          (click)="showUpdateStatusModal(status)"
+        >
           <i nz-icon nzType="edit" nzTheme="outline"></i>
         </button>
         <nz-divider nzType="vertical"></nz-divider>
@@ -36,7 +41,7 @@
           nzDanger
           nzType="link"
           nzShape="circle"
-          (click)="delete(status.id)"
+          (click)="showDeleteConfirmModal(status.id)"
         >
           <i nz-icon nzType="delete" nzTheme="outline"></i>
         </button>
