@@ -34,6 +34,12 @@ export class StatusService implements IStatusService {
       .delete(this._controllerURL + id)
   }
 
-  create(): void {} // TODO
-  update(): void {} // TODO
+  create(dto: IStatus): Observable<IStatus> {
+    return this.apiService
+      .post<IStatus, IStatus>(this._controllerURL, dto)
+  }
+  update(id: string, dto: IStatus): Observable<IStatus> {
+    return this.apiService
+      .put<IStatus, IStatus>(this._controllerURL + id, dto)
+  }
 }
