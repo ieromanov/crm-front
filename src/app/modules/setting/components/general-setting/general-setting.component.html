@@ -1,5 +1,3 @@
-<h1 nz-title>General Setting Page</h1>
-
 <nz-spin [nzSpinning]="loading">
   <form @loading nz-form (ngSubmit)="save()" *ngIf="settings.length > 0">
     <nz-form-item *ngFor="let setting of settings">

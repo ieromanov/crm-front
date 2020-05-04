@@ -22,10 +22,8 @@ import { HeaderComponent } from '@shared/components/header/header.component';
 import {
   MenuFoldOutline,
   MenuUnfoldOutline,
-  FormOutline,
   DashboardOutline,
   SettingOutline,
-  LoadingOutline
 } from '@ant-design/icons-angular/icons';
 
 registerLocaleData(en);
@@ -41,11 +39,9 @@ registerLocaleData(en);
     NzLayoutModule,
     NzPageHeaderModule,
     NzIconModule.forRoot([
-      LoadingOutline,
       MenuFoldOutline,
       MenuUnfoldOutline,
       DashboardOutline,
-      FormOutline,
       SettingOutline,
     ])
   ],

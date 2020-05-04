@@ -1,0 +1,2 @@
+export const STATUS_NAME_MAX_LENGTH = 64
+export const STATUS_DESCRIPTION_MAX_LENGTH = 256

@@ -1,0 +1,51 @@
+<button class="create-status-button" nz-button nzType="primary" (click)="showCreateStatusModal()">
+  <i nz-icon nzType="plus" nzTheme="outline"></i> Add Status
+</button>
+
+<nz-table
+  #table
+  nzBordered
+  [nzData]="statuses"
+  [nzLoading]="loading"
+  [nzFrontPagination]="false"
+  [nzTotal]="totalResults"
+  [nzPageSize]="pageSize"
+  [nzPageIndex]="pageIndex"
+  (nzQueryParams)="onQueryParamsChange($event)"
+>
+  <thead>
+    <tr>
+      <th nzWidth="30%">Status</th>
+      <th nzWidth="40%">Description</th>
+      <th nzWidth="20%">Active</th>
+      <th nzWidth="10%">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let status of table.data">
+      <td>{{ status.value }}</td>
+      <td>{{ status.description }}</td>
+      <td>{{ status.active }}</td>
+      <td>
+        <button
+          nz-button
+          nzType="link"
+          nzShape="circle"
+          (click)="showUpdateStatusModal(status)"
+        >
+          <i nz-icon nzType="edit" nzTheme="outline"></i>
+        </button>
+        <nz-divider nzType="vertical"></nz-divider>
+        <button
+          nz-button
+          nzDanger
+          nzType="link"
+          nzShape="circle"
+          (click)="showDeleteConfirmModal(status.id)"
+        >
+          <i nz-icon nzType="delete" nzTheme="outline"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
