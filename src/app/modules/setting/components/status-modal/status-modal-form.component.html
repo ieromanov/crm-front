@@ -1,0 +1,29 @@
+<form nz-form [formGroup]="form">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzRequired>Name</nz-form-label>
+    <nz-form-control nzHasFeedback [nzSpan]="20">
+      <input
+        formControlName="value"
+        nz-input
+      />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4">Description</nz-form-label>
+    <nz-form-control [nzSpan]="20">
+      <textarea
+        rows="4"
+        nz-input
+        formControlName="description"
+      ></textarea>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4">Active</nz-form-label>
+    <nz-form-control [nzSpan]="20" >
+      <nz-switch formControlName="active"></nz-switch>
+    </nz-form-control>
+  </nz-form-item>
+</form>
