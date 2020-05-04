@@ -10,7 +10,7 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class StatusService implements IStatusService {
-  private readonly _controllerURL: string = '/request-status/'
+  private readonly _controllerURL: string = '/status/'
 
   constructor(
     @Inject(API_SERVICE)
