@@ -1,0 +1,2 @@
+export const HOME_NAME_MAX_LENGTH = 64
+export const HOME_DESCRIPTION_MAX_LENGTH = 256

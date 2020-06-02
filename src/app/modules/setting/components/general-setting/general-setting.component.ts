@@ -16,11 +16,9 @@ import { trigger, transition, style, animate } from '@angular/animations';
         style({ opacity: 0 }),
         animate('240ms', style({ opacity: 1 })),
       ]),
-      transition(':leave', [
-        animate('240ms', style({ opacity: 0 }))
-      ])
+      transition(':leave', [animate('240ms', style({ opacity: 0 }))]),
     ]),
-  ]
+  ],
 })
 export class GeneralSettingComponent implements OnInit {
   public validateForm: FormGroup;
@@ -34,15 +32,13 @@ export class GeneralSettingComponent implements OnInit {
 
   ngOnInit() {
     this.apiService
-      .get('/setting')
+      .get('setting')
       .pipe(catchError((err) => of(err)))
       .subscribe((settings) => {
-        this.loading = false
+        this.loading = false;
         this.settings = settings.items;
       });
   }
 
-  save() {
-    
-  }
+  save() {}
 }

@@ -1,31 +1,31 @@
 import { Component, Inject } from '@angular/core';
-
-import { STATUS_SERVICE } from '@core/di-tokens';
-import { NzTableQueryParams, NzModalService } from 'ng-zorro-antd';
-import { IStatusService } from '@shared/interfaces/service/status-service.interface';
-import { IStatus } from '@shared/interfaces/entity/status.interface';
-
-import { StatusModalFormComponent } from '../status-modal/status-modal-from.component';
 import { Observable } from 'rxjs';
 
+import { ROOM_SERVICE } from '@core/di-tokens';
+import { NzTableQueryParams, NzModalService } from 'ng-zorro-antd';
+import { IRoomService } from '@shared/interfaces/service/room-service.interface';
+import { IRoom } from '@shared/interfaces/entity/room.interface';
+
+import { RoomModalFormComponent } from '../room-modal/room-modal-from.component';
+
 @Component({
-  selector: 'crm-status-setting',
-  templateUrl: './status-setting.component.html',
-  styleUrls: ['./status-setting.component.scss'],
+  selector: 'crm-room-setting',
+  templateUrl: './room-setting.component.html',
+  styleUrls: ['./room-setting.component.scss'],
 })
-export class StatusSettingComponent {
+export class RoomSettingComponent {
   public totalResults: number;
-  public statuses: IStatus[] = [];
+  public rooms: IRoom[] = [];
   public loading: boolean = false;
   public pageSize: number = 9;
   public pageIndex: number = 1;
 
-  public createStatusModalVisible: boolean = false;
-  public createStatusModalLoading: boolean = false;
+  public createRoomModalVisible: boolean = false;
+  public createRoomModalLoading: boolean = false;
 
   constructor(
-    @Inject(STATUS_SERVICE)
-    private readonly statusService: IStatusService,
+    @Inject(ROOM_SERVICE)
+    private readonly roomService: IRoomService,
     private readonly modalService: NzModalService
   ) {}
 
@@ -37,17 +37,17 @@ export class StatusSettingComponent {
 
   public showDeleteConfirmModal(id: string) {
     this.modalService.confirm({
-      nzTitle: 'Do you want to delete these status?',
-      nzContent: 'When clicked the OK button, this status will be deleted',
+      nzTitle: 'Do you want to delete these room?',
+      nzContent: 'When clicked the OK button, this room will be deleted',
       nzOkType: 'danger',
       nzOnOk: this._handleOnConfirmDelete(id),
     });
   }
 
-  public showCreateStatusModal() {
+  public showCreateRoomModal() {
     this.modalService.create({
-      nzTitle: 'Create status',
-      nzContent: StatusModalFormComponent,
+      nzTitle: 'Create room',
+      nzContent: RoomModalFormComponent,
       nzFooter: [
         {
           label: 'Cancel',
@@ -62,11 +62,11 @@ export class StatusSettingComponent {
     });
   }
 
-  public showUpdateStatusModal(status: IStatus) {
+  public showUpdateRoomModal(room: IRoom) {
     this.modalService.create({
-      nzTitle: 'Update status',
-      nzContent: StatusModalFormComponent,
-      nzComponentParams: { status },
+      nzTitle: 'Update room',
+      nzContent: RoomModalFormComponent,
+      nzComponentParams: { room },
       nzFooter: [
         {
           label: 'Cancel',
@@ -75,7 +75,7 @@ export class StatusSettingComponent {
         {
           label: 'Update',
           type: 'primary',
-          onClick: this._handleOnConfirmUpdate(status.id),
+          onClick: this._handleOnConfirmUpdate(room.id),
         },
       ],
     });
@@ -88,7 +88,7 @@ export class StatusSettingComponent {
     }
   }
 
-  private _handleOnConfirmCreate(componentInstance: StatusModalFormComponent) {
+  private _handleOnConfirmCreate(componentInstance: RoomModalFormComponent) {
     if (componentInstance.form.valid) {
       this._create(componentInstance.form.value)
         .subscribe(() => {
@@ -99,7 +99,7 @@ export class StatusSettingComponent {
   }
 
   private _handleOnConfirmUpdate(id: string) {
-    return (componentInstance: StatusModalFormComponent) => {
+    return (componentInstance: RoomModalFormComponent) => {
       if (componentInstance.form.value) {
         this._update(id, componentInstance.form.value)
           .subscribe(() => {
@@ -110,33 +110,33 @@ export class StatusSettingComponent {
     }
   }
 
-  private _handleCloseModal(componentInstance: StatusModalFormComponent) {
+  private _handleCloseModal(componentInstance: RoomModalFormComponent) {
     componentInstance.closeModal();
   }
 
   private _getAll() {
     this.loading = true;
-    return this.statusService
+    return this.roomService
       .findAll({
         take: this.pageSize,
         skip: (this.pageIndex - 1) * this.pageSize,
       })
-      .subscribe((statuses) => {
-        this.statuses = statuses.items;
-        this.totalResults = statuses.total;
+      .subscribe(rooms => {
+        this.rooms = rooms.items;
+        this.totalResults = rooms.total;
         this.loading = false;
       });
   }
 
   private _delete(id: string) {
-    return this.statusService.delete(id);
+    return this.roomService.delete(id);
   }
 
-  private _create(status: IStatus): Observable<IStatus> {
-    return this.statusService.create(status);
+  private _create(room: IRoom): Observable<IRoom> {
+    return this.roomService.create(room);
   }
 
-  private _update(id: string, status: IStatus): Observable<IStatus> {
-    return this.statusService.update(id, status);
+  private _update(id: string, room: IRoom): Observable<IRoom> {
+    return this.roomService.update(id, room);
   }
 }

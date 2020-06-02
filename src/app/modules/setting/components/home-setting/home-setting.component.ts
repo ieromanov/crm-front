@@ -1,31 +1,31 @@
-import { Component, Inject } from '@angular/core';
-
-import { STATUS_SERVICE } from '@core/di-tokens';
-import { NzTableQueryParams, NzModalService } from 'ng-zorro-antd';
-import { IStatusService } from '@shared/interfaces/service/status-service.interface';
-import { IStatus } from '@shared/interfaces/entity/status.interface';
-
-import { StatusModalFormComponent } from '../status-modal/status-modal-from.component';
 import { Observable } from 'rxjs';
+import { Component, Inject } from '@angular/core';
+import { NzTableQueryParams, NzModalService } from 'ng-zorro-antd';
+
+import { HOME_SERVICE } from '@core/di-tokens';
+import { IHomeService } from '@shared/interfaces/service/home-service.interface';
+import { IHome } from '@shared/interfaces/entity/home.interface';
+
+import { HomeModalFormComponent } from '../home-modal/home-modal-from.component';
 
 @Component({
-  selector: 'crm-status-setting',
-  templateUrl: './status-setting.component.html',
-  styleUrls: ['./status-setting.component.scss'],
+  selector: 'crm-home-setting',
+  templateUrl: './home-setting.component.html',
+  styleUrls: ['./home-setting.component.scss'],
 })
-export class StatusSettingComponent {
+export class HomeSettingComponent {
   public totalResults: number;
-  public statuses: IStatus[] = [];
+  public houses: IHome[] = [];
   public loading: boolean = false;
   public pageSize: number = 9;
   public pageIndex: number = 1;
 
-  public createStatusModalVisible: boolean = false;
-  public createStatusModalLoading: boolean = false;
+  public createHomeModalVisible: boolean = false;
+  public createHomeModalLoading: boolean = false;
 
   constructor(
-    @Inject(STATUS_SERVICE)
-    private readonly statusService: IStatusService,
+    @Inject(HOME_SERVICE)
+    private readonly _homeService: IHomeService,
     private readonly modalService: NzModalService
   ) {}
 
@@ -37,17 +37,17 @@ export class StatusSettingComponent {
 
   public showDeleteConfirmModal(id: string) {
     this.modalService.confirm({
-      nzTitle: 'Do you want to delete these status?',
-      nzContent: 'When clicked the OK button, this status will be deleted',
+      nzTitle: 'Do you want to delete these home?',
+      nzContent: 'When clicked the OK button, this home will be deleted',
       nzOkType: 'danger',
       nzOnOk: this._handleOnConfirmDelete(id),
     });
   }
 
-  public showCreateStatusModal() {
+  public showCreateHomeModal() {
     this.modalService.create({
-      nzTitle: 'Create status',
-      nzContent: StatusModalFormComponent,
+      nzTitle: 'Create home',
+      nzContent: HomeModalFormComponent,
       nzFooter: [
         {
           label: 'Cancel',
@@ -62,11 +62,11 @@ export class StatusSettingComponent {
     });
   }
 
-  public showUpdateStatusModal(status: IStatus) {
+  public showUpdateHomeModal(home: IHome) {
     this.modalService.create({
-      nzTitle: 'Update status',
-      nzContent: StatusModalFormComponent,
-      nzComponentParams: { status },
+      nzTitle: 'Update home',
+      nzContent: HomeModalFormComponent,
+      nzComponentParams: { home },
       nzFooter: [
         {
           label: 'Cancel',
@@ -75,7 +75,7 @@ export class StatusSettingComponent {
         {
           label: 'Update',
           type: 'primary',
-          onClick: this._handleOnConfirmUpdate(status.id),
+          onClick: this._handleOnConfirmUpdate(home.id),
         },
       ],
     });
@@ -88,7 +88,7 @@ export class StatusSettingComponent {
     }
   }
 
-  private _handleOnConfirmCreate(componentInstance: StatusModalFormComponent) {
+  private _handleOnConfirmCreate(componentInstance: HomeModalFormComponent) {
     if (componentInstance.form.valid) {
       this._create(componentInstance.form.value)
         .subscribe(() => {
@@ -99,7 +99,7 @@ export class StatusSettingComponent {
   }
 
   private _handleOnConfirmUpdate(id: string) {
-    return (componentInstance: StatusModalFormComponent) => {
+    return (componentInstance: HomeModalFormComponent) => {
       if (componentInstance.form.value) {
         this._update(id, componentInstance.form.value)
           .subscribe(() => {
@@ -110,33 +110,33 @@ export class StatusSettingComponent {
     }
   }
 
-  private _handleCloseModal(componentInstance: StatusModalFormComponent) {
+  private _handleCloseModal(componentInstance: HomeModalFormComponent) {
     componentInstance.closeModal();
   }
 
   private _getAll() {
     this.loading = true;
-    return this.statusService
+    return this._homeService
       .findAll({
         take: this.pageSize,
         skip: (this.pageIndex - 1) * this.pageSize,
       })
-      .subscribe((statuses) => {
-        this.statuses = statuses.items;
-        this.totalResults = statuses.total;
+      .subscribe(houses => {
+        this.houses = houses.items;
+        this.totalResults = houses.total;
         this.loading = false;
       });
   }
 
   private _delete(id: string) {
-    return this.statusService.delete(id);
+    return this._homeService.delete(id);
   }
 
-  private _create(status: IStatus): Observable<IStatus> {
-    return this.statusService.create(status);
+  private _create(home: IHome): Observable<IHome> {
+    return this._homeService.create(home);
   }
 
-  private _update(id: string, status: IStatus): Observable<IStatus> {
-    return this.statusService.update(id, status);
+  private _update(id: string, home: IHome): Observable<IHome> {
+    return this._homeService.update(id, home);
   }
 }

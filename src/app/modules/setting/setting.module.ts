@@ -13,18 +13,25 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import {
   PlusOutline,
   EditOutline,
   DeleteOutline
 } from '@ant-design/icons-angular/icons';
 
-import { StatusServiceProvider } from '@core/provides/status-service.provider';
+import { StatusServiceProvider } from '@core/provider/status-service.provider';
+import { RoomServiceProvider } from '@core/provider/room-service.provider';
+import { HomeServiceProvider } from '@core/provider/home-service.provider';
 
 import { GeneralSettingRoutingModule } from './setting-routing.module';
 import { GeneralSettingComponent } from './components/general-setting/general-setting.component';
 import { StatusSettingComponent } from './components/status-setting/status-setting.component';
 import { StatusModalFormComponent } from './components/status-modal/status-modal-from.component';
+import { RoomModalFormComponent } from './components/room-modal/room-modal-from.component';
+import { HomeSettingComponent } from './components/home-setting/home-setting.component';
+import { HomeModalFormComponent } from './components/home-modal/home-modal-from.component';
+import { RoomSettingComponent } from './components/room-setting/room-setting.component';
 
 @NgModule({
   imports: [
@@ -35,6 +42,7 @@ import { StatusModalFormComponent } from './components/status-modal/status-modal
     HttpClientModule,
     NzButtonModule,
     NzInputModule,
+    NzInputNumberModule,
     NzToolTipModule,
     NzSpinModule,
     NzFormModule,
@@ -51,8 +59,12 @@ import { StatusModalFormComponent } from './components/status-modal/status-modal
   declarations: [
     GeneralSettingComponent,
     StatusSettingComponent,
-    StatusModalFormComponent
+    StatusModalFormComponent,
+    RoomSettingComponent,
+    RoomModalFormComponent,
+    HomeSettingComponent,
+    HomeModalFormComponent
   ],
-  providers: [StatusServiceProvider]
+  providers: [StatusServiceProvider, RoomServiceProvider, HomeServiceProvider]
 })
 export class SettingModule {}

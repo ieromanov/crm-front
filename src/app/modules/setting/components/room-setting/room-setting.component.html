@@ -1,11 +1,11 @@
-<button class="create-status-button" nz-button nzType="primary" (click)="showCreateStatusModal()">
-  <i nz-icon nzType="plus" nzTheme="outline"></i> Add Status
+<button class="create-button" nz-button nzType="primary" (click)="showCreateRoomModal()">
+  <i nz-icon nzType="plus" nzTheme="outline"></i> Add Room
 </button>
 
 <nz-table
   #table
   nzBordered
-  [nzData]="statuses"
+  [nzData]="rooms"
   [nzLoading]="loading"
   [nzFrontPagination]="false"
   [nzTotal]="totalResults"
@@ -15,23 +15,23 @@
 >
   <thead>
     <tr>
-      <th nzWidth="30%">Status</th>
+      <th nzWidth="30%">Room type name</th>
       <th nzWidth="40%">Description</th>
       <th nzWidth="20%">Active</th>
       <th nzWidth="10%">Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let status of table.data">
-      <td>{{ status.name }}</td>
-      <td>{{ status.description }}</td>
-      <td>{{ status.active }}</td>
+    <tr *ngFor="let room of table.data">
+      <td>{{ room.name }}</td>
+      <td>{{ room.description }}</td>
+      <td>{{ room.active }}</td>
       <td>
         <button
           nz-button
           nzType="link"
           nzShape="circle"
-          (click)="showUpdateStatusModal(status)"
+          (click)="showUpdateRoomModal(room)"
         >
           <i nz-icon nzType="edit" nzTheme="outline"></i>
         </button>
@@ -41,7 +41,7 @@
           nzDanger
           nzType="link"
           nzShape="circle"
-          (click)="showDeleteConfirmModal(status.id)"
+          (click)="showDeleteConfirmModal(room.id)"
         >
           <i nz-icon nzType="delete" nzTheme="outline"></i>
         </button>

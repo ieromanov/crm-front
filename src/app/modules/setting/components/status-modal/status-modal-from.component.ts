@@ -25,8 +25,8 @@ export class StatusModalFormComponent implements OnInit {
     const status = this.initStatus();
 
     this.form = this.formBuilder.group({
-      value: [
-        status.value,
+      name: [
+        status.name,
         [Validators.required, Validators.maxLength(STATUS_NAME_MAX_LENGTH)],
       ],
       description: [
@@ -41,7 +41,7 @@ export class StatusModalFormComponent implements OnInit {
     return this.status !== null
       ? this.status
       : {
-          value: 'new status name',
+          name: 'new status name',
           description: null,
           active: true,
         };

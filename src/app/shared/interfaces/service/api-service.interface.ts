@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs';
 
 export interface IApiService {
-  get(url: string, options?: Object): Observable<Object>
-  post<T, P>(url: string, body: T, options?: Object): Observable<P>
-  put<T, P>(url: string, body: T, options?: Object): Observable<P>
-  delete(url: string, options?: Object): Observable<Object>
+  get<T>(url: string, options?: Object): Observable<T>
+  post<T>(url: string, body: T, options?: Object): Observable<T>
+  put<T>(url: string, body: T, options?: Object): Observable<T>
+  delete<T>(url: string, options?: Object): Observable<T>
 }
