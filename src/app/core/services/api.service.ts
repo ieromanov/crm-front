@@ -12,22 +12,22 @@ export class ApiService implements IApiService {
 
   constructor(private readonly httpClient: HttpClient) {}
 
-  get(url: string, options: Object = {}): Observable<Object> {
+  get<T>(url: string, options: Object = {}): Observable<T> {
     return this.httpClient
-      .get(this._baseURL + url, { ...options, withCredentials: true });
+      .get<T>(this._baseURL + '/' + url, options);
   }
 
-  delete(url: string, options: Object = {}): Observable<Object> {
+  delete<T>(url: string, options: Object = {}): Observable<T> {
     return this.httpClient
-      .delete(this._baseURL + url, { ...options, withCredentials: true })
+      .delete<T>(this._baseURL + '/' + url, options)
   }
 
-  post<T, P>(url: string, body: T, options: Object = {}): Observable<P> {
+  post<T>(url: string, body: T, options: Object = {}): Observable<T> {
     return this.httpClient
-      .post(this._baseURL + url, body, { ...options, withCredentials: true }) as Observable<P>
+      .post<T>(this._baseURL + '/' + url, body, options)
   }
-  put<T, P>(url: string, body: T, options: Object = {}): Observable<P> {
+  put<T>(url: string, body: T, options: Object = {}): Observable<T> {
     return this.httpClient
-      .put(this._baseURL + url, body, { ...options, withCredentials: true }) as Observable<P>
+      .put<T>(this._baseURL + '/' + url, body, options)
   }
 }

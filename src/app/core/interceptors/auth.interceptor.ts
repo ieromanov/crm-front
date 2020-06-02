@@ -14,15 +14,13 @@ import { ApiService } from '@core/services/api.service';
   providedIn: 'root',
 })
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private readonly apiService: ApiService) {}
-
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     return next
       .handle(request)
-      .pipe(catchError((error) => this.handleAuthError(error)));
+      .pipe(catchError(this.handleAuthError));
   }
 
   private handleAuthError(err: HttpErrorResponse): Observable<any> {
