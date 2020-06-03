@@ -14,33 +14,20 @@
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
+      <li
+        *ngFor="let menuItem of menuItems"
+        nz-submenu
+        nzOpen
+        [nzTitle]="menuItem.title"
+        [nzIcon]="menuItem.icon"
+      >
         <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/dashboard">Dashboard</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzOpen nzTitle="Setting" nzIcon="setting">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/setting/general">General</a>
-          </li>
-
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/setting/status">Statuses</a>
-          </li>
-
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/setting/room">Room</a>
-          </li>
-
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/setting/home">Home</a>
-          </li>
-
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/setting/service-type">Service type</a>
+          <li
+            *ngFor="let menuItemChild of menuItem.children"
+            nz-menu-item
+            nzMatchRouter
+          >
+            <a [routerLink]="menuItemChild.link">{{ menuItemChild.title }}</a>
           </li>
         </ul>
       </li>
