@@ -14,15 +14,17 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzListModule } from 'ng-zorro-antd/list';
 import {
   PlusOutline,
   EditOutline,
-  DeleteOutline
+  DeleteOutline,
 } from '@ant-design/icons-angular/icons';
 
 import { StatusServiceProvider } from '@core/provider/status-service.provider';
 import { RoomServiceProvider } from '@core/provider/room-service.provider';
 import { HomeServiceProvider } from '@core/provider/home-service.provider';
+import { ServiceTypeServiceProvider } from '@core/provider/service-type-service.provider';
 
 import { GeneralSettingRoutingModule } from './setting-routing.module';
 import { GeneralSettingComponent } from './components/general-setting/general-setting.component';
@@ -32,6 +34,8 @@ import { RoomModalFormComponent } from './components/room-modal/room-modal-from.
 import { HomeSettingComponent } from './components/home-setting/home-setting.component';
 import { HomeModalFormComponent } from './components/home-modal/home-modal-from.component';
 import { RoomSettingComponent } from './components/room-setting/room-setting.component';
+import { ServiceTypeSettingComponent } from './components/service-type-setting/service-type-setting.component';
+import { ServiceTypeModalFormComponent } from './components/service-type-modal/service-type-modal-from.component';
 
 @NgModule({
   imports: [
@@ -50,11 +54,8 @@ import { RoomSettingComponent } from './components/room-setting/room-setting.com
     NzDividerModule,
     NzModalModule,
     NzSwitchModule,
-    NzIconModule.forChild([
-      EditOutline,
-      DeleteOutline,
-      PlusOutline
-    ])
+    NzListModule,
+    NzIconModule.forChild([EditOutline, DeleteOutline, PlusOutline]),
   ],
   declarations: [
     GeneralSettingComponent,
@@ -63,8 +64,15 @@ import { RoomSettingComponent } from './components/room-setting/room-setting.com
     RoomSettingComponent,
     RoomModalFormComponent,
     HomeSettingComponent,
-    HomeModalFormComponent
+    HomeModalFormComponent,
+    ServiceTypeSettingComponent,
+    ServiceTypeModalFormComponent,
   ],
-  providers: [StatusServiceProvider, RoomServiceProvider, HomeServiceProvider]
+  providers: [
+    StatusServiceProvider,
+    RoomServiceProvider,
+    HomeServiceProvider,
+    ServiceTypeServiceProvider,
+  ],
 })
 export class SettingModule {}

@@ -8,7 +8,6 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { ApiService } from '@core/services/api.service';
 
 @Injectable({
   providedIn: 'root',

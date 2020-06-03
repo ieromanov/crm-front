@@ -7,8 +7,7 @@ import { IRoomService } from '@shared/interfaces/service/room-service.interface'
 import { IApiService } from '@shared/interfaces/service/api-service.interface';
 
 @Injectable()
-export class RoomService extends CrudService<IRoom>
-  implements IRoomService {
+export class RoomService extends CrudService<IRoom> implements IRoomService {
   constructor(
     @Inject(API_SERVICE)
     private readonly apiService: IApiService

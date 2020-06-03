@@ -1,0 +1,34 @@
+<button class="create-button" nz-button nzType="primary" (click)="showCreateStatusModal()">
+  <i nz-icon nzType="plus" nzTheme="outline"></i> Add service type
+</button>
+
+<nz-list [nzLoading]="loading" nzBordered>
+  <nz-list-item *ngFor="let serviceType of serviceTypes">
+    <nz-list-item-meta>
+      <nz-list-item-meta-title>
+        {{ serviceType.name }}
+        <i
+          nz-icon
+          [nzType]="serviceType.active ? 'check-circle' : 'stop'"
+          nzTheme="twotone"
+          [nzTwotoneColor]="serviceType.active ? '#52c41a' : 'red'"
+        ></i>
+      </nz-list-item-meta-title>
+      <nz-list-item-meta-description *ngIf="serviceType.description !== null">
+        {{ serviceType.description }}
+      </nz-list-item-meta-description>
+
+    </nz-list-item-meta>
+
+    <button nz-button nzType="link" nzShape="circle" (click)="showUpdateStatusModal(serviceType)">
+      <i nz-icon nzType="edit" nzTheme="outline"></i>
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzDanger nzType="link" nzShape="circle" (click)="showDeleteConfirmModal(serviceType.id)">
+      <i nz-icon nzType="delete" nzTheme="outline"></i>
+    </button>
+  </nz-list-item>
+</nz-list>
+<div class="loadmore" *ngIf="!allLoaded">
+  <button nz-button (click)="loadingMore()">loading more</button>
+</div>
