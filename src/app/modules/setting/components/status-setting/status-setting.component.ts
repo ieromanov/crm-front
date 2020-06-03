@@ -20,9 +20,6 @@ export class StatusSettingComponent {
   public pageSize: number = 9;
   public pageIndex: number = 1;
 
-  public createStatusModalVisible: boolean = false;
-  public createStatusModalLoading: boolean = false;
-
   constructor(
     @Inject(STATUS_SERVICE)
     private readonly statusService: IStatusService,
@@ -100,7 +97,7 @@ export class StatusSettingComponent {
 
   private _handleOnConfirmUpdate(id: string) {
     return (componentInstance: StatusModalFormComponent) => {
-      if (componentInstance.form.value) {
+      if (componentInstance.form.valid) {
         this._update(id, componentInstance.form.value)
           .subscribe(() => {
             componentInstance.closeModal();

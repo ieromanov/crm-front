@@ -20,9 +20,6 @@ export class RoomSettingComponent {
   public pageSize: number = 9;
   public pageIndex: number = 1;
 
-  public createRoomModalVisible: boolean = false;
-  public createRoomModalLoading: boolean = false;
-
   constructor(
     @Inject(ROOM_SERVICE)
     private readonly roomService: IRoomService,

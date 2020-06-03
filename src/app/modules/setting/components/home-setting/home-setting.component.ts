@@ -20,9 +20,6 @@ export class HomeSettingComponent {
   public pageSize: number = 9;
   public pageIndex: number = 1;
 
-  public createHomeModalVisible: boolean = false;
-  public createHomeModalLoading: boolean = false;
-
   constructor(
     @Inject(HOME_SERVICE)
     private readonly _homeService: IHomeService,
