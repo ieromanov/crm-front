@@ -13,31 +13,26 @@ export abstract class CrudService<T> implements ICrudService<T> {
   create(dto: T): Observable<T> {
     return this._apiService
       .post<T>(this._controllerName, dto)
-      .pipe(catchError((err) => of(err)));
   }
 
   update(id: string, t: T): Observable<T> {
     return this._apiService
       .put<T>(this._controllerName + "/" + id, t, {})
-      .pipe(catchError((err) => of(err)));
   }
 
   findById(id: string): Observable<T> {
     return this._apiService
       .get<T>(this._controllerName + "/" + id)
-      .pipe(catchError((err) => of(err)));
   }
 
   findAll(params?: PagingRequestDto<T>): Observable<PagingResponseDto<T>> {
     return this._apiService
-      .get<T[]>(this._controllerName, { params })
-      .pipe(catchError((err) => of(err)));
+      .get<PagingResponseDto<T>>(this._controllerName, { params })
   }
 
   delete(id: string): Observable<T> {
     return this._apiService
       .delete<T>(this._controllerName + '/' + id)
-      .pipe(catchError((err) => of(err)));
   }
 
 }
