@@ -5,13 +5,13 @@ import { ITruck } from '@shared/interfaces/entity/truck.interface';
 import {
   TRUCK_NAME_MAX_LENGTH,
   TRUCK_DESCRIPTION_MAX_LENGTH,
-} from './truck-modal-form.constants';
+} from './truck-form.constants'
 
 @Component({
-  selector: 'crm-truck-modal',
-  templateUrl: 'truck-modal-form.component.html',
+  selector: 'crm-truck-form',
+  templateUrl: 'truck-form.component.html',
 })
-export class TruckModalFormComponent implements OnInit {
+export class TruckFormComponent implements OnInit {
   @Input() public truck: ITruck = null;
 
   public form: FormGroup;

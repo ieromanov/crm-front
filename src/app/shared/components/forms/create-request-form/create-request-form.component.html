@@ -1,0 +1,57 @@
+<form nz-form [formGroup]="form">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzRequired>Service Type</nz-form-label>
+    <nz-form-control nzHasFeedback [nzSpan]="20">
+      <nz-select formControlName="serviceType">
+        <nz-option
+          *ngFor="let serviceType of serviceTypes"
+          [nzLabel]="serviceType.name"
+          [nzValue]="serviceType.id"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4">Desired Move Date</nz-form-label>
+    <nz-form-control [nzSpan]="20">
+      <nz-date-picker
+        formControlName="moveDate"
+      ></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+
+  
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4">Size of Move</nz-form-label>
+    <nz-form-control [nzSpan]="20">
+      <nz-select formControlName="home">
+        <nz-option
+          *ngFor="let home of houses"
+          [nzLabel]="home.name"
+          [nzValue]="home.id"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4">Extra Rooms</nz-form-label>
+    <nz-form-control [nzSpan]="20">
+      <nz-select
+        formControlName="rooms"
+        nzMode="multiple"
+        nzPlaceHolder="Select extra rooms"
+        [nzMaxTagCount]="3"
+        [nzMaxTagPlaceholder]="tagPlaceHolder"
+      >
+        <nz-option
+          *ngFor="let room of rooms"
+          [nzLabel]="room.name"
+          [nzValue]="room.id"
+        ></nz-option>
+      </nz-select>
+      <ng-template #tagPlaceHolder let-selectedList> and {{ selectedList.length }} more selected </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+</form>

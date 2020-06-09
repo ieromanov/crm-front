@@ -15,6 +15,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzListModule } from 'ng-zorro-antd/list';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 import {
   PlusOutline,
   EditOutline,
@@ -30,15 +31,15 @@ import { TruckServiceProvider } from '@core/provider/truck-service.provider';
 import { GeneralSettingRoutingModule } from './setting-routing.module';
 import { GeneralSettingComponent } from './components/general-setting/general-setting.component';
 import { StatusSettingComponent } from './components/status-setting/status-setting.component';
-import { StatusModalFormComponent } from './components/status-modal/status-modal-from.component';
-import { RoomModalFormComponent } from './components/room-modal/room-modal-from.component';
+import { StatusFormComponent } from './components/status-form/status-from.component';
+import { RoomFormComponent } from './components/room-form/room-from.component';
 import { HomeSettingComponent } from './components/home-setting/home-setting.component';
-import { HomeModalFormComponent } from './components/home-modal/home-modal-from.component';
+import { HomeFormComponent } from './components/home-form/home-from.component';
 import { RoomSettingComponent } from './components/room-setting/room-setting.component';
 import { ServiceTypeSettingComponent } from './components/service-type-setting/service-type-setting.component';
-import { ServiceTypeModalFormComponent } from './components/service-type-modal/service-type-modal-from.component';
+import { ServiceTypeFormComponent } from './components/service-type-form/service-type-from.component';
 import { TruckSettingComponent } from './components/truck-setting/truck-setting.component';
-import { TruckModalFormComponent } from './components/truck-modal/truck-modal-from.component';
+import { TruckFormComponent } from './components/truck-form/truck-from.component';
 import { ConstantServiceProvider } from '@core/provider/constant-service.provider';
 
 @NgModule({
@@ -59,20 +60,21 @@ import { ConstantServiceProvider } from '@core/provider/constant-service.provide
     NzModalModule,
     NzSwitchModule,
     NzListModule,
+    NzSelectModule,
     NzIconModule.forChild([EditOutline, DeleteOutline, PlusOutline]),
   ],
   declarations: [
     GeneralSettingComponent,
     StatusSettingComponent,
-    StatusModalFormComponent,
+    StatusFormComponent,
     RoomSettingComponent,
-    RoomModalFormComponent,
+    RoomFormComponent,
     HomeSettingComponent,
-    HomeModalFormComponent,
+    HomeFormComponent,
     ServiceTypeSettingComponent,
-    ServiceTypeModalFormComponent,
+    ServiceTypeFormComponent,
     TruckSettingComponent,
-    TruckModalFormComponent
+    TruckFormComponent
   ],
   providers: [
     StatusServiceProvider,

@@ -5,13 +5,13 @@ import { IStatus } from '@shared/interfaces/entity/status.interface';
 import {
   STATUS_NAME_MAX_LENGTH,
   STATUS_DESCRIPTION_MAX_LENGTH,
-} from './status-modal-form.constants';
+} from './status-form.constants'
 
 @Component({
-  selector: 'crm-status-modal',
-  templateUrl: 'status-modal-form.component.html',
+  selector: 'crm-status-form',
+  templateUrl: 'status-form.component.html',
 })
-export class StatusModalFormComponent implements OnInit {
+export class StatusFormComponent implements OnInit {
   @Input() public status: IStatus = null;
 
   public form: FormGroup;

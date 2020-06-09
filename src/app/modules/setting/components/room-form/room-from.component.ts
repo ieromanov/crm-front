@@ -6,13 +6,13 @@ import { IRoom } from '@shared/interfaces/entity/room.interface';
 import {
   ROOM_NAME_MAX_LENGTH,
   ROOM_DESCRIPTION_MAX_LENGTH,
-} from './room-modal-form.constants';
+} from './room-form.constants';
 
 @Component({
-  selector: 'crm-room-modal',
-  templateUrl: 'room-modal-form.component.html',
+  selector: 'crm-room-form',
+  templateUrl: 'room-form.component.html',
 })
-export class RoomModalFormComponent implements OnInit {
+export class RoomFormComponent implements OnInit {
   @Input() public room: IRoom = null;
 
   public form: FormGroup;

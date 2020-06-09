@@ -5,13 +5,13 @@ import { IServiceType } from '@shared/interfaces/entity/service-type.interface';
 import {
   SERVICE_TYPE_NAME_MAX_LENGTH,
   SERVICE_TYPE_DESCRIPTION_MAX_LENGTH,
-} from './service-type-modal-form.constants';
+} from './service-type-form.constants';
 
 @Component({
-  selector: 'crm-service-type-modal',
-  templateUrl: 'service-type-modal-form.component.html',
+  selector: 'crm-service-type-from',
+  templateUrl: 'service-type-form.component.html',
 })
-export class ServiceTypeModalFormComponent implements OnInit {
+export class ServiceTypeFormComponent implements OnInit {
   @Input() public serviceType: IServiceType = null;
 
   public form: FormGroup;

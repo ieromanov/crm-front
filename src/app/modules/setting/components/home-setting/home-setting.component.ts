@@ -2,11 +2,13 @@ import { Observable } from 'rxjs';
 import { Component, Inject } from '@angular/core';
 import { NzTableQueryParams, NzModalService } from 'ng-zorro-antd';
 
-import { HOME_SERVICE } from '@core/di-tokens';
+import { HOME_SERVICE, CONSTANT_SERVICE } from '@core/di-tokens';
 import { IHomeService } from '@shared/interfaces/service/home-service.interface';
+import { IConstantService } from '@shared/interfaces/service/constant-service.interface';
 import { IHome } from '@shared/interfaces/entity/home.interface';
 
 import { HomeModalFormComponent } from '../home-modal/home-modal-from.component';
+import { IRoom } from '@shared/interfaces/entity/room.interface';
 
 @Component({
   selector: 'crm-home-setting',
@@ -23,8 +25,14 @@ export class HomeSettingComponent {
   constructor(
     @Inject(HOME_SERVICE)
     private readonly _homeService: IHomeService,
+    @Inject(CONSTANT_SERVICE)
+    private readonly _constantService: IConstantService,
     private readonly modalService: NzModalService
   ) {}
+
+  public get colorsConstants() {
+    return this._constantService.colors
+  }
 
   onQueryParamsChange(params: NzTableQueryParams) {
     const { pageIndex } = params;
@@ -87,7 +95,13 @@ export class HomeSettingComponent {
 
   private _handleOnConfirmCreate(componentInstance: HomeModalFormComponent) {
     if (componentInstance.form.valid) {
-      this._create(componentInstance.form.value)
+      const data = {
+        ...componentInstance.form.value,
+        rooms: componentInstance.rooms.filter(
+          ({ id }: IRoom) => componentInstance.form.value.rooms.includes(id)
+        )
+      }
+      this._create(data)
         .subscribe(() => {
           componentInstance.closeModal();
           this._getAll();
@@ -97,8 +111,14 @@ export class HomeSettingComponent {
 
   private _handleOnConfirmUpdate(id: string) {
     return (componentInstance: HomeModalFormComponent) => {
-      if (componentInstance.form.value) {
-        this._update(id, componentInstance.form.value)
+      if (componentInstance.form.valid) {
+        const data = {
+          ...componentInstance.form.value,
+          rooms: componentInstance.rooms.filter(
+            ({ id }: IRoom) => componentInstance.form.value.rooms.includes(id)
+          )
+        }
+        this._update(id, data)
           .subscribe(() => {
             componentInstance.closeModal();
             this._getAll();
@@ -114,7 +134,7 @@ export class HomeSettingComponent {
   private _getAll() {
     this.loading = true;
     return this._homeService
-      .findAll({
+      .findAllWithRooms({
         take: this.pageSize,
         skip: (this.pageIndex - 1) * this.pageSize,
       })
@@ -134,6 +154,6 @@ export class HomeSettingComponent {
   }
 
   private _update(id: string, home: IHome): Observable<IHome> {
-    return this._homeService.update(id, home);
+    return this._homeService.updateWithRelations(id, home);
   }
 }
