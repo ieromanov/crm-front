@@ -1,9 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ROOM_SERVICE } from '@core/di-tokens';
+import { ROOM_SERVICE, CONSTANT_SERVICE } from '@core/di-tokens';
 import { NzTableQueryParams, NzModalService } from 'ng-zorro-antd';
 import { IRoomService } from '@shared/interfaces/service/room-service.interface';
+import { IConstantService } from '@shared/interfaces/service/constant-service.interface';
 import { IRoom } from '@shared/interfaces/entity/room.interface';
 
 import { RoomModalFormComponent } from '../room-modal/room-modal-from.component';
@@ -23,8 +24,14 @@ export class RoomSettingComponent {
   constructor(
     @Inject(ROOM_SERVICE)
     private readonly roomService: IRoomService,
+    @Inject(CONSTANT_SERVICE)
+    private readonly _constantService: IConstantService,
     private readonly modalService: NzModalService
   ) {}
+
+  public get colorsConstants() {
+    return this._constantService.colors
+  }
 
   onQueryParamsChange(params: NzTableQueryParams) {
     const { pageIndex } = params;

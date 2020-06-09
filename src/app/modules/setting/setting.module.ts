@@ -39,6 +39,7 @@ import { ServiceTypeSettingComponent } from './components/service-type-setting/s
 import { ServiceTypeModalFormComponent } from './components/service-type-modal/service-type-modal-from.component';
 import { TruckSettingComponent } from './components/truck-setting/truck-setting.component';
 import { TruckModalFormComponent } from './components/truck-modal/truck-modal-from.component';
+import { ConstantServiceProvider } from '@core/provider/constant-service.provider';
 
 @NgModule({
   imports: [
@@ -78,7 +79,8 @@ import { TruckModalFormComponent } from './components/truck-modal/truck-modal-fr
     RoomServiceProvider,
     HomeServiceProvider,
     ServiceTypeServiceProvider,
-    TruckServiceProvider
+    TruckServiceProvider,
+    ConstantServiceProvider
   ],
 })
 export class SettingModule {}

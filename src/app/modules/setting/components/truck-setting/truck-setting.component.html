@@ -19,8 +19,12 @@
       <td>{{ truck.description }}</td>
       <td>{{ truck.volume }}</td>
       <td>
-        <i nz-icon [nzType]="truck.active ? 'check-circle' : 'stop'" nzTheme="twotone"
-          [nzTwotoneColor]="truck.active ? '#52c41a' : 'red'"></i>
+        <i
+          nz-icon
+          [nzType]="truck.active ? 'check-circle' : 'stop'"
+          nzTheme="twotone"
+          [nzTwotoneColor]="colorsConstants[truck.active ? 'success' : 'danger']"
+        ></i>
       </td>
       <td>
         <button nz-button nzType="link" nzShape="circle" (click)="showUpdateTruckModal(truck)">

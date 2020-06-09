@@ -25,7 +25,14 @@
     <tr *ngFor="let status of table.data">
       <td>{{ status.name }}</td>
       <td>{{ status.description }}</td>
-      <td>{{ status.active }}</td>
+      <td>
+        <i
+          nz-icon
+          [nzType]="status.active ? 'check-circle' : 'stop'"
+          nzTheme="twotone"
+          [nzTwotoneColor]="status.active ? '#52c41a' : 'red'"
+        ></i>
+      </td>
       <td>
         <button
           nz-button

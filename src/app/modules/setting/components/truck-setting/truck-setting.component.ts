@@ -1,8 +1,9 @@
 import { Component, Inject } from '@angular/core';
 
-import { TRUCK_SERVICE } from '@core/di-tokens';
+import { TRUCK_SERVICE, CONSTANT_SERVICE } from '@core/di-tokens';
 import { NzTableQueryParams, NzModalService } from 'ng-zorro-antd';
 import { ITruckService } from '@shared/interfaces/service/truck-service.interface';
+import { IConstantService } from '@shared/interfaces/service/constant-service.interface';
 import { ITruck } from '@shared/interfaces/entity/truck.interface';
 
 import { TruckModalFormComponent } from '../truck-modal/truck-modal-from.component';
@@ -22,9 +23,15 @@ export class TruckSettingComponent {
 
   constructor(
     @Inject(TRUCK_SERVICE)
-    private readonly truckService: ITruckService,
-    private readonly modalService: NzModalService
+    private readonly _truckService: ITruckService,
+    @Inject(CONSTANT_SERVICE)
+    private readonly _constantService: IConstantService,
+    private readonly _modalService: NzModalService
   ) {}
+
+  public get colorsConstants() {
+    return this._constantService.colors
+  }
 
   onQueryParamsChange(params: NzTableQueryParams) {
     const { pageIndex } = params;
@@ -33,7 +40,7 @@ export class TruckSettingComponent {
   }
 
   public showDeleteConfirmModal(id: string) {
-    this.modalService.confirm({
+    this._modalService.confirm({
       nzTitle: 'Do you want to delete these truck?',
       nzContent: 'When clicked the OK button, this truck will be deleted',
       nzOkType: 'danger',
@@ -42,7 +49,7 @@ export class TruckSettingComponent {
   }
 
   public showCreateTruckModal() {
-    this.modalService.create({
+    this._modalService.create({
       nzTitle: 'Create truck',
       nzContent: TruckModalFormComponent,
       nzFooter: [
@@ -60,7 +67,7 @@ export class TruckSettingComponent {
   }
 
   public showUpdateTruckModal(truck: ITruck) {
-    this.modalService.create({
+    this._modalService.create({
       nzTitle: 'Update truck',
       nzContent: TruckModalFormComponent,
       nzComponentParams: { truck },
@@ -113,7 +120,7 @@ export class TruckSettingComponent {
 
   private _getAll() {
     this.loading = true;
-    return this.truckService
+    return this._truckService
       .findAll({
         take: this.pageSize,
         skip: (this.pageIndex - 1) * this.pageSize,
@@ -126,14 +133,14 @@ export class TruckSettingComponent {
   }
 
   private _delete(id: string) {
-    return this.truckService.delete(id);
+    return this._truckService.delete(id);
   }
 
   private _create(truck: ITruck): Observable<ITruck> {
-    return this.truckService.create(truck);
+    return this._truckService.create(truck);
   }
 
   private _update(id: string, truck: ITruck): Observable<ITruck> {
-    return this.truckService.update(id, truck);
+    return this._truckService.update(id, truck);
   }
 }
