@@ -1,0 +1,2 @@
+export const TRUCK_NAME_MAX_LENGTH = 64
+export const TRUCK_DESCRIPTION_MAX_LENGTH = 256

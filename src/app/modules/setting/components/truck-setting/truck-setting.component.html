@@ -1,0 +1,36 @@
+<button class="create-truck-button" nz-button nzType="primary" (click)="showCreateTruckModal()">
+  <i nz-icon nzType="plus" nzTheme="outline"></i> Add Truck
+</button>
+
+<nz-table #table nzBordered [nzData]="trucks" [nzLoading]="loading" [nzFrontPagination]="false" [nzTotal]="totalResults"
+  [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)">
+  <thead>
+    <tr>
+      <th nzWidth="20%">Truck</th>
+      <th nzWidth="40%">Description</th>
+      <th nzWidth="10%">Volume</th>
+      <th nzWidth="20%">Active</th>
+      <th nzWidth="10%">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let truck of table.data">
+      <td>{{ truck.name }}</td>
+      <td>{{ truck.description }}</td>
+      <td>{{ truck.volume }}</td>
+      <td>
+        <i nz-icon [nzType]="truck.active ? 'check-circle' : 'stop'" nzTheme="twotone"
+          [nzTwotoneColor]="truck.active ? '#52c41a' : 'red'"></i>
+      </td>
+      <td>
+        <button nz-button nzType="link" nzShape="circle" (click)="showUpdateTruckModal(truck)">
+          <i nz-icon nzType="edit" nzTheme="outline"></i>
+        </button>
+        <nz-divider nzType="vertical"></nz-divider>
+        <button nz-button nzDanger nzType="link" nzShape="circle" (click)="showDeleteConfirmModal(truck.id)">
+          <i nz-icon nzType="delete" nzTheme="outline"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

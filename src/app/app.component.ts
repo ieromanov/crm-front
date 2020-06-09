@@ -48,6 +48,10 @@ export class AppComponent {
           link: '/setting/service-type',
           title: 'Service type'
         },
+        {
+          link: '/setting/truck',
+          title: 'Truck'
+        },
       ]
     }
   ]

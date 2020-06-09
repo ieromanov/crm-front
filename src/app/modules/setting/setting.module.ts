@@ -25,6 +25,7 @@ import { StatusServiceProvider } from '@core/provider/status-service.provider';
 import { RoomServiceProvider } from '@core/provider/room-service.provider';
 import { HomeServiceProvider } from '@core/provider/home-service.provider';
 import { ServiceTypeServiceProvider } from '@core/provider/service-type-service.provider';
+import { TruckServiceProvider } from '@core/provider/truck-service.provider';
 
 import { GeneralSettingRoutingModule } from './setting-routing.module';
 import { GeneralSettingComponent } from './components/general-setting/general-setting.component';
@@ -36,6 +37,8 @@ import { HomeModalFormComponent } from './components/home-modal/home-modal-from.
 import { RoomSettingComponent } from './components/room-setting/room-setting.component';
 import { ServiceTypeSettingComponent } from './components/service-type-setting/service-type-setting.component';
 import { ServiceTypeModalFormComponent } from './components/service-type-modal/service-type-modal-from.component';
+import { TruckSettingComponent } from './components/truck-setting/truck-setting.component';
+import { TruckModalFormComponent } from './components/truck-modal/truck-modal-from.component';
 
 @NgModule({
   imports: [
@@ -67,12 +70,15 @@ import { ServiceTypeModalFormComponent } from './components/service-type-modal/s
     HomeModalFormComponent,
     ServiceTypeSettingComponent,
     ServiceTypeModalFormComponent,
+    TruckSettingComponent,
+    TruckModalFormComponent
   ],
   providers: [
     StatusServiceProvider,
     RoomServiceProvider,
     HomeServiceProvider,
     ServiceTypeServiceProvider,
+    TruckServiceProvider
   ],
 })
 export class SettingModule {}
