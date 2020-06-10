@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd';
+import { Observable } from 'rxjs';
 
 import { SERVICE_TYPE_SERVICE } from '@core/di-tokens';
 import { IServiceTypeService } from '@shared/interfaces/service/service-type-service.interface';
 import { IServiceType } from '@shared/interfaces/entity/service-type.interface';
 
-import { ServiceTypeModalFormComponent } from '../service-type-modal/service-type-modal-from.component';
-import { Observable } from 'rxjs';
+import { ServiceTypeFormComponent } from '../service-type-form/service-type-form.component';
 
 @Component({
   selector: 'crm-service-type-setting',
@@ -48,7 +48,7 @@ export class ServiceTypeSettingComponent implements OnInit {
   public showCreateStatusModal() {
     this.modalService.create({
       nzTitle: 'Create service type',
-      nzContent: ServiceTypeModalFormComponent,
+      nzContent: ServiceTypeFormComponent,
       nzFooter: [
         {
           label: 'Cancel',
@@ -66,7 +66,7 @@ export class ServiceTypeSettingComponent implements OnInit {
   public showUpdateStatusModal(serviceType: IServiceType) {
     this.modalService.create({
       nzTitle: 'Update service type',
-      nzContent: ServiceTypeModalFormComponent,
+      nzContent: ServiceTypeFormComponent,
       nzComponentParams: { serviceType },
       nzFooter: [
         {
@@ -82,7 +82,7 @@ export class ServiceTypeSettingComponent implements OnInit {
     });
   }
 
-  private _handleOnConfirmCreate(componentInstance: ServiceTypeModalFormComponent) {
+  private _handleOnConfirmCreate(componentInstance: ServiceTypeFormComponent) {
     if (componentInstance.form.valid) {
       this._create(componentInstance.form.value)
         .subscribe((serviceType: IServiceType) => {
@@ -93,7 +93,7 @@ export class ServiceTypeSettingComponent implements OnInit {
   }
 
   private _handleOnConfirmUpdate(id: string) {
-    return (componentInstance: ServiceTypeModalFormComponent) => {
+    return (componentInstance: ServiceTypeFormComponent) => {
       if (componentInstance.form.valid) {
         const serviceType: IServiceType = componentInstance.form.value
         this._update(id, serviceType)
@@ -120,7 +120,7 @@ export class ServiceTypeSettingComponent implements OnInit {
     }
   }
 
-  private _handleCloseModal(componentInstance: ServiceTypeModalFormComponent) {
+  private _handleCloseModal(componentInstance: ServiceTypeFormComponent) {
     componentInstance.closeModal();
   }
 

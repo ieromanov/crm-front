@@ -5,7 +5,7 @@ import { NzTableQueryParams, NzModalService } from 'ng-zorro-antd';
 import { IStatusService } from '@shared/interfaces/service/status-service.interface';
 import { IStatus } from '@shared/interfaces/entity/status.interface';
 
-import { StatusModalFormComponent } from '../status-modal/status-modal-from.component';
+import { StatusFormComponent } from '../status-form/status-form.component';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -44,7 +44,7 @@ export class StatusSettingComponent {
   public showCreateStatusModal() {
     this.modalService.create({
       nzTitle: 'Create status',
-      nzContent: StatusModalFormComponent,
+      nzContent: StatusFormComponent,
       nzFooter: [
         {
           label: 'Cancel',
@@ -62,7 +62,7 @@ export class StatusSettingComponent {
   public showUpdateStatusModal(status: IStatus) {
     this.modalService.create({
       nzTitle: 'Update status',
-      nzContent: StatusModalFormComponent,
+      nzContent: StatusFormComponent,
       nzComponentParams: { status },
       nzFooter: [
         {
@@ -85,7 +85,7 @@ export class StatusSettingComponent {
     }
   }
 
-  private _handleOnConfirmCreate(componentInstance: StatusModalFormComponent) {
+  private _handleOnConfirmCreate(componentInstance: StatusFormComponent) {
     if (componentInstance.form.valid) {
       this._create(componentInstance.form.value)
         .subscribe(() => {
@@ -96,7 +96,7 @@ export class StatusSettingComponent {
   }
 
   private _handleOnConfirmUpdate(id: string) {
-    return (componentInstance: StatusModalFormComponent) => {
+    return (componentInstance: StatusFormComponent) => {
       if (componentInstance.form.valid) {
         this._update(id, componentInstance.form.value)
           .subscribe(() => {
@@ -107,7 +107,7 @@ export class StatusSettingComponent {
     }
   }
 
-  private _handleCloseModal(componentInstance: StatusModalFormComponent) {
+  private _handleCloseModal(componentInstance: StatusFormComponent) {
     componentInstance.closeModal();
   }
 

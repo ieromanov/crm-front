@@ -27,20 +27,20 @@ import { RoomServiceProvider } from '@core/provider/room-service.provider';
 import { HomeServiceProvider } from '@core/provider/home-service.provider';
 import { ServiceTypeServiceProvider } from '@core/provider/service-type-service.provider';
 import { TruckServiceProvider } from '@core/provider/truck-service.provider';
+import { ConstantServiceProvider } from '@core/provider/constant-service.provider';
 
 import { GeneralSettingRoutingModule } from './setting-routing.module';
 import { GeneralSettingComponent } from './components/general-setting/general-setting.component';
 import { StatusSettingComponent } from './components/status-setting/status-setting.component';
-import { StatusFormComponent } from './components/status-form/status-from.component';
-import { RoomFormComponent } from './components/room-form/room-from.component';
+import { StatusFormComponent } from './components/status-form/status-form.component';
+import { RoomFormComponent } from './components/room-form/room-form.component';
 import { HomeSettingComponent } from './components/home-setting/home-setting.component';
-import { HomeFormComponent } from './components/home-form/home-from.component';
+import { HomeFormComponent } from './components/home-form/home-form.component';
 import { RoomSettingComponent } from './components/room-setting/room-setting.component';
 import { ServiceTypeSettingComponent } from './components/service-type-setting/service-type-setting.component';
-import { ServiceTypeFormComponent } from './components/service-type-form/service-type-from.component';
+import { ServiceTypeFormComponent } from './components/service-type-form/service-type-form.component';
 import { TruckSettingComponent } from './components/truck-setting/truck-setting.component';
-import { TruckFormComponent } from './components/truck-form/truck-from.component';
-import { ConstantServiceProvider } from '@core/provider/constant-service.provider';
+import { TruckFormComponent } from './components/truck-form/truck-form.component';
 
 @NgModule({
   imports: [

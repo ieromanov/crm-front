@@ -7,7 +7,7 @@ import { IRoomService } from '@shared/interfaces/service/room-service.interface'
 import { IConstantService } from '@shared/interfaces/service/constant-service.interface';
 import { IRoom } from '@shared/interfaces/entity/room.interface';
 
-import { RoomModalFormComponent } from '../room-modal/room-modal-from.component';
+import { RoomFormComponent } from '../room-form/room-form.component';
 
 @Component({
   selector: 'crm-room-setting',
@@ -51,7 +51,7 @@ export class RoomSettingComponent {
   public showCreateRoomModal() {
     this.modalService.create({
       nzTitle: 'Create room',
-      nzContent: RoomModalFormComponent,
+      nzContent: RoomFormComponent,
       nzFooter: [
         {
           label: 'Cancel',
@@ -69,7 +69,7 @@ export class RoomSettingComponent {
   public showUpdateRoomModal(room: IRoom) {
     this.modalService.create({
       nzTitle: 'Update room',
-      nzContent: RoomModalFormComponent,
+      nzContent: RoomFormComponent,
       nzComponentParams: { room },
       nzFooter: [
         {
@@ -92,7 +92,7 @@ export class RoomSettingComponent {
     }
   }
 
-  private _handleOnConfirmCreate(componentInstance: RoomModalFormComponent) {
+  private _handleOnConfirmCreate(componentInstance: RoomFormComponent) {
     if (componentInstance.form.valid) {
       this._create(componentInstance.form.value)
         .subscribe(() => {
@@ -103,7 +103,7 @@ export class RoomSettingComponent {
   }
 
   private _handleOnConfirmUpdate(id: string) {
-    return (componentInstance: RoomModalFormComponent) => {
+    return (componentInstance: RoomFormComponent) => {
       if (componentInstance.form.value) {
         this._update(id, componentInstance.form.value)
           .subscribe(() => {
@@ -114,7 +114,7 @@ export class RoomSettingComponent {
     }
   }
 
-  private _handleCloseModal(componentInstance: RoomModalFormComponent) {
+  private _handleCloseModal(componentInstance: RoomFormComponent) {
     componentInstance.closeModal();
   }
 

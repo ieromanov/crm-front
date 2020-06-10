@@ -7,7 +7,7 @@ import { IHomeService } from '@shared/interfaces/service/home-service.interface'
 import { IConstantService } from '@shared/interfaces/service/constant-service.interface';
 import { IHome } from '@shared/interfaces/entity/home.interface';
 
-import { HomeModalFormComponent } from '../home-modal/home-modal-from.component';
+import { HomeFormComponent } from '../home-form/home-form.component';
 import { IRoom } from '@shared/interfaces/entity/room.interface';
 
 @Component({
@@ -52,7 +52,7 @@ export class HomeSettingComponent {
   public showCreateHomeModal() {
     this.modalService.create({
       nzTitle: 'Create home',
-      nzContent: HomeModalFormComponent,
+      nzContent: HomeFormComponent,
       nzFooter: [
         {
           label: 'Cancel',
@@ -70,7 +70,7 @@ export class HomeSettingComponent {
   public showUpdateHomeModal(home: IHome) {
     this.modalService.create({
       nzTitle: 'Update home',
-      nzContent: HomeModalFormComponent,
+      nzContent: HomeFormComponent,
       nzComponentParams: { home },
       nzFooter: [
         {
@@ -93,7 +93,7 @@ export class HomeSettingComponent {
     }
   }
 
-  private _handleOnConfirmCreate(componentInstance: HomeModalFormComponent) {
+  private _handleOnConfirmCreate(componentInstance: HomeFormComponent) {
     if (componentInstance.form.valid) {
       const data = {
         ...componentInstance.form.value,
@@ -110,7 +110,7 @@ export class HomeSettingComponent {
   }
 
   private _handleOnConfirmUpdate(id: string) {
-    return (componentInstance: HomeModalFormComponent) => {
+    return (componentInstance: HomeFormComponent) => {
       if (componentInstance.form.valid) {
         const data = {
           ...componentInstance.form.value,
@@ -127,7 +127,7 @@ export class HomeSettingComponent {
     }
   }
 
-  private _handleCloseModal(componentInstance: HomeModalFormComponent) {
+  private _handleCloseModal(componentInstance: HomeFormComponent) {
     componentInstance.closeModal();
   }
 

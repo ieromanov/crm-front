@@ -6,7 +6,7 @@ import { ITruckService } from '@shared/interfaces/service/truck-service.interfac
 import { IConstantService } from '@shared/interfaces/service/constant-service.interface';
 import { ITruck } from '@shared/interfaces/entity/truck.interface';
 
-import { TruckModalFormComponent } from '../truck-modal/truck-modal-from.component';
+import { TruckFormComponent } from '../truck-form/truck-form.component';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -51,7 +51,7 @@ export class TruckSettingComponent {
   public showCreateTruckModal() {
     this._modalService.create({
       nzTitle: 'Create truck',
-      nzContent: TruckModalFormComponent,
+      nzContent: TruckFormComponent,
       nzFooter: [
         {
           label: 'Cancel',
@@ -69,7 +69,7 @@ export class TruckSettingComponent {
   public showUpdateTruckModal(truck: ITruck) {
     this._modalService.create({
       nzTitle: 'Update truck',
-      nzContent: TruckModalFormComponent,
+      nzContent: TruckFormComponent,
       nzComponentParams: { truck },
       nzFooter: [
         {
@@ -92,7 +92,7 @@ export class TruckSettingComponent {
     }
   }
 
-  private _handleOnConfirmCreate(componentInstance: TruckModalFormComponent) {
+  private _handleOnConfirmCreate(componentInstance: TruckFormComponent) {
     if (componentInstance.form.valid) {
       this._create(componentInstance.form.value)
         .subscribe(() => {
@@ -103,7 +103,7 @@ export class TruckSettingComponent {
   }
 
   private _handleOnConfirmUpdate(id: string) {
-    return (componentInstance: TruckModalFormComponent) => {
+    return (componentInstance: TruckFormComponent) => {
       if (componentInstance.form.valid) {
         this._update(id, componentInstance.form.value)
           .subscribe(() => {
@@ -114,7 +114,7 @@ export class TruckSettingComponent {
     }
   }
 
-  private _handleCloseModal(componentInstance: TruckModalFormComponent) {
+  private _handleCloseModal(componentInstance: TruckFormComponent) {
     componentInstance.closeModal();
   }
 
