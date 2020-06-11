@@ -1,15 +1,26 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LayoutComponent } from '@shared/components/layout/layout.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
   {
-    path: 'dashboard',
-    loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule),
+    path: '',
+    component: LayoutComponent,
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
+      {
+        path: 'dashboard',
+        loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule),
+      },
+      {
+        path: 'setting',
+        loadChildren: () => import('./modules/setting/setting.module').then(m => m.SettingModule),
+      },
+    ],
   },
   {
-    path: 'setting',
-    loadChildren: () => import('./modules/setting/setting.module').then(m => m.SettingModule),
+    path: 'auth',
+    loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule),
   },
 ];
 

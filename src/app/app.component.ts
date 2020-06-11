@@ -1,64 +1,22 @@
-import { Component } from '@angular/core';
-
-interface MenuItem {
-  title: string; 
-  link?: string;
-  icon?: string;
-  children?: MenuItem[]
-}
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { State } from '@store/index';
+import { Observable } from 'rxjs';
+import { loadingUserInfoSelector } from '@store/user/user.selector';
+import { getUserInfoAction } from '@store/user/user.action';
 
 @Component({
   selector: 'crm-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  templateUrl: 'app.component.html',
 })
-export class AppComponent {
-  public isCollapsed: boolean = false;
+export class AppComponent implements OnInit {
+  public loadingUserInfo$: Observable<boolean> = this._store.select(loadingUserInfoSelector)
 
-  public menuItems: MenuItem[] = [
-    {
-      title: 'Dashboard',
-      icon: 'dashboard',
-      children: [{
-        link: '/dashboard',
-        title: 'Dashboard'
-      }]
-    },
-    {
-      title: 'Setting',
-      icon: 'setting',
-      children: [
-        {
-          link: '/setting/general',
-          title: 'General'
-        },
-        {
-          link: '/setting/status',
-          title: 'Status'
-        },
-        {
-          link: '/setting/room',
-          title: 'Room'
-        },
-        {
-          link: '/setting/home',
-          title: 'Home'
-        },
-        {
-          link: '/setting/service-type',
-          title: 'Service type'
-        },
-        {
-          link: '/setting/truck',
-          title: 'Truck'
-        },
-      ]
-    }
-  ]
+  constructor(
+    private readonly _store: Store<State>,
+  ) {}
 
-  constructor() {}
-
-  public toggleMenuCollapsed():void {
-    this.isCollapsed = !this.isCollapsed
+  ngOnInit() {
+    this._store.dispatch(getUserInfoAction())
   }
 }
