@@ -1,6 +1,19 @@
 <nz-page-header [nzBackIcon]="menuIcon" (nzBack)="handleMenuCollapse()">
   <nz-page-header-title>Title</nz-page-header-title>
   <nz-page-header-extra>
-    <button nz-button nzType="danger" (click)="handleLogout()">Выйти</button>
+    <span>
+      {{ (user$ | async)?.email }}
+      <nz-avatar nzSize="large" nzIcon="user" nz-dropdown [nzDropdownMenu]="menu"></nz-avatar>
+    </span>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item>
+          <i nz-icon nzType="user"></i> Profile
+        </li>
+        <li nz-menu-item (click)="handleLogout()">
+          <i nz-icon nzType="logout" nzTheme="outline"></i> Logout
+        </li>
+      </ul>
+    </nz-dropdown-menu>
   </nz-page-header-extra>
 </nz-page-header>

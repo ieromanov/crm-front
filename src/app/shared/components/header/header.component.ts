@@ -1,16 +1,27 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { environment } from '@env/environment';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+
+import { State } from '@store/index';
+import { UserInfo } from '@shared/types/user-info.type';
+import { AuthService } from '@core/services/auth.service';
+import { userInfoSelector } from '@store/user/user.selector';
+import { logoutAction } from '@store/user/user.action';
 
 @Component({
   selector: 'crm-header',
-  templateUrl: './header.component.html',
+  templateUrl: './header.component.html'
 })
 export class HeaderComponent {
   @Input() menuCollapsed: boolean = false;
   @Output() collapsedMenu: EventEmitter<void> = new EventEmitter()
 
-  constructor() {}
+  public user$: Observable<UserInfo> = this._store.select(userInfoSelector)
+
+  constructor(
+    private readonly _store: Store<State>
+  ) {}
 
   public get menuIcon() {
     return this.menuCollapsed ? 'menu-unfold' : 'menu-fold'
@@ -21,6 +32,6 @@ export class HeaderComponent {
   }
 
   handleLogout(): void {
-    window.open(environment.backend_url + '/auth/logout', '_self')
+    this._store.dispatch(logoutAction())
   }
 }
