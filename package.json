@@ -21,7 +21,12 @@
     "@angular/platform-browser": "~9.1.4",
     "@angular/platform-browser-dynamic": "~9.1.4",
     "@angular/router": "~9.1.4",
+    "@ngrx/effects": "^9.2.0",
+    "@ngrx/entity": "^9.2.0",
+    "@ngrx/router-store": "^9.2.0",
+    "@ngrx/store": "^9.2.0",
     "ng-zorro-antd": "^9.1.0",
+    "ngrx-store-freeze": "^0.2.4",
     "rxjs": "~6.5.5",
     "tslib": "^1.11.1",
     "zone.js": "~0.10.3"
@@ -43,11 +48,19 @@
   },
   "jest": {
     "preset": "jest-preset-angular",
-    "roots": ["<rootDir>/src/"],
-    "testMatch": ["**/+(*.)+(spec).+(ts)"],
-    "setupFilesAfterEnv": ["<rootDir>/src/test.ts"],
+    "roots": [
+      "<rootDir>/src/"
+    ],
+    "testMatch": [
+      "**/+(*.)+(spec).+(ts)"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/test.ts"
+    ],
     "collectCoverage": true,
-    "coverageReporters": ["html"],
+    "coverageReporters": [
+      "html"
+    ],
     "coverageDirectory": "coverage/my-app"
   }
 }
