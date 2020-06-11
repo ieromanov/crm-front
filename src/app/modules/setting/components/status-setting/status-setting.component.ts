@@ -115,11 +115,11 @@ export class StatusSettingComponent {
     this.loading = true;
     return this.statusService
       .findAll({
-        take: this.pageSize,
-        skip: (this.pageIndex - 1) * this.pageSize,
+        limit: this.pageSize,
+        page: this.pageIndex,
       })
       .subscribe((statuses) => {
-        this.statuses = statuses.items;
+        this.statuses = statuses.data;
         this.totalResults = statuses.total;
         this.loading = false;
       });

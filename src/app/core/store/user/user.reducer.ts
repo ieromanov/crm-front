@@ -27,7 +27,7 @@ export interface UserState extends EntityState<UserInfo> {
 export const adapter: EntityAdapter<UserInfo> = createEntityAdapter<UserInfo>();
 
 export const initialState: UserState = adapter.getInitialState({
-  loading: false,
+  loading: true,
   info: null,
   error: null
 });

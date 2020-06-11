@@ -22,9 +22,9 @@ export class ApiService implements IApiService {
       .delete<T>(this._baseURL + '/' + url, options)
   }
 
-  post<T>(url: string, body: T, options: Object = {}): Observable<T> {
+  post<T, P>(url: string, body: T, options: Object = {}): Observable<P> {
     return this.httpClient
-      .post<T>(this._baseURL + '/' + url, body, options)
+      .post<P>(this._baseURL + '/' + url, body, options)
   }
   put<T>(url: string, body: T, options: Object = {}): Observable<T> {
     return this.httpClient

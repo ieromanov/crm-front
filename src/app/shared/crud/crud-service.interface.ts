@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { PagingResponseDto, PagingRequestDto } from '@shared/interfaces/dto/paging.dto';
+import { PagingResponseDto, PagingRequestDto } from '@shared/dto/paging.dto';
 
 export interface ICrudService<T> {
   findAll(params?: PagingRequestDto<T>): Observable<PagingResponseDto<T>>;

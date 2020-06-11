@@ -6,7 +6,7 @@ import { CrudService } from '@shared/crud/crud-abstract.service';
 import { IHome } from '@shared/interfaces/entity/home.interface';
 import { IHomeService } from '@shared/interfaces/service/home-service.interface';
 import { IApiService } from '@shared/interfaces/service/api-service.interface';
-import { PagingRequestDto, PagingResponseDto } from '@shared/interfaces/dto/paging.dto';
+import { PagingRequestDto, PagingResponseDto } from '@shared/dto/paging.dto';
 
 @Injectable()
 export class HomeService extends CrudService<IHome> implements IHomeService {

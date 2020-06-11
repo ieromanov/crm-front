@@ -128,11 +128,11 @@ export class ServiceTypeSettingComponent implements OnInit {
     this.loading = true;
     return this.serviceTypeService
       .findAll({
-        take: this.pageSize,
-        skip: (this.pageIndex - 1) * this.pageSize,
+        limit: this.pageSize,
+        page: this.pageIndex,
       })
       .subscribe((serviceTypes) => {
-        this.serviceTypes = this.serviceTypes.concat(serviceTypes.items);
+        this.serviceTypes = this.serviceTypes.concat(serviceTypes.data);
         if (serviceTypes.total === this.serviceTypes.length) {
           this.allLoaded = true
         }

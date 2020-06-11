@@ -36,7 +36,7 @@ export class GeneralSettingComponent implements OnInit {
       .pipe(catchError((err) => of(err)))
       .subscribe((settings) => {
         this.loading = false;
-        this.settings = settings.items;
+        this.settings = settings;
       });
   }
 

@@ -1,8 +1,7 @@
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ICrudService } from './crud-service.interface';
 import { IApiService } from '@shared/interfaces/service/api-service.interface';
-import { PagingRequestDto, PagingResponseDto } from '@shared/interfaces/dto/paging.dto';
-import { catchError } from 'rxjs/operators';
+import { PagingRequestDto, PagingResponseDto } from '@shared/dto/paging.dto';
 
 export abstract class CrudService<T> implements ICrudService<T> {
   constructor(
@@ -10,9 +9,9 @@ export abstract class CrudService<T> implements ICrudService<T> {
     protected readonly _apiService: IApiService,
   ) {}
 
-  create(dto: T): Observable<T> {
+  create<T, P>(dto: T): Observable<P> {
     return this._apiService
-      .post<T>(this._controllerName, dto)
+      .post<T, P>(this._controllerName, dto)
   }
 
   update(id: string, t: T): Observable<T> {

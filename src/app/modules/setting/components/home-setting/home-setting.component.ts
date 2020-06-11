@@ -134,12 +134,12 @@ export class HomeSettingComponent {
   private _getAll() {
     this.loading = true;
     return this._homeService
-      .findAllWithRooms({
-        take: this.pageSize,
-        skip: (this.pageIndex - 1) * this.pageSize,
+      .findAll({
+        limit: this.pageSize,
+        page: this.pageIndex,
       })
       .subscribe(houses => {
-        this.houses = houses.items;
+        this.houses = houses.data;
         this.totalResults = houses.total;
         this.loading = false;
       });
@@ -154,6 +154,6 @@ export class HomeSettingComponent {
   }
 
   private _update(id: string, home: IHome): Observable<IHome> {
-    return this._homeService.updateWithRelations(id, home);
+    return this._homeService.update(id, home);
   }
 }

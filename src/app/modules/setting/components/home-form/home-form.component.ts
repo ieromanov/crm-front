@@ -67,7 +67,7 @@ export class HomeFormComponent implements OnInit {
     this._roomService
       .findAll()
       .subscribe(rooms => {
-        this.rooms = rooms.items
+        this.rooms = rooms.data
       })
   }
 }

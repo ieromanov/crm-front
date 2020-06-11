@@ -122,11 +122,11 @@ export class TruckSettingComponent {
     this.loading = true;
     return this._truckService
       .findAll({
-        take: this.pageSize,
-        skip: (this.pageIndex - 1) * this.pageSize,
+        limit: this.pageSize,
+        page: this.pageIndex,
       })
       .subscribe((trucks) => {
-        this.trucks = trucks.items;
+        this.trucks = trucks.data;
         this.totalResults = trucks.total;
         this.loading = false;
       });

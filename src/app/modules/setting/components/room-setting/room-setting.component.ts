@@ -122,11 +122,11 @@ export class RoomSettingComponent {
     this.loading = true;
     return this.roomService
       .findAll({
-        take: this.pageSize,
-        skip: (this.pageIndex - 1) * this.pageSize,
+        limit: this.pageSize,
+        page: this.pageIndex,
       })
       .subscribe(rooms => {
-        this.rooms = rooms.items;
+        this.rooms = rooms.data;
         this.totalResults = rooms.total;
         this.loading = false;
       });
