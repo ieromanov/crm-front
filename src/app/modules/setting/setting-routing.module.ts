@@ -9,7 +9,7 @@ import { ServiceTypeSettingComponent } from './components/service-type-setting/s
 import { TruckSettingComponent } from './components/truck-setting/truck-setting.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/general' },
+  { path: '', pathMatch: 'full', redirectTo: 'general' },
   { path: 'general', component: GeneralSettingComponent },
   { path: 'status', component: StatusSettingComponent },
   { path: 'room', component: RoomSettingComponent },

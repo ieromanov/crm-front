@@ -49,6 +49,7 @@ import { TruckFormComponent } from './components/truck-form/truck-form.component
     ReactiveFormsModule,
     GeneralSettingRoutingModule,
     HttpClientModule,
+
     NzButtonModule,
     NzInputModule,
     NzInputNumberModule,

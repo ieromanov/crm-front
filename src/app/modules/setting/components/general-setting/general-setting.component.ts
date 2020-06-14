@@ -10,6 +10,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 @Component({
   selector: 'crm-general-setting',
   templateUrl: './general-setting.component.html',
+  styleUrls: ['./general-setting.component.scss'],
   animations: [
     trigger('loading', [
       transition(':enter', [

@@ -2,8 +2,14 @@
   <form @loading nz-form (ngSubmit)="save()" *ngIf="settings.length > 0">
     <nz-form-item *ngFor="let setting of settings">
       <nz-form-label [nzSpan]="3" nzRequired [nzFor]="setting.slug">
-        <span>{{ setting.name }}</span>
-        <i nz-icon nz-tooltip [nzTooltipTitle]="setting.description" nzType="question-circle" nzTheme="outline"></i>
+        <span class="setting-name">{{ setting.name }}</span>
+        <i
+          *ngIf="setting.description"
+          nz-icon
+          nz-tooltip
+          nzType="question-circle"
+          [nzTooltipTitle]="setting.description"
+        ></i>
       </nz-form-label>
       <nz-form-control [nzSpan]="6">
         <input nz-input [name]="setting.slug" type="text" [value]="setting.value">
