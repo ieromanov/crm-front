@@ -5,6 +5,10 @@ import { NotFoundComponent } from '@shared/components/not-found/not-found.compon
 
 const routes: Routes = [
   {
+    path: 'auth',
+    loadChildren: () => import('./modules/auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
     path: '',
     component: LayoutComponent,
     children: [
@@ -19,10 +23,6 @@ const routes: Routes = [
       },
       { path: '**', component: NotFoundComponent },
     ],
-  },
-  {
-    path: 'auth',
-    loadChildren: () => import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
 ];
 
