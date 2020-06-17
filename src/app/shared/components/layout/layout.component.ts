@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MenuItem } from '@shared/types/menu-item.type';
 
+import { menuItems } from './layout-menu-items';
+
 @Component({
   selector: 'crm-layout',
   templateUrl: './layout.component.html',
@@ -9,48 +11,7 @@ import { MenuItem } from '@shared/types/menu-item.type';
 export class LayoutComponent {
   public isCollapsed: boolean = false;
 
-  public menuItems: MenuItem[] = [
-    {
-      title: 'Dashboard',
-      icon: 'dashboard',
-      children: [
-        {
-          link: '/dashboard',
-          title: 'Dashboard',
-        },
-      ],
-    },
-    {
-      title: 'Setting',
-      icon: 'setting',
-      children: [
-        {
-          link: '/setting/general',
-          title: 'General',
-        },
-        {
-          link: '/setting/status',
-          title: 'Status',
-        },
-        {
-          link: '/setting/room',
-          title: 'Room',
-        },
-        {
-          link: '/setting/home',
-          title: 'Home',
-        },
-        {
-          link: '/setting/service-type',
-          title: 'Service type',
-        },
-        {
-          link: '/setting/truck',
-          title: 'Truck',
-        },
-      ],
-    },
-  ];
+  public menuItems: MenuItem[] = menuItems
 
   public toggleMenuCollapsed(): void {
     this.isCollapsed = !this.isCollapsed;
