@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import en from '@angular/common/locales/en';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import {
   NZ_I18N,
@@ -35,6 +36,7 @@ import { UserEffects } from '@store/user/user.effect';
 import { HeaderComponent } from '@shared/components/header/header.component';
 import { LayoutComponent } from '@shared/components/layout/layout.component';
 import { GlobalPreloaderComponent } from '@shared/components/global-preloader/global-preloader.component';
+import { environment } from '@env/environment';
 
 registerLocaleData(en);
 
@@ -62,6 +64,10 @@ registerLocaleData(en);
 
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([UserEffects])
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
   providers: [
     {
