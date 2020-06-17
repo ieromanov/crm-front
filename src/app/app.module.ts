@@ -31,8 +31,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { CoreModule } from '@core/core.module';
 
-import { reducers } from '@store/index';
-import { UserEffects } from '@store/user/user.effect';
+import { reducers, effects } from '@store/index';
 import { HeaderComponent } from '@shared/components/header/header.component';
 import { LayoutComponent } from '@shared/components/layout/layout.component';
 import { GlobalPreloaderComponent } from '@shared/components/global-preloader/global-preloader.component';
@@ -63,7 +62,8 @@ registerLocaleData(en);
     ]),
 
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([UserEffects])
+    EffectsModule.forRoot(effects),
+
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
