@@ -24,7 +24,7 @@ import {
 
 import { StatusServiceProvider } from '@core/provider/status-service.provider';
 import { RoomServiceProvider } from '@core/provider/room-service.provider';
-import { HomeServiceProvider } from '@core/provider/home-service.provider';
+import { HomeTypeServiceProvider } from '@core/provider/home-service.provider';
 import { ServiceTypeServiceProvider } from '@core/provider/service-type-service.provider';
 import { TruckServiceProvider } from '@core/provider/truck-service.provider';
 import { ConstantServiceProvider } from '@core/provider/constant-service.provider';
@@ -80,7 +80,7 @@ import { TruckFormComponent } from './components/truck-form/truck-form.component
   providers: [
     StatusServiceProvider,
     RoomServiceProvider,
-    HomeServiceProvider,
+    HomeTypeServiceProvider,
     ServiceTypeServiceProvider,
     TruckServiceProvider,
     ConstantServiceProvider

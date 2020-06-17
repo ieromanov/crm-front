@@ -1,10 +1,10 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store'
 import { State } from '@store/index'
-import { AppState } from '@store/app/app.reducer'
+import { IAppState } from '@store/app/app.reducer'
 
-export const selectAppState =  createFeatureSelector<State, AppState>('app');
+export const selectAppState =  createFeatureSelector<State, IAppState>('app');
 
 export const loadingAppSelector = createSelector(
   selectAppState,
-  (state: AppState) => state.loading
+  (state: IAppState) => state.loadingCount > 0
 )

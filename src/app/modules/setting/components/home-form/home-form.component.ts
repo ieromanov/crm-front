@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalRef } from 'ng-zorro-antd';
-import { IHome } from '@shared/interfaces/entity/home.interface';
+import { IHomeType } from '@shared/interfaces/entity/home.interface';
 import {
   HOME_NAME_MAX_LENGTH,
   HOME_DESCRIPTION_MAX_LENGTH,
@@ -15,7 +15,7 @@ import { IRoom } from '@shared/interfaces/entity/room.interface';
   templateUrl: 'home-form.component.html',
 })
 export class HomeFormComponent implements OnInit {
-  @Input() public home: IHome = null;
+  @Input() public home: IHomeType = null;
 
   public form: FormGroup;
   public rooms: IRoom[]
@@ -47,7 +47,7 @@ export class HomeFormComponent implements OnInit {
     this._getRooms()
   }
 
-  initRoom(): IHome {
+  initRoom(): IHomeType {
     return this.home !== null
       ? this.home
       : {

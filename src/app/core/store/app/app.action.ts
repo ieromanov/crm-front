@@ -1,10 +1,14 @@
-import { createAction, props } from '@ngrx/store';
+import { createAction } from '@ngrx/store';
 
-export enum AppActionTypes {
-  setLoading = '[App] set loading',
+enum AppActionTypes {
+  startLoading = '[App] loading start',
+  finishLoading = '[App] loading finish',
+  
+  loadInitialData = '[App] load initial data'
 }
 
-export const setLoadingAction = createAction(
-  AppActionTypes.setLoading,
-  props<{ loading: boolean }>()
-);
+export const startLoadingAction = createAction(AppActionTypes.startLoading);
+
+export const finishLoadingAction = createAction(AppActionTypes.finishLoading);
+
+export const loadInitialDataAction = createAction(AppActionTypes.loadInitialData);

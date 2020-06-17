@@ -3,13 +3,13 @@ import { Observable } from 'rxjs';
 
 import { API_SERVICE } from '@core/di-tokens';
 import { CrudService } from '@shared/crud/crud-abstract.service';
-import { IHome } from '@shared/interfaces/entity/home.interface';
-import { IHomeService } from '@shared/interfaces/service/home-service.interface';
+import { IHomeType } from '@shared/interfaces/entity/home.interface';
+import { IHomeTypeService } from '@shared/interfaces/service/home-service.interface';
 import { IApiService } from '@shared/interfaces/service/api-service.interface';
 import { PagingRequestDto, PagingResponseDto } from '@shared/dto/paging.dto';
 
-@Injectable()
-export class HomeService extends CrudService<IHome> implements IHomeService {
+@Injectable({ providedIn: 'root' })
+export class HomeTypeService extends CrudService<IHomeType> implements IHomeTypeService {
   constructor(
     @Inject(API_SERVICE)
     private readonly apiService: IApiService
@@ -17,12 +17,12 @@ export class HomeService extends CrudService<IHome> implements IHomeService {
     super('home', apiService);
   }
 
-  findAllWithRooms(params?: PagingRequestDto<IHome>): Observable<PagingResponseDto<IHome>> {
+  findAllWithRooms(params?: PagingRequestDto<IHomeType>): Observable<PagingResponseDto<IHomeType>> {
     return this._apiService
       .get(this._controllerName + '/get-with-rooms', params)
   }
 
-  updateWithRelations(id: string, dto: IHome): Observable<IHome> {
+  updateWithRelations(id: string, dto: IHomeType): Observable<IHomeType> {
     return this._apiService
       .put(this._controllerName + `/${id}/update-with-relations`, dto)
   }

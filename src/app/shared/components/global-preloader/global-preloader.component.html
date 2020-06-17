@@ -1,3 +1,3 @@
-<section [@fadeInOut] *ngIf="loading" class="wrapper">
+<section [@fadeInOut] *ngIf="loading$ | async" class="wrapper">
   <nz-spin nzSimple nzSize="large" nzTip="Loading..."></nz-spin>
 </section>

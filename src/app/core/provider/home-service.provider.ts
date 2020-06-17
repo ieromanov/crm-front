@@ -1,8 +1,8 @@
 import { Provider } from '@angular/core';
 import { HOME_SERVICE } from '@core/di-tokens';
-import { HomeService } from '@core/services/home.service';
+import { HomeTypeService } from '@core/services/home-type.service';
 
-export const HomeServiceProvider: Provider = {
+export const HomeTypeServiceProvider: Provider = {
   provide: HOME_SERVICE,
-  useClass: HomeService
+  useClass: HomeTypeService
 }

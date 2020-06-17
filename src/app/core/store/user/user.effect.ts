@@ -1,20 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { mergeMap, map, catchError, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import {
+  mergeMap,
+  map,
+  catchError,
+  tap,
+  concatMap,
+} from 'rxjs/operators';
+import { of, concat } from 'rxjs';
 
 import { AuthService } from '@core/services/auth.service';
 import { UserService } from '@core/services/user.service';
 import { LoginPayload } from '@shared/interfaces/login-payload.interface';
+
+import { startLoadingAction, finishLoadingAction } from '../app/app.action';
 import {
-  UserActionTypes,
+  loginAction,
   loginSuccessAction,
   loginFailAction,
+  getUserInfoAction,
   getUserInfoSuccessAction,
   getUserInfoFailAction,
   logoutSuccessAction,
   logoutFailAction,
+  logoutAction,
 } from './user.action';
 
 @Injectable()
@@ -28,51 +38,56 @@ export class UserEffects {
 
   login$ = createEffect(() =>
     this._actions$.pipe<LoginPayload, any>(
-      ofType(UserActionTypes.login),
+      ofType(loginAction),
       mergeMap(({ email, password }: LoginPayload) =>
         this._authService.login(email, password).pipe(
-          map(userInfo => loginSuccessAction(userInfo)),
+          map((userInfo) => loginSuccessAction(userInfo)),
           catchError(() => of(loginFailAction()))
         )
       )
     )
   );
 
-  loginSuccess$ = createEffect(() =>
-    this._actions$.pipe<any, any>(
-      ofType(UserActionTypes.loginSuccess),
-      tap(() => this._router.navigate(['/']))
-    ),
+  loginSuccess$ = createEffect(
+    () =>
+      this._actions$.pipe<any, any>(
+        ofType(loginSuccessAction),
+        tap(() => this._router.navigate(['/']))
+      ),
     { dispatch: false }
   );
 
   logout$ = createEffect(() =>
     this._actions$.pipe<LoginPayload, any>(
-      ofType(UserActionTypes.logout),
+      ofType(logoutAction),
       mergeMap(() =>
         this._authService.logout().pipe(
           map(() => logoutSuccessAction()),
-          catchError(() => of(logoutFailAction())),
+          catchError(() => of(logoutFailAction()))
         )
       )
     )
   );
 
-  logoutSuccess$ = createEffect(() =>
-    this._actions$.pipe<any, any>(
-      ofType(UserActionTypes.logoutSuccess),
-      tap(() => this._router.navigate(['/auth/login']))
-    ),
+  logoutSuccess$ = createEffect(
+    () =>
+      this._actions$.pipe<any, any>(
+        ofType(logoutSuccessAction),
+        tap(() => this._router.navigate(['/auth/login']))
+      ),
     { dispatch: false }
   );
 
   getUserInfo$ = createEffect(() =>
     this._actions$.pipe<any, any>(
-      ofType(UserActionTypes.getUserInfo),
-      mergeMap(() =>
-        this._userService.getUserInfo().pipe(
-          map((userInfo) => getUserInfoSuccessAction(userInfo)),
-          catchError(() => of(getUserInfoFailAction()))
+      ofType(getUserInfoAction),
+      concatMap(() => concat(
+          of(startLoadingAction()),
+          this._userService.getUserInfo().pipe(
+            map(userInfo => getUserInfoSuccessAction(userInfo)),
+            catchError(() => of(getUserInfoFailAction()))
+          ),
+          of(finishLoadingAction()),
         )
       )
     )

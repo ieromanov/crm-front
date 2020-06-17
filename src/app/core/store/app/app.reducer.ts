@@ -1,27 +1,16 @@
-import {
-  EntityAdapter,
-  createEntityAdapter,
-  EntityState,
-} from '@ngrx/entity';
+import { createReducer, on } from '@ngrx/store';
+import { startLoadingAction, finishLoadingAction } from './app.action';
 
-import { createReducer, on, Action } from '@ngrx/store';
-import { setLoadingAction } from './app.action';
-
-export interface AppState extends EntityState<{}> {
-  loading: boolean;
+export interface IAppState {
+  loadingCount: number;
 }
 
-export const adapter: EntityAdapter<{}> = createEntityAdapter<{}>();
+export const initialState: IAppState = {
+  loadingCount: 0,
+};
 
-export const initialState: AppState = adapter.getInitialState({
-  loading: false,
-});
-
-const _reducer = createReducer(
+export const appReducer = createReducer(
   initialState,
-  on(setLoadingAction, (state, { loading }) => ({ ...state, loading })),
+  on(startLoadingAction, (state) => ({ ...state, loadingCount: state.loadingCount + 1 })),
+  on(finishLoadingAction, (state) => ({ ...state, loadingCount: state.loadingCount - 1})),
 );
-
-export function appReducer(state: AppState | undefined, action: Action) {
-  return _reducer(state, action);
-}

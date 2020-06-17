@@ -3,9 +3,9 @@ import { Component, Inject } from '@angular/core';
 import { NzTableQueryParams, NzModalService } from 'ng-zorro-antd';
 
 import { HOME_SERVICE, CONSTANT_SERVICE } from '@core/di-tokens';
-import { IHomeService } from '@shared/interfaces/service/home-service.interface';
+import { IHomeTypeService } from '@shared/interfaces/service/home-service.interface';
 import { IConstantService } from '@shared/interfaces/service/constant-service.interface';
-import { IHome } from '@shared/interfaces/entity/home.interface';
+import { IHomeType } from '@shared/interfaces/entity/home.interface';
 
 import { HomeFormComponent } from '../home-form/home-form.component';
 import { IRoom } from '@shared/interfaces/entity/room.interface';
@@ -17,14 +17,14 @@ import { IRoom } from '@shared/interfaces/entity/room.interface';
 })
 export class HomeSettingComponent {
   public totalResults: number;
-  public houses: IHome[] = [];
+  public houses: IHomeType[] = [];
   public loading: boolean = false;
   public pageSize: number = 9;
   public pageIndex: number = 1;
 
   constructor(
     @Inject(HOME_SERVICE)
-    private readonly _homeService: IHomeService,
+    private readonly _homeTypeService: IHomeTypeService,
     @Inject(CONSTANT_SERVICE)
     private readonly _constantService: IConstantService,
     private readonly modalService: NzModalService
@@ -67,7 +67,7 @@ export class HomeSettingComponent {
     });
   }
 
-  public showUpdateHomeModal(home: IHome) {
+  public showUpdateHomeModal(home: IHomeType) {
     this.modalService.create({
       nzTitle: 'Update home',
       nzContent: HomeFormComponent,
@@ -133,7 +133,7 @@ export class HomeSettingComponent {
 
   private _getAll() {
     this.loading = true;
-    return this._homeService
+    return this._homeTypeService
       .findAll({
         limit: this.pageSize,
         page: this.pageIndex,
@@ -146,14 +146,14 @@ export class HomeSettingComponent {
   }
 
   private _delete(id: string) {
-    return this._homeService.delete(id);
+    return this._homeTypeService.delete(id);
   }
 
-  private _create(home: IHome): Observable<IHome> {
-    return this._homeService.create(home);
+  private _create(home: IHomeType): Observable<IHomeType> {
+    return this._homeTypeService.create(home);
   }
 
-  private _update(id: string, home: IHome): Observable<IHome> {
-    return this._homeService.update(id, home);
+  private _update(id: string, home: IHomeType): Observable<IHomeType> {
+    return this._homeTypeService.update(id, home);
   }
 }
