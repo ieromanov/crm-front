@@ -31,7 +31,9 @@ export const getUserInfoSuccessAction = createAction(
   UserActionTypes.getUserInfoSuccess,
   props<UserInfo>()
 );
-export const getUserInfoFailAction = createAction(UserActionTypes.getUserInfoFail);
+export const getUserInfoFailAction = createAction(
+  UserActionTypes.getUserInfoFail
+);
 
 export const logoutAction = createAction(UserActionTypes.logout);
 export const logoutSuccessAction = createAction(UserActionTypes.logoutSuccess);

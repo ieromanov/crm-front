@@ -3,9 +3,10 @@ import { IStatus } from '@shared/interfaces/entity/status.interface';
 
 enum StatusDictionaryActionTypes {
   loadStatuses = '[Status Dictionary] load statuses',
+  loadStatusesFail = '[Status Dictionary] fail load statuses',
 
-  setOneStatus = '[Status Dictionary] set one status',
-  setManyStatuses = '[Status Dictionary] set many statuses',
+  addOneStatus = '[Status Dictionary] add one status',
+  addManyStatuses = '[Status Dictionary] add many statuses',
 
   removeOneStatus = '[Status Dictionary] remove one status',
   removeManyStatuses = '[Status Dictionary] remove many statuses',
@@ -17,13 +18,16 @@ enum StatusDictionaryActionTypes {
 export const loadStatusesAction = createAction(
   StatusDictionaryActionTypes.loadStatuses
 );
+export const loadStatusesFailAction = createAction(
+  StatusDictionaryActionTypes.loadStatusesFail
+);
 
-export const setOneStatusAction = createAction(
-  StatusDictionaryActionTypes.setOneStatus,
+export const addOneStatusAction = createAction(
+  StatusDictionaryActionTypes.addOneStatus,
   props<IStatus>()
 );
-export const setManyStatusesAction = createAction(
-  StatusDictionaryActionTypes.setManyStatuses,
+export const addManyStatusesAction = createAction(
+  StatusDictionaryActionTypes.addManyStatuses,
   props<{ statuses: IStatus[] }>()
 );
 

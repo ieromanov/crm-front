@@ -1,12 +1,19 @@
-import { Component, Inject } from '@angular/core';
-
-import { STATUS_SERVICE } from '@core/di-tokens';
-import { NzTableQueryParams, NzModalService } from 'ng-zorro-antd';
-import { IStatusService } from '@shared/interfaces/service/status-service.interface';
-import { IStatus } from '@shared/interfaces/entity/status.interface';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { NzModalService } from 'ng-zorro-antd';
+import { Observable } from 'rxjs';
 
 import { StatusFormComponent } from '../status-form/status-form.component';
-import { Observable } from 'rxjs';
+import { IStatus } from '@shared/interfaces/entity/status.interface';
+import { StatusService } from '@core/services/status.service';
+
+import { State } from '@store/index';
+import { statusDictionaryEntitiesSelector } from '@store/dictionaries/dictionaries.selector';
+import {
+  updateOneStatusAction,
+  removeOneStatusAction,
+  addOneStatusAction,
+} from '@store/dictionaries/status-dictionary/status-dictionary.action';
 
 @Component({
   selector: 'crm-status-setting',
@@ -14,36 +21,30 @@ import { Observable } from 'rxjs';
   styleUrls: ['./status-setting.component.scss'],
 })
 export class StatusSettingComponent {
-  public totalResults: number;
-  public statuses: IStatus[] = [];
   public loading: boolean = false;
-  public pageSize: number = 9;
-  public pageIndex: number = 1;
+  public statuses$: Observable<IStatus[]> = this._store.select(
+    statusDictionaryEntitiesSelector
+  );
 
   constructor(
-    @Inject(STATUS_SERVICE)
-    private readonly statusService: IStatusService,
-    private readonly modalService: NzModalService
+    private readonly _statusService: StatusService,
+    private readonly _modalService: NzModalService,
+    private readonly _store: Store<State>
   ) {}
 
-  onQueryParamsChange(params: NzTableQueryParams) {
-    const { pageIndex } = params;
-    this.pageIndex = pageIndex;
-    this._getAll();
-  }
-
   public showDeleteConfirmModal(id: string) {
-    this.modalService.confirm({
-      nzTitle: 'Do you want to delete these status?',
-      nzContent: 'When clicked the OK button, this status will be deleted',
+    this._modalService.confirm({
+      nzTitle: 'Do you want to delete these service-type?',
+      nzContent:
+        'When clicked the OK button, this service type will be deleted',
       nzOkType: 'danger',
       nzOnOk: this._handleOnConfirmDelete(id),
     });
   }
 
   public showCreateStatusModal() {
-    this.modalService.create({
-      nzTitle: 'Create status',
+    this._modalService.create({
+      nzTitle: 'Create service type',
       nzContent: StatusFormComponent,
       nzFooter: [
         {
@@ -60,8 +61,8 @@ export class StatusSettingComponent {
   }
 
   public showUpdateStatusModal(status: IStatus) {
-    this.modalService.create({
-      nzTitle: 'Update status',
+    this._modalService.create({
+      nzTitle: 'Update service type',
       nzContent: StatusFormComponent,
       nzComponentParams: { status },
       nzFooter: [
@@ -78,62 +79,44 @@ export class StatusSettingComponent {
     });
   }
 
-  private _handleOnConfirmDelete(id: string) {
-    return async () => {
-      await this._delete(id).toPromise();
-      this._getAll();
-    }
-  }
-
   private _handleOnConfirmCreate(componentInstance: StatusFormComponent) {
     if (componentInstance.form.valid) {
-      this._create(componentInstance.form.value)
-        .subscribe(() => {
+      this.loading = true
+      this._statusService.create(componentInstance.form.value).subscribe(
+        (status: IStatus) => {
           componentInstance.closeModal();
-          this._getAll();
-        });
+          this._store.dispatch(addOneStatusAction(status));
+          this.loading = false
+        }
+      );
     }
   }
 
   private _handleOnConfirmUpdate(id: string) {
     return (componentInstance: StatusFormComponent) => {
       if (componentInstance.form.valid) {
-        this._update(id, componentInstance.form.value)
-          .subscribe(() => {
-            componentInstance.closeModal();
-            this._getAll();
-          });
+        this.loading = true
+        const status: IStatus = componentInstance.form.value;
+        this._statusService.update(id, status).subscribe(() => {
+          componentInstance.closeModal();
+          this._store.dispatch(updateOneStatusAction({ id, changes: status }));
+          this.loading = false
+        });
       }
-    }
+    };
+  }
+
+  private _handleOnConfirmDelete(id: string) {
+    return () => {
+      this.loading = true
+      this._statusService.delete(id).subscribe(() => {
+        this._store.dispatch(removeOneStatusAction({ id }));
+        this.loading = false
+      });
+    };
   }
 
   private _handleCloseModal(componentInstance: StatusFormComponent) {
     componentInstance.closeModal();
-  }
-
-  private _getAll() {
-    this.loading = true;
-    return this.statusService
-      .findAll({
-        limit: this.pageSize,
-        page: this.pageIndex,
-      })
-      .subscribe((statuses) => {
-        this.statuses = statuses.data;
-        this.totalResults = statuses.total;
-        this.loading = false;
-      });
-  }
-
-  private _delete(id: string) {
-    return this.statusService.delete(id);
-  }
-
-  private _create(status: IStatus): Observable<IStatus> {
-    return this.statusService.create(status);
-  }
-
-  private _update(id: string, status: IStatus): Observable<IStatus> {
-    return this.statusService.update(id, status);
   }
 }
