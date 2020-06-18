@@ -92,4 +92,11 @@ export class UserEffects {
       )
     )
   );
+
+  getUserInfoFail$ = createEffect(() =>
+    this._actions$.pipe<any, any>(
+      ofType(getUserInfoFailAction),
+      map(() => finishLoadingAction())
+    )
+  )
 }
