@@ -13,7 +13,6 @@
     </nz-form-control>
   </nz-form-item>
 
-  
   <nz-form-item>
     <nz-form-label [nzSpan]="4">Rooms</nz-form-label>
     <nz-form-control [nzSpan]="20">
@@ -27,6 +26,13 @@
         <nz-option *ngFor="let room of rooms" [nzLabel]="room.name" [nzValue]="room.id"></nz-option>
       </nz-select>
       <ng-template #tagPlaceHolder let-selectedList> and {{ selectedList.length }} more selected </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzRequired>Volume</nz-form-label>
+    <nz-form-control [nzSpan]="20">
+      <nz-input-number formControlName="volume" [nzMin]="1" [nzStep]="1"></nz-input-number>
     </nz-form-control>
   </nz-form-item>
 

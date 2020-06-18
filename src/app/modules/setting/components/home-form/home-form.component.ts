@@ -15,7 +15,7 @@ import { IRoom } from '@shared/interfaces/entity/room.interface';
   templateUrl: 'home-form.component.html',
 })
 export class HomeFormComponent implements OnInit {
-  @Input() public home: IHomeType = null;
+  @Input() public homeType: IHomeType = null;
 
   public form: FormGroup;
   public rooms: IRoom[]
@@ -29,27 +29,31 @@ export class HomeFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const home = this.initRoom();
+    const homeType = this.initRoom();
 
     this.form = this._formBuilder.group({
       name: [
-        home.name,
+        homeType.name,
         [Validators.required, Validators.maxLength(HOME_NAME_MAX_LENGTH)],
       ],
       description: [
-        home.description,
+        homeType.description,
         [Validators.maxLength(HOME_DESCRIPTION_MAX_LENGTH)],
       ],
-      rooms: [home.rooms.map(({ id }: IRoom) => id)],
-      active: [home.active],
+      volume: [
+        homeType.volume,
+        [Validators.required, Validators.min(1)],
+      ],
+      rooms: [homeType.rooms.map(({ id }: IRoom) => id)],
+      active: [homeType.active],
     });
 
     this._getRooms()
   }
 
   initRoom(): IHomeType {
-    return this.home !== null
-      ? this.home
+    return this.homeType !== null
+      ? this.homeType
       : {
           name: 'new home name',
           description: null,
