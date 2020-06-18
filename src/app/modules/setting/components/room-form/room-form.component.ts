@@ -36,7 +36,7 @@ export class RoomFormComponent implements OnInit {
       ],
       volume: [
         room.volume,
-        [Validators.required],
+        [Validators.required, Validators.min(1)],
       ],
       active: [room.active],
     });
