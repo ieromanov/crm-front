@@ -12,5 +12,5 @@ export const initialState: IAppState = {
 export const appReducer = createReducer(
   initialState,
   on(startLoadingAction, (state) => ({ ...state, loadingCount: state.loadingCount + 1 })),
-  on(finishLoadingAction, (state) => ({ ...state, loadingCount: state.loadingCount - 1})),
+  on(finishLoadingAction, (state) => ({ ...state, loadingCount: state.loadingCount > 0 ? state.loadingCount - 1 : 0 })),
 );
