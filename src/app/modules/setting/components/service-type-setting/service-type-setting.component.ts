@@ -1,52 +1,50 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd';
 import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
-import { SERVICE_TYPE_SERVICE } from '@core/di-tokens';
-import { IServiceTypeService } from '@shared/interfaces/service/service-type-service.interface';
 import { IServiceType } from '@shared/interfaces/entity/service-type.interface';
 
 import { ServiceTypeFormComponent } from '../service-type-form/service-type-form.component';
+import { ServiceTypeService } from '@core/services/service-type.service';
+
+import { State } from '@core/store';
+import {
+  updateOneAction,
+  removeOneAction,
+  addOneAction,
+} from '@store/dictionaries/service-type-dictionary/service-type-dictionary.action';
+import { serviceTypesDictionaryEntitiesSelector } from '@store/dictionaries/dictionaries.selector';
 
 @Component({
   selector: 'crm-service-type-setting',
   templateUrl: './service-type-setting.component.html',
   styleUrls: ['./service-type-setting.component.scss'],
 })
-export class ServiceTypeSettingComponent implements OnInit {
-  public totalResults: number;
-  public serviceTypes: IServiceType[] = [];
+export class ServiceTypeSettingComponent {
   public loading: boolean = false;
-  public pageSize: number = 10;
-  public pageIndex: number = 1;
-  public allLoaded: boolean = false
+  public serviceTypes$: Observable<IServiceType[]> = this._store.select(
+    serviceTypesDictionaryEntitiesSelector
+  );
 
   constructor(
-    @Inject(SERVICE_TYPE_SERVICE)
-    private readonly serviceTypeService: IServiceTypeService,
-    private readonly modalService: NzModalService
+    private readonly _serviceTypeService: ServiceTypeService,
+    private readonly _modalService: NzModalService,
+    private readonly _store: Store<State>
   ) {}
 
-  ngOnInit(): void {
-    this._fetchServiceTypes()
-  }
-
-  public loadingMore() {
-    this.pageIndex++;
-    this._fetchServiceTypes();
-  }
-
   public showDeleteConfirmModal(id: string) {
-    this.modalService.confirm({
+    this._modalService.confirm({
       nzTitle: 'Do you want to delete these service-type?',
-      nzContent: 'When clicked the OK button, this service type will be deleted',
+      nzContent:
+        'When clicked the OK button, this service type will be deleted',
       nzOkType: 'danger',
       nzOnOk: this._handleOnConfirmDelete(id),
     });
   }
 
-  public showCreateStatusModal() {
-    this.modalService.create({
+  public showCreateModal() {
+    this._modalService.create({
       nzTitle: 'Create service type',
       nzContent: ServiceTypeFormComponent,
       nzFooter: [
@@ -63,8 +61,8 @@ export class ServiceTypeSettingComponent implements OnInit {
     });
   }
 
-  public showUpdateStatusModal(serviceType: IServiceType) {
-    this.modalService.create({
+  public showUpdateModal(serviceType: IServiceType) {
+    this._modalService.create({
       nzTitle: 'Update service type',
       nzContent: ServiceTypeFormComponent,
       nzComponentParams: { serviceType },
@@ -84,71 +82,42 @@ export class ServiceTypeSettingComponent implements OnInit {
 
   private _handleOnConfirmCreate(componentInstance: ServiceTypeFormComponent) {
     if (componentInstance.form.valid) {
-      this._create(componentInstance.form.value)
-        .subscribe((serviceType: IServiceType) => {
-            componentInstance.closeModal();
-            this.serviceTypes.push(serviceType)
-        });
+      this.loading = true
+      this._serviceTypeService.create(componentInstance.form.value).subscribe(
+        (serviceType: IServiceType) => {
+          componentInstance.closeModal();
+          this._store.dispatch(addOneAction(serviceType));
+          this.loading = false
+        }
+      );
     }
   }
 
   private _handleOnConfirmUpdate(id: string) {
     return (componentInstance: ServiceTypeFormComponent) => {
       if (componentInstance.form.valid) {
-        const serviceType: IServiceType = componentInstance.form.value
-        this._update(id, serviceType)
-          .subscribe(() => {
-            componentInstance.closeModal();
-            const index = this.serviceTypes.findIndex(type => type.id === id)
-            this.serviceTypes[index] = {
-              ...this.serviceTypes[index],
-              ...serviceType
-            }
-          });
+        this.loading = true
+        const serviceType: IServiceType = componentInstance.form.value;
+        this._serviceTypeService.update(id, serviceType).subscribe(() => {
+          componentInstance.closeModal();
+          this._store.dispatch(updateOneAction({ id, changes: serviceType }));
+          this.loading = false
+        });
       }
-    }
+    };
   }
 
   private _handleOnConfirmDelete(id: string) {
-    return async () => {
-      try {
-        await this._delete(id).toPromise();
-        this.serviceTypes = this.serviceTypes.filter(type => type.id !== id)
-      } catch(error) {
-        console.error(error)
-      }
-    }
+    return () => {
+      this.loading = true
+      this._serviceTypeService.delete(id).subscribe(() => {
+        this._store.dispatch(removeOneAction({ id }));
+        this.loading = false
+      });
+    };
   }
 
   private _handleCloseModal(componentInstance: ServiceTypeFormComponent) {
     componentInstance.closeModal();
-  }
-
-  private _fetchServiceTypes() {
-    this.loading = true;
-    return this.serviceTypeService
-      .findAll({
-        limit: this.pageSize,
-        page: this.pageIndex,
-      })
-      .subscribe((serviceTypes) => {
-        this.serviceTypes = this.serviceTypes.concat(serviceTypes.data);
-        if (serviceTypes.total === this.serviceTypes.length) {
-          this.allLoaded = true
-        }
-        this.loading = false;
-      });
-  }
-
-  private _delete(id: string) {
-    return this.serviceTypeService.delete(id);
-  }
-
-  private _create(serviceType: IServiceType): Observable<IServiceType> {
-    return this.serviceTypeService.create(serviceType);
-  }
-
-  private _update(id: string, serviceType: IServiceType): Observable<IServiceType> {
-    return this.serviceTypeService.update(id, serviceType);
   }
 }

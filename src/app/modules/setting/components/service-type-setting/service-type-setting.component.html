@@ -1,9 +1,9 @@
-<button class="create-button" nz-button nzType="primary" (click)="showCreateStatusModal()">
+<button class="create-button" nz-button nzType="primary" (click)="showCreateModal()">
   <i nz-icon nzType="plus" nzTheme="outline"></i> Add service type
 </button>
 
 <nz-list [nzLoading]="loading" nzBordered>
-  <nz-list-item *ngFor="let serviceType of serviceTypes">
+  <nz-list-item *ngFor="let serviceType of serviceTypes$ | async">
     <nz-list-item-meta>
       <nz-list-item-meta-title>
         {{ serviceType.name }}
@@ -17,10 +17,9 @@
       <nz-list-item-meta-description *ngIf="serviceType.description !== null">
         {{ serviceType.description }}
       </nz-list-item-meta-description>
-
     </nz-list-item-meta>
 
-    <button nz-button nzType="link" nzShape="circle" (click)="showUpdateStatusModal(serviceType)">
+    <button nz-button nzType="link" nzShape="circle" (click)="showUpdateModal(serviceType)">
       <i nz-icon nzType="edit" nzTheme="outline"></i>
     </button>
     <nz-divider nzType="vertical"></nz-divider>
@@ -29,6 +28,3 @@
     </button>
   </nz-list-item>
 </nz-list>
-<div class="loadmore" *ngIf="!allLoaded">
-  <button nz-button (click)="loadingMore()">loading more</button>
-</div>
