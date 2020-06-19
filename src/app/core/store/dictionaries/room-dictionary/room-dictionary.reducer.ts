@@ -1,7 +1,7 @@
 import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
 
 import { createReducer, on } from '@ngrx/store';
-import { IStatus } from '@shared/interfaces/entity/status.interface';
+import { IRoom } from '@shared/interfaces/entity/room.interface';
 import {
   addManyAction,
   addOneAction,
@@ -9,15 +9,15 @@ import {
   removeManyAction,
   updateOneAction,
   updateManyAction,
-} from './status-dictionary.action';
+} from './room-dictionary.action';
 
-export interface IStatusDictionaryState extends EntityState<IStatus> {}
+export interface IRoomDictionaryState extends EntityState<IRoom> {}
 
-export const adapter: EntityAdapter<IStatus> = createEntityAdapter<IStatus>();
+export const adapter: EntityAdapter<IRoom> = createEntityAdapter<IRoom>();
 
-export const initialState: IStatusDictionaryState = adapter.getInitialState();
+export const initialState: IRoomDictionaryState = adapter.getInitialState();
 
-export const statusDictionaryReducer = createReducer(
+export const roomDictionaryReducer = createReducer(
   initialState,
   on(addOneAction, (state, status) => adapter.addOne(status, state)),
   on(addManyAction, (state, { entities }) => adapter.addMany(entities, state)),

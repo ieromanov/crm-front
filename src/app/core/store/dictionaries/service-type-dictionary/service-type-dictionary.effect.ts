@@ -6,17 +6,17 @@ import { map, concatMap, catchError } from 'rxjs/operators';
 import {
   addManyAction,
   loadAction,
-  loadFailAction
-} from './home-type-dictionary.action';
-import { HomeTypeService } from '@core/services/home-type.service';
+  loadFailAction,
+} from './service-type-dictionary.action';
+import { ServiceTypeService } from '@core/services/service-type.service';
 import { of } from 'rxjs';
 import { startLoadingAction, finishLoadingAction } from '@core/store/app/app.action';
 
 @Injectable()
-export class HomeTypeDictionaryEffects {
+export class ServiceTypeDictionaryEffects {
   constructor(
     private readonly _actions$: Actions,
-    private readonly _service: HomeTypeService
+    private readonly _service: ServiceTypeService
   ) {}
 
   load$ = createEffect(() =>
@@ -30,12 +30,12 @@ export class HomeTypeDictionaryEffects {
           ),
           of(finishLoadingAction()),
         )
-      )
+      ),
     )
   );
 
   fail$ = createEffect(() => 
-    this._actions$.pipe(
+    this._actions$.pipe<any, any>(
       ofType(loadFailAction),
       map(() => finishLoadingAction())
     )

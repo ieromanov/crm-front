@@ -2,49 +2,49 @@ import { createAction, props } from '@ngrx/store';
 import { IStatus } from '@shared/interfaces/entity/status.interface';
 
 enum StatusDictionaryActionTypes {
-  loadStatuses = '[Status Dictionary] load statuses',
-  loadStatusesFail = '[Status Dictionary] fail load statuses',
+  load = '[Status Dictionary] load statuses',
+  loadFail = '[Status Dictionary] fail load statuses',
 
-  addOneStatus = '[Status Dictionary] add one status',
-  addManyStatuses = '[Status Dictionary] add many statuses',
+  addOne = '[Status Dictionary] add one status',
+  addMany = '[Status Dictionary] add many statuses',
 
-  removeOneStatus = '[Status Dictionary] remove one status',
-  removeManyStatuses = '[Status Dictionary] remove many statuses',
+  removeOne = '[Status Dictionary] remove one status',
+  removeMany = '[Status Dictionary] remove many statuses',
 
-  updateOneStatus = '[Status Dictionary] update one status',
-  updateManyStatuses = '[Status Dictionary] update many statuses',
+  updateOne = '[Status Dictionary] update one status',
+  updateMany = '[Status Dictionary] update many statuses',
 }
 
-export const loadStatusesAction = createAction(
-  StatusDictionaryActionTypes.loadStatuses
+export const loadAction = createAction(
+  StatusDictionaryActionTypes.load
 );
-export const loadStatusesFailAction = createAction(
-  StatusDictionaryActionTypes.loadStatusesFail
+export const loadFailAction = createAction(
+  StatusDictionaryActionTypes.loadFail
 );
 
-export const addOneStatusAction = createAction(
-  StatusDictionaryActionTypes.addOneStatus,
+export const addOneAction = createAction(
+  StatusDictionaryActionTypes.addOne,
   props<IStatus>()
 );
-export const addManyStatusesAction = createAction(
-  StatusDictionaryActionTypes.addManyStatuses,
-  props<{ statuses: IStatus[] }>()
+export const addManyAction = createAction(
+  StatusDictionaryActionTypes.addMany,
+  props<{ entities: IStatus[] }>()
 );
 
-export const removeOneStatusAction = createAction(
-  StatusDictionaryActionTypes.removeOneStatus,
+export const removeOneAction = createAction(
+  StatusDictionaryActionTypes.removeOne,
   props<{ id: string }>()
 );
-export const removeManyStatusesAction = createAction(
-  StatusDictionaryActionTypes.removeManyStatuses,
+export const removeManyAction = createAction(
+  StatusDictionaryActionTypes.removeMany,
   props<{ ids: string[] }>()
 );
 
-export const updateOneStatusAction = createAction(
-  StatusDictionaryActionTypes.updateOneStatus,
+export const updateOneAction = createAction(
+  StatusDictionaryActionTypes.updateOne,
   props<{ id: string, changes: IStatus }>()
 );
-export const updateManyStatusesAction = createAction(
-  StatusDictionaryActionTypes.updateManyStatuses,
+export const updateManyAction = createAction(
+  StatusDictionaryActionTypes.updateMany,
   props<{ updates: { id: string, changes: IStatus }[] }>()
 );

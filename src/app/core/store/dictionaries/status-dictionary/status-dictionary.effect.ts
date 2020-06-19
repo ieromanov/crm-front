@@ -4,9 +4,9 @@ import { concat } from 'rxjs'
 import { map, concatMap, catchError } from 'rxjs/operators';
 
 import {
-  addManyStatusesAction,
-  loadStatusesAction,
-  loadStatusesFailAction,
+  addManyAction,
+  loadAction,
+  loadFailAction,
 } from './status-dictionary.action';
 import { StatusService } from '@core/services/status.service';
 import { of } from 'rxjs';
@@ -19,14 +19,14 @@ export class StatusDictionaryEffects {
     private readonly _statusService: StatusService
   ) {}
 
-  loadStatuses$ = createEffect(() =>
+  load$ = createEffect(() =>
     this._actions$.pipe<any, any>(
-      ofType(loadStatusesAction),
+      ofType(loadAction),
       concatMap(() => concat(
           of(startLoadingAction()),
           this._statusService.findAll().pipe(
-            map(({ data }) => addManyStatusesAction({ statuses: data })),
-            catchError(() => of(loadStatusesFailAction()))
+            map(({ data }) => addManyAction({ entities: data })),
+            catchError(() => of(loadFailAction()))
           ),
           of(finishLoadingAction()),
         )
@@ -36,7 +36,7 @@ export class StatusDictionaryEffects {
 
   fail$ = createEffect(() => 
     this._actions$.pipe<any, any>(
-      ofType(loadStatusesFailAction),
+      ofType(loadFailAction),
       map(() => finishLoadingAction())
     )
   )

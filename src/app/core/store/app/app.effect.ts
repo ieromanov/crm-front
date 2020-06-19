@@ -3,14 +3,12 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatMap } from 'rxjs/operators';
 import { of, concat, merge } from 'rxjs';
 
-import {
-  startLoadingAction,
-  finishLoadingAction,
-  loadInitialDataAction,
-} from '@store/app/app.action';
+import { loadInitialDataAction } from '@store/app/app.action';
 import { getUserInfoAction } from '@store/user/user.action';
-import { loadStatusesAction } from '@store/dictionaries/status-dictionary/status-dictionary.action';
-import { loadHomeTypesAction } from '@store/dictionaries/home-type-dictionary/home-type-dictionary.action';
+import { loadAction as loadStatusesAction } from '@store/dictionaries/status-dictionary/status-dictionary.action';
+import { loadAction as loadHomeTypesAction } from '@store/dictionaries/home-type-dictionary/home-type-dictionary.action';
+import { loadAction as loadServiceTypesAction } from '@store/dictionaries/service-type-dictionary/service-type-dictionary.action';
+import { loadAction as loadRoomAction } from '@store/dictionaries/room-dictionary/room-dictionary.action';
 
 @Injectable()
 export class AppEffects {
@@ -24,6 +22,8 @@ export class AppEffects {
           of(getUserInfoAction()),
           of(loadStatusesAction()),
           of(loadHomeTypesAction()),
+          of(loadServiceTypesAction()),
+          of(loadRoomAction())
         )
       )
     )

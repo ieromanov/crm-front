@@ -2,49 +2,49 @@ import { createAction, props } from '@ngrx/store';
 import { IHomeType } from '@shared/interfaces/entity/home.interface';
 
 enum HomeTypeDictionaryActionTypes {
-  loadHomeTypes = '[HomeType Dictionary] load statuses',
-  loadHomeTypesFail = '[HomeType Dictionary] fail load statuses',
+  load = '[HomeType Dictionary] load statuses',
+  loadFail = '[HomeType Dictionary] fail load statuses',
 
-  addOneHomeType = '[HomeType Dictionary] add one status',
-  addManyHomeTypes = '[HomeType Dictionary] add many statuses',
+  addOne = '[HomeType Dictionary] add one status',
+  addMany = '[HomeType Dictionary] add many statuses',
 
-  removeOneHomeType = '[HomeType Dictionary] remove one status',
-  removeManyHomeTypes = '[HomeType Dictionary] remove many statuses',
+  removeOne = '[HomeType Dictionary] remove one status',
+  removeMany = '[HomeType Dictionary] remove many statuses',
 
-  updateOneHomeType = '[HomeType Dictionary] update one status',
-  updateManyHomeTypes = '[HomeType Dictionary] update many statuses',
+  updateOne = '[HomeType Dictionary] update one status',
+  updateMany = '[HomeType Dictionary] update many statuses',
 }
 
-export const loadHomeTypesAction = createAction(
-  HomeTypeDictionaryActionTypes.loadHomeTypes
+export const loadAction = createAction(
+  HomeTypeDictionaryActionTypes.load
 );
-export const loadHomeTypesFailAction = createAction(
-  HomeTypeDictionaryActionTypes.loadHomeTypesFail
+export const loadFailAction = createAction(
+  HomeTypeDictionaryActionTypes.loadFail
 );
 
-export const addOneHomeTypeAction = createAction(
-  HomeTypeDictionaryActionTypes.addOneHomeType,
+export const addOneAction = createAction(
+  HomeTypeDictionaryActionTypes.addOne,
   props<IHomeType>()
 );
-export const addManyHomeTypesAction = createAction(
-  HomeTypeDictionaryActionTypes.addManyHomeTypes,
-  props<{ homeTypes: IHomeType[] }>()
+export const addManyAction = createAction(
+  HomeTypeDictionaryActionTypes.addMany,
+  props<{ entities: IHomeType[] }>()
 );
 
-export const removeOneHomeTypeAction = createAction(
-  HomeTypeDictionaryActionTypes.removeOneHomeType,
+export const removeOneAction = createAction(
+  HomeTypeDictionaryActionTypes.removeOne,
   props<{ id: string }>()
 );
-export const removeManyHomeTypesAction = createAction(
-  HomeTypeDictionaryActionTypes.removeManyHomeTypes,
+export const removeManyAction = createAction(
+  HomeTypeDictionaryActionTypes.removeMany,
   props<{ ids: string[] }>()
 );
 
-export const updateOneHomeTypeAction = createAction(
-  HomeTypeDictionaryActionTypes.updateOneHomeType,
+export const updateOneAction = createAction(
+  HomeTypeDictionaryActionTypes.updateOne,
   props<{ id: string, changes: IHomeType }>()
 );
-export const updateManyHomeTypesAction = createAction(
-  HomeTypeDictionaryActionTypes.updateManyHomeTypes,
+export const updateManyAction = createAction(
+  HomeTypeDictionaryActionTypes.updateMany,
   props<{ updates: { id: string, changes: IHomeType }[] }>()
 );

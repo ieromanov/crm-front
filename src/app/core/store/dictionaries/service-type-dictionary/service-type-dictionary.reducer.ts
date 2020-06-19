@@ -1,7 +1,7 @@
 import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
 
 import { createReducer, on } from '@ngrx/store';
-import { IStatus } from '@shared/interfaces/entity/status.interface';
+import { IServiceType } from '@shared/interfaces/entity/service-type.interface';
 import {
   addManyAction,
   addOneAction,
@@ -9,15 +9,15 @@ import {
   removeManyAction,
   updateOneAction,
   updateManyAction,
-} from './status-dictionary.action';
+} from './service-type-dictionary.action';
 
-export interface IStatusDictionaryState extends EntityState<IStatus> {}
+export interface IServiceTypeDictionaryState extends EntityState<IServiceType> {}
 
-export const adapter: EntityAdapter<IStatus> = createEntityAdapter<IStatus>();
+export const adapter: EntityAdapter<IServiceType> = createEntityAdapter<IServiceType>();
 
-export const initialState: IStatusDictionaryState = adapter.getInitialState();
+export const initialState: IServiceTypeDictionaryState = adapter.getInitialState();
 
-export const statusDictionaryReducer = createReducer(
+export const serviceTypesDictionaryReducer = createReducer(
   initialState,
   on(addOneAction, (state, status) => adapter.addOne(status, state)),
   on(addManyAction, (state, { entities }) => adapter.addMany(entities, state)),

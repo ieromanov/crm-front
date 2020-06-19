@@ -1,23 +1,24 @@
-import { Observable } from 'rxjs';
 import { Component, Inject } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import { CONSTANT_SERVICE } from '@core/di-tokens';
+import { HomeTypeService } from '@core/services/home-type.service';
 import { IConstantService } from '@shared/interfaces/service/constant-service.interface';
 import { IHomeType } from '@shared/interfaces/entity/home.interface';
+import { IRoom } from '@shared/interfaces/entity/room.interface';
 
-import { HomeTypeService } from '@core/services/home-type.service';
 import { State } from "@store/index";
 import { homeTypesDictionaryEntitiesSelector } from '@store/dictionaries/dictionaries.selector';
 import {
-  addOneHomeTypeAction,
-  updateOneHomeTypeAction,
-  removeOneHomeTypeAction,
+  addOneAction,
+  updateOneAction,
+  removeOneAction,
 } from '@store/dictionaries/home-type-dictionary/home-type-dictionary.action';
+
 import { HomeFormComponent } from '../home-form/home-form.component';
-import { IRoom } from '@shared/interfaces/entity/room.interface';
-import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'crm-home-setting',
@@ -103,7 +104,7 @@ export class HomeSettingComponent {
         .create(data)
         .subscribe((homeType: IHomeType) => {
           componentInstance.closeModal();
-          this._store.dispatch(addOneHomeTypeAction(homeType));
+          this._store.dispatch(addOneAction(homeType));
           this.loading = false;
         });
     }
@@ -123,7 +124,7 @@ export class HomeSettingComponent {
         this._homeTypeService.update(id, data).subscribe((homeType: IHomeType) => {
           componentInstance.closeModal();
           this._store.dispatch(
-            updateOneHomeTypeAction({ id, changes: homeType })
+            updateOneAction({ id, changes: homeType })
           );
           this.loading = false;
         });
@@ -135,7 +136,7 @@ export class HomeSettingComponent {
     return () => {
       this.loading = true;
       this._homeTypeService.delete(id).subscribe(() => {
-        this._store.dispatch(removeOneHomeTypeAction({ id }));
+        this._store.dispatch(removeOneAction({ id }));
         this.loading = false;
       });
     };

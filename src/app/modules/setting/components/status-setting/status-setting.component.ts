@@ -10,9 +10,9 @@ import { StatusService } from '@core/services/status.service';
 import { State } from '@store/index';
 import { statusDictionaryEntitiesSelector } from '@store/dictionaries/dictionaries.selector';
 import {
-  updateOneStatusAction,
-  removeOneStatusAction,
-  addOneStatusAction,
+  updateOneAction,
+  removeOneAction,
+  addOneAction,
 } from '@store/dictionaries/status-dictionary/status-dictionary.action';
 
 @Component({
@@ -85,7 +85,7 @@ export class StatusSettingComponent {
       this._statusService.create(componentInstance.form.value).subscribe(
         (status: IStatus) => {
           componentInstance.closeModal();
-          this._store.dispatch(addOneStatusAction(status));
+          this._store.dispatch(addOneAction(status));
           this.loading = false
         }
       );
@@ -99,7 +99,7 @@ export class StatusSettingComponent {
         const status: IStatus = componentInstance.form.value;
         this._statusService.update(id, status).subscribe(() => {
           componentInstance.closeModal();
-          this._store.dispatch(updateOneStatusAction({ id, changes: status }));
+          this._store.dispatch(updateOneAction({ id, changes: status }));
           this.loading = false
         });
       }
@@ -110,7 +110,7 @@ export class StatusSettingComponent {
     return () => {
       this.loading = true
       this._statusService.delete(id).subscribe(() => {
-        this._store.dispatch(removeOneStatusAction({ id }));
+        this._store.dispatch(removeOneAction({ id }));
         this.loading = false
       });
     };

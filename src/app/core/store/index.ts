@@ -13,6 +13,8 @@ import {
 } from '@store/dictionaries/dictionaries.reducer';
 import { StatusDictionaryEffects } from '@store/dictionaries/status-dictionary/status-dictionary.effect';
 import { HomeTypeDictionaryEffects } from '@store/dictionaries/home-type-dictionary/home-type-dictionary.effect';
+import { ServiceTypeDictionaryEffects } from '@store/dictionaries/service-type-dictionary/service-type-dictionary.effect';
+import { RoomDictionaryEffects } from '@store/dictionaries/room-dictionary/room-dictionary.effect';
 
 export interface State {
   app: IAppState;
@@ -31,6 +33,8 @@ export const effects = [
   AppEffects,
   StatusDictionaryEffects,
   HomeTypeDictionaryEffects,
+  ServiceTypeDictionaryEffects,
+  RoomDictionaryEffects
 ];
 
 export const metaReducers: MetaReducer<State>[] = !environment.production
