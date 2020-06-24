@@ -26,6 +26,8 @@
     "@ngrx/router-store": "^9.2.0",
     "@ngrx/store": "^9.2.0",
     "@ngrx/store-devtools": "^9.2.0",
+    "@types/lodash": "^4.14.157",
+    "lodash": "^4.17.15",
     "ng-zorro-antd": "^9.1.0",
     "ngrx-store-freeze": "^0.2.4",
     "rxjs": "~6.5.5",
