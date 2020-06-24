@@ -1,10 +1,10 @@
 <form nz-form [formGroup]="form">
   <nz-form-item>
-    <nz-form-label [nzSpan]="4" nzRequired>Service Type</nz-form-label>
-    <nz-form-control nzHasFeedback [nzSpan]="20">
+    <nz-form-label [nzSpan]="6" nzRequired>Service Type</nz-form-label>
+    <nz-form-control [nzSpan]="20">
       <nz-select formControlName="serviceType">
         <nz-option
-          *ngFor="let serviceType of serviceTypes"
+          *ngFor="let serviceType of serviceTypes$ | async"
           [nzLabel]="serviceType.name"
           [nzValue]="serviceType.id"
         ></nz-option>
@@ -13,30 +13,27 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSpan]="4">Desired Move Date</nz-form-label>
+    <nz-form-label [nzSpan]="6" nzRequired>Desired Move Date</nz-form-label>
     <nz-form-control [nzSpan]="20">
-      <nz-date-picker
-        formControlName="moveDate"
-      ></nz-date-picker>
+      <nz-date-picker formControlName="moveDate"></nz-date-picker>
     </nz-form-control>
   </nz-form-item>
 
-  
   <nz-form-item>
-    <nz-form-label [nzSpan]="4">Size of Move</nz-form-label>
+    <nz-form-label [nzSpan]="6" nzRequired>Size of Move</nz-form-label>
     <nz-form-control [nzSpan]="20">
       <nz-select formControlName="home">
         <nz-option
-          *ngFor="let home of houses"
-          [nzLabel]="home.name"
-          [nzValue]="home.id"
+          *ngFor="let homeType of homeTypes$ | async"
+          [nzLabel]="homeType.name"
+          [nzValue]="homeType.id"
         ></nz-option>
       </nz-select>
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSpan]="4">Extra Rooms</nz-form-label>
+    <nz-form-label [nzSpan]="6">Extra Rooms</nz-form-label>
     <nz-form-control [nzSpan]="20">
       <nz-select
         formControlName="rooms"
@@ -46,12 +43,19 @@
         [nzMaxTagPlaceholder]="tagPlaceHolder"
       >
         <nz-option
-          *ngFor="let room of rooms"
+          *ngFor="let room of rooms$ | async"
           [nzLabel]="room.name"
           [nzValue]="room.id"
         ></nz-option>
       </nz-select>
       <ng-template #tagPlaceHolder let-selectedList> and {{ selectedList.length }} more selected </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6">Addresses</nz-form-label>
+    <nz-form-control [nzSpan]="20">
+      <crm-address-input formControlName="address"></crm-address-input>
     </nz-form-control>
   </nz-form-item>
 </form>
