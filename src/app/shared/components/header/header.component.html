@@ -4,7 +4,7 @@
   </nz-page-header-title>
 
   <nz-page-header-extra>
-    <button nz-button nzType="primary">Create request</button>
+    <button nz-button nzType="primary" (click)="showCreateRequestModal()">Create request</button>
 
     <span>
       {{ (user$ | async)?.email }}
