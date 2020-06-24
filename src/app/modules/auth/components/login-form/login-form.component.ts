@@ -10,7 +10,8 @@ import { loginAction } from '@store/user/user.action';
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements OnInit {
-  validateForm!: FormGroup;
+  public validateForm!: FormGroup;
+  public passwordVisible: boolean = false
 
   constructor(
     private readonly _store: Store<State>,
