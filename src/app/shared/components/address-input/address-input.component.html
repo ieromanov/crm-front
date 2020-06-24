@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    <input
+      class="zip-code-input"
+      type="number"
+      placeholder="zip-code"
+      nz-input
+      [value]="zipCode"
+      (input)="onZipCodeChanged($event)"
+    />
+    <input
+      class="address-input"
+      type="text"
+      placeholder="address"
+      autocomplete="street-address"
+      nz-input
+      [value]="address"
+      (input)="onAddressChanged($event)"
+    />
+  </div>
+  <div class="row">
+    <input
+      class="city-input"
+      type="text"
+      nz-input
+      placeholder="city"
+      [value]="city"
+      (input)="onCityChanged"
+    />
+    <input
+      class="state-input"
+      type="text"
+      nz-input
+      placeholder="state"
+      [value]="state"
+      (input)="onStateChanged"
+    />
+  </div>
+  <div class="row">
+    <input
+      class="number-of-floors-input"
+      type="number"
+      min='0'
+      placeholder="number of floor"
+      nz-input
+      [value]="numberOfFloor"
+      (input)="onNumberOfFloorChanged($event)"
+    />
+    <label
+      nz-checkbox
+      [(ngModel)]="withElevator"
+      [nzDisabled]="withElevatorCheckboxDisabled"
+    >with elevator</label>
+  </div>
+</div>
