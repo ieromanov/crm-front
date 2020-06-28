@@ -58,4 +58,33 @@
       <crm-address-input formControlName="address"></crm-address-input>
     </nz-form-control>
   </nz-form-item>
+
+  <nz-divider nzText="Client info" nzOrientation="left"></nz-divider>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired>First name</nz-form-label>
+    <nz-form-control [nzSpan]="20">
+      <input nz-input placeholder="first name" formControlName="clientFirstName" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired>Last name</nz-form-label>
+    <nz-form-control [nzSpan]="20">
+      <input nz-input placeholder="last name" formControlName="clientLastName" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired>Email</nz-form-label>
+    <nz-form-control [nzSpan]="20">
+      <input nz-input placeholder="email" formControlName="clientEmail" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired>Phone</nz-form-label>
+    <nz-form-control [nzSpan]="20">
+      <input nz-input placeholder="phone" formControlName="clientPhone" />
+    </nz-form-control>
+  </nz-form-item>
 </form>

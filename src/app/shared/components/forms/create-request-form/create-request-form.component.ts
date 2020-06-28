@@ -20,15 +20,10 @@ import {
 })
 export class CreateRequestFormComponent implements OnInit {
   @Input() public request = null;
-  public serviceTypes$: Observable<IServiceType[]> = this._store.select(
-    serviceTypesDictionaryEntitiesSelector
-  );
-  public homeTypes$: Observable<IHomeType[]> = this._store.select(
-    homeTypesDictionaryEntitiesSelector
-  );
-  public rooms$: Observable<IRoom[]> = this._store.select(
-    roomDictionaryEntitiesSelector
-  );
+
+  public serviceTypes$: Observable<IServiceType[]> = this._store.select(serviceTypesDictionaryEntitiesSelector);
+  public homeTypes$: Observable<IHomeType[]> = this._store.select(homeTypesDictionaryEntitiesSelector);
+  public rooms$: Observable<IRoom[]> = this._store.select(roomDictionaryEntitiesSelector);
 
   public form: FormGroup;
 
@@ -43,7 +38,12 @@ export class CreateRequestFormComponent implements OnInit {
       moveDate: [null, [Validators.required]],
       home: [null, [Validators.required]],
       rooms: [null],
-      address: [null]
+      address: [null, [Validators.required]],
+
+      clientFirstName: [null, [Validators.required]],
+      clientLastName: [null, [Validators.required]],
+      clientEmail: [null, [Validators.required, Validators.email]],
+      clientPhone: [null, [Validators.required]]
     });
   }
 }

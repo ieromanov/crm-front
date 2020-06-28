@@ -26,6 +26,7 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 import {
   MenuFoldOutline,
   MenuUnfoldOutline,
