@@ -1,5 +1,4 @@
 import { Component, Inject } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -9,6 +8,7 @@ import { HomeTypeService } from '@core/services/home-type.service';
 import { IConstantService } from '@shared/interfaces/service/constant-service.interface';
 import { IHomeType } from '@shared/interfaces/entity/home.interface';
 import { IRoom } from '@shared/interfaces/entity/room.interface';
+import { validateForm } from "@shared/helpers/validate-form-group.helper"
 
 import { State } from "@store/index";
 import { homeTypesDictionaryEntitiesSelector } from '@store/dictionaries/dictionaries.selector';
@@ -91,7 +91,7 @@ export class HomeSettingComponent {
   }
 
   private _handleOnConfirmCreate(componentInstance: HomeFormComponent) {
-    const formValid = this._validateForm(componentInstance.form)
+    const formValid = validateForm(componentInstance.form)
     if (formValid) {
       this.loading = true;
       const data = {
@@ -112,7 +112,7 @@ export class HomeSettingComponent {
 
   private _handleOnConfirmUpdate(id: string) {
     return (componentInstance: HomeFormComponent) => {
-      const formValid = this._validateForm(componentInstance.form)
+      const formValid = validateForm(componentInstance.form)
       if (formValid) {
         this.loading = true;
         const data = {
@@ -144,13 +144,5 @@ export class HomeSettingComponent {
 
   private _handleCloseModal(componentInstance: HomeFormComponent) {
     componentInstance.closeModal();
-  }
-  
-  private _validateForm(form: FormGroup) {
-    for (const field in form.controls) {
-      form.controls[field].markAsDirty();
-      form.controls[field].updateValueAndValidity();
-    }
-    return form.valid
   }
 }
