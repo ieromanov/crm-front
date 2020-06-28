@@ -1,7 +1,6 @@
 export type Address = {
-  zipCode: number;
+  place_id: string;
   address: string;
-  state: string;
-  city: string;
   numberOfFloor: number
+  withElevator: boolean
 };

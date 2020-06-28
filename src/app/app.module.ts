@@ -45,6 +45,7 @@ import { GlobalPreloaderComponent } from '@shared/components/global-preloader/gl
 import { environment } from '@env/environment';
 import { CreateRequestFormComponent } from '@shared/components/forms/create-request-form/create-request-form.component';
 import { AddressInputComponent } from '@shared/components/address-input/address-input.component';
+import { GeoService } from '@core/services/geo.service';
 
 registerLocaleData(en);
 
@@ -69,7 +70,8 @@ registerLocaleData(en);
     NzModalModule,
     NzInputModule,
     NzDatePickerModule,
-    NzCheckboxModule, 
+    NzCheckboxModule,
+    NzDividerModule,
     NzIconModule.forRoot([
       MenuFoldOutline,
       MenuUnfoldOutline,
@@ -98,6 +100,7 @@ registerLocaleData(en);
       provide: NZ_I18N,
       useValue: en_US,
     },
+    GeoService
   ],
   bootstrap: [AppComponent],
 })

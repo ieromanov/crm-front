@@ -1,92 +1,113 @@
-import { Component, forwardRef, SimpleChanges, OnChanges, DoCheck } from '@angular/core';
+import { Component, forwardRef, OnDestroy } from '@angular/core';
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  FormControl,
+} from '@angular/forms';
+import isNil from 'lodash/isNil';
+import isEmpty from 'lodash/isEmpty';
+import { Subject, Subscription } from 'rxjs';
+
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+
+import { GeoService } from '@core/services/geo.service';
 import { Address } from '@shared/types/address.type';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
-import isNil from 'lodash/isNil'
 
 @Component({
   selector: 'crm-address-input',
   templateUrl: 'address-input.component.html',
   styleUrls: ['address-input.component.scss'],
-  providers: [{ 
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => AddressInputComponent),
-    multi: true
-   }]
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => AddressInputComponent),
+      multi: true,
+    },
+  ],
 })
-export class AddressInputComponent implements ControlValueAccessor {
-  public zipCode: number
-  public address: string = ''
-  public city: string = ''
-  public state: string = ''
-  public numberOfFloor: number = 0
-  public withElevator = true
+export class AddressInputComponent implements ControlValueAccessor, OnDestroy {
+  public place_id: string;
+  public address: string;
+  public numberOfFloor: number = 0;
+  
+  public withElevator = false;
+  public withElevatorCheckboxDisabled = true;
 
-  public withElevatorCheckboxDisabled = true
+  public addressInputUpdate = new Subject<string>();
+  public addressIsSearching = false;
+  public addresses = [];
+  private _addressInputUpdateSub: Subscription;
 
   public get value(): Address {
     return {
-      zipCode: this.zipCode,
+      place_id: this.place_id,
       address: this.address,
-      city: this.city,
-      state: this.state,
-      numberOfFloor: this.numberOfFloor
-    }
+      numberOfFloor: this.numberOfFloor,
+      withElevator: this.withElevator
+    };
   }
   public set value(value: Address) {
-    this.zipCode = value.zipCode
-    this.address = value.address
-    this.city = value.city
-    this.state = value.state
-    this.numberOfFloor = value.numberOfFloor
+    this.place_id = value.place_id;
+    this.address = value.address;
+    this.numberOfFloor = value.numberOfFloor;
+    this.withElevator = value.withElevator
+  }
+
+  constructor(private readonly _geoService: GeoService) {
+    this._addressInputUpdateSub = this.addressInputUpdate
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe(this._getAddressesByInput.bind(this));
+  }
+  ngOnDestroy() {
+    this._addressInputUpdateSub.unsubscribe();
   }
 
   writeValue(value: Address): void {
     if (!isNil(value)) {
-      this.value = value
+      this.value = value;
     }
   }
   registerOnChange(fn: (address: Address) => void): void {
-    this._onChange = fn
+    this._onChange = fn;
   }
   registerOnTouched(fn: any): void {}
 
-  public onZipCodeChanged(event: InputEvent) {
-    this.zipCode = +this._getValueFromEvent(event)
-    this._onChange(this.value)
+  public onAddressChange(place_id: string) {
+    if (isEmpty(place_id)) {
+      this.address = null
+    } else {
+      const address = this.addresses.find((address) => address.place_id === place_id)
+      this.address = address.description
+    }
+    this._onChange(this.value);
   }
-  public onAddressChanged(event: InputEvent) {
-    this.address = this._getValueFromEvent(event)
-    this._onChange(this.value)
-  }
-  public onCityChanged(event: InputEvent) {
-    this.city = this._getValueFromEvent(event)
-    this._onChange(this.value)
-  }
-  public onStateChanged(event: InputEvent) {
-    this.state = this._getValueFromEvent(event)
-    this._onChange(this.value)
+  public onAddressSearch(value: string) {
+    this.addressInputUpdate.next(value);
   }
   public onNumberOfFloorChanged(event: InputEvent) {
-    this.numberOfFloor = +this._getValueFromEvent(event)
+    this.numberOfFloor = +this._getValueFromEvent(event);
     if (this.numberOfFloor === 0) {
-      this.withElevator = false
-      this.withElevatorCheckboxDisabled = true
+      this.withElevator = false;
+      this.withElevatorCheckboxDisabled = true;
     } else {
-      this.withElevatorCheckboxDisabled = false
+      this.withElevatorCheckboxDisabled = false;
     }
-    this._onChange(this.value)
-  }
-  
-  public validate({ value }: FormControl) {
-    const isNotValid = true
-    return isNotValid && {
-      invalid: true
-    }
+    this._onChange(this.value);
   }
 
   private _getValueFromEvent(event: Event): string {
-    const target: HTMLInputElement = event.target as HTMLInputElement
-    return target.value
+    const target: HTMLInputElement = event.target as HTMLInputElement;
+    return target.value;
+  }
+
+  private _getAddressesByInput(input: string) {
+    if (input.length > 3) {
+      this.addressIsSearching = true;
+      this._geoService.place(input).subscribe((data: any) => {
+        this.addresses = data.status === 'OK' ? data.predictions : []
+        this.addressIsSearching = false;
+      });
+    }
   }
 
   private _onChange(address: Address): void {}

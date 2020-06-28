@@ -1,42 +1,24 @@
 <div class="container">
   <div class="row">
-    <input
-      class="zip-code-input"
-      type="number"
-      placeholder="zip-code"
-      nz-input
-      [value]="zipCode"
-      (input)="onZipCodeChanged($event)"
-    />
-    <input
-      class="address-input"
-      type="text"
-      placeholder="address"
-      autocomplete="street-address"
-      nz-input
-      [value]="address"
-      (input)="onAddressChanged($event)"
-    />
+    <nz-select
+      nzPlaceHolder="Select address"
+      nzAllowClear
+      nzShowSearch
+      nzServerSearch
+      [(ngModel)]="place_id"
+      (ngModelChange)="onAddressChange($event)"
+      (nzOnSearch)="onAddressSearch($event)"
+    >
+      <ng-container *ngFor="let address of addresses">
+        <nz-option *ngIf="!addressIsSearching" [nzValue]="address.place_id" [nzLabel]="address.description"></nz-option>
+      </ng-container>
+      <nz-option *ngIf="addressIsSearching" nzDisabled nzCustomContent>
+        <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+      </nz-option>
+    </nz-select>
   </div>
   <div class="row">
-    <input
-      class="city-input"
-      type="text"
-      nz-input
-      placeholder="city"
-      [value]="city"
-      (input)="onCityChanged"
-    />
-    <input
-      class="state-input"
-      type="text"
-      nz-input
-      placeholder="state"
-      [value]="state"
-      (input)="onStateChanged"
-    />
-  </div>
-  <div class="row">
+    <span>Number of floor:</span>
     <input
       class="number-of-floors-input"
       type="number"
