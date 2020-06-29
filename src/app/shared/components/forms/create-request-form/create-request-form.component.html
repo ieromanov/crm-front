@@ -2,7 +2,7 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired>Service Type</nz-form-label>
     <nz-form-control [nzSpan]="20">
-      <nz-select formControlName="serviceType">
+      <nz-select formControlName="serviceTypeControl">
         <nz-option
           *ngFor="let serviceType of serviceTypes$ | async"
           [nzLabel]="serviceType.name"
@@ -15,14 +15,14 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired>Desired Move Date</nz-form-label>
     <nz-form-control [nzSpan]="20">
-      <nz-date-picker formControlName="moveDate"></nz-date-picker>
+      <nz-date-picker formControlName="moveDateControl"></nz-date-picker>
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired>Size of Move</nz-form-label>
     <nz-form-control [nzSpan]="20">
-      <nz-select formControlName="home">
+      <nz-select formControlName="homeControl">
         <nz-option
           *ngFor="let homeType of homeTypes$ | async"
           [nzLabel]="homeType.name"
@@ -36,7 +36,7 @@
     <nz-form-label [nzSpan]="6">Extra Rooms</nz-form-label>
     <nz-form-control [nzSpan]="20">
       <nz-select
-        formControlName="rooms"
+        formControlName="roomsControl"
         nzMode="multiple"
         nzPlaceHolder="Select extra rooms"
         [nzMaxTagCount]="3"
@@ -55,7 +55,7 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="6">Addresses</nz-form-label>
     <nz-form-control [nzSpan]="20">
-      <crm-address-input formControlName="address"></crm-address-input>
+      <crm-address-input formControlName="addressControl"></crm-address-input>
     </nz-form-control>
   </nz-form-item>
 
@@ -63,28 +63,38 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired>First name</nz-form-label>
     <nz-form-control [nzSpan]="20">
-      <input nz-input placeholder="first name" formControlName="clientFirstName" />
+      <input nz-input placeholder="first name" formControlName="firstNameControl" />
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired>Last name</nz-form-label>
     <nz-form-control [nzSpan]="20">
-      <input nz-input placeholder="last name" formControlName="clientLastName" />
+      <input nz-input placeholder="last name" formControlName="lastNameControl" />
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired>Email</nz-form-label>
     <nz-form-control [nzSpan]="20">
-      <input nz-input placeholder="email" formControlName="clientEmail" />
+      <input
+        nz-input
+        placeholder="email"
+        formControlName="emailControl"
+        (change)="onEmailChanged($event)"
+      />
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired>Phone</nz-form-label>
     <nz-form-control [nzSpan]="20">
-      <input nz-input placeholder="phone" formControlName="clientPhone" />
+      <input
+        nz-input
+        placeholder="phone"
+        formControlName="phoneControl"
+        (change)="onPhoneChanged($event)"
+      />
     </nz-form-control>
   </nz-form-item>
 </form>

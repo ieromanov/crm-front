@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { concatMap } from 'rxjs/operators';
-import { of, concat, merge } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+import { of, merge } from 'rxjs';
 
 import { loadInitialDataAction } from '@store/app/app.action';
 import { getUserInfoAction } from '@store/user/user.action';
@@ -17,8 +17,8 @@ export class AppEffects {
   loadInitialData$ = createEffect(() =>
     this._actions$.pipe<any, any>(
       ofType(loadInitialDataAction),
-      concatMap(() =>
-        concat(
+      mergeMap(() =>
+        merge(
           of(getUserInfoAction()),
           of(loadStatusesAction()),
           of(loadHomeTypesAction()),

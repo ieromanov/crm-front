@@ -27,6 +27,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 import {
   MenuFoldOutline,
   MenuUnfoldOutline,
@@ -73,6 +74,7 @@ registerLocaleData(en);
     NzDatePickerModule,
     NzCheckboxModule,
     NzDividerModule,
+    NzMessageModule,
     NzIconModule.forRoot([
       MenuFoldOutline,
       MenuUnfoldOutline,
