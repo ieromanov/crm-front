@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { State } from '@core/store';
-import { loadInitialDataAction } from '@core/store/app/app.action';
+import { State } from '@store/index';
+import { loadInitialDataAction } from '@store/app/app.action';
 import { MenuItem } from '@shared/types/menu-item.type';
 
 import { menuItems } from './layout-menu-items';
