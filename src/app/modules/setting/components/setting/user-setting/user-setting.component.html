@@ -1,0 +1,62 @@
+<button class="create-button" nz-button nzType="primary" (click)="showCreateModal()">
+  <i nz-icon nzType="plus" nzTheme="outline"></i> Add User
+</button>
+
+<nz-table
+  #table
+  nzBordered
+  [nzData]="users"
+  [nzLoading]="loading"
+  [nzFrontPagination]="false"
+  [nzTotal]="totalResults"
+  [nzPageSize]="pageSize"
+  [nzPageIndex]="pageIndex"
+  (nzQueryParams)="onQueryParamsChange($event)"
+>
+  <thead>
+    <tr>
+      <th nzWidth="20%">First name</th>
+      <th nzWidth="20%">Last Name</th>
+      <th nzWidth="20%">Phone</th>
+      <th nzWidth="20%">Email</th>
+      <th nzWidth="10%">Email Verified</th>
+      <th nzWidth="10%">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of table.data">
+      <td>{{ user.firstName }}</td>
+      <td>{{ user.lastName }}</td>
+      <td>{{ user.phone }}</td>
+      <td>{{ user.email }}</td>
+      <td>
+        <i
+          nz-icon
+          [nzType]="user.emailVerified ? 'check-circle' : 'stop'"
+          nzTheme="twotone"
+          [nzTwotoneColor]="colorsConstants[user.active ? 'success' : 'danger']"
+        ></i>
+      </td>
+      <td>
+        <button
+          nz-button
+          nzType="link"
+          nzShape="circle"
+          (click)="showUpdateModal(user)"
+        >
+          <i nz-icon nzType="edit" nzTheme="outline"></i>
+        </button>
+        <nz-divider nzType="vertical"></nz-divider>
+        <button
+          nz-button
+          nzDanger
+          nzType="link"
+          nzShape="circle"
+          (click)="showDeleteConfirmModal(user.id)"
+        >
+          <i nz-icon nzType="delete" nzTheme="outline"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

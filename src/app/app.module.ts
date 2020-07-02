@@ -106,6 +106,7 @@ registerLocaleData(en);
       useValue: en_US,
     },
     GeoService,
+    UserService,
     StatusService
   ],
   bootstrap: [AppComponent],

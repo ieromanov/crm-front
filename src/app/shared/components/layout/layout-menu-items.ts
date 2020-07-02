@@ -39,6 +39,10 @@ export const menuItems: MenuItem[] = [
         link: '/setting/truck',
         title: 'Truck',
       },
+      {
+        link: '/setting/users',
+        title: 'Users',
+      },
     ],
   },
 ];

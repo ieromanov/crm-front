@@ -7,6 +7,7 @@ import { HomeSettingComponent } from './components/setting/home-setting/home-set
 import { RoomSettingComponent } from './components/setting/room-setting/room-setting.component';
 import { ServiceTypeSettingComponent } from './components/setting/service-type-setting/service-type-setting.component';
 import { TruckSettingComponent } from './components/setting/truck-setting/truck-setting.component';
+import { UserSettingComponent } from './components/setting/user-setting/user-setting.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'general' },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'room', component: RoomSettingComponent },
   { path: 'home', component: HomeSettingComponent },
   { path: 'service-type', component: ServiceTypeSettingComponent },
-  { path: 'truck', component: TruckSettingComponent }
+  { path: 'truck', component: TruckSettingComponent },
+  { path: 'users', component: UserSettingComponent },
 ];
 
 @NgModule({

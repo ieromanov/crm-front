@@ -22,6 +22,7 @@ import {
   DeleteOutline,
 } from '@ant-design/icons-angular/icons';
 
+import { UserService } from '@core/services/user.service';
 
 import { ConstantService } from '@core/services/constant.service';
 import { TruckService } from '@core/services/truck.service';
@@ -37,12 +38,14 @@ import { HomeSettingComponent } from './components/setting/home-setting/home-set
 import { RoomSettingComponent } from './components/setting/room-setting/room-setting.component';
 import { ServiceTypeSettingComponent } from './components/setting/service-type-setting/service-type-setting.component';
 import { TruckSettingComponent } from './components/setting/truck-setting/truck-setting.component';
+import { UserSettingComponent } from './components/setting/user-setting/user-setting.component';
 
 import { StatusFormComponent } from './components/form/status-form/status-form.component';
 import { RoomFormComponent } from './components/form/room-form/room-form.component';
 import { HomeFormComponent } from './components/form/home-form/home-form.component';
 import { ServiceTypeFormComponent } from './components/form/service-type-form/service-type-form.component';
 import { TruckFormComponent } from './components/form/truck-form/truck-form.component';
+import { UserFormComponent } from './components/form/user-form/user-form.component';
 
 @NgModule({
   imports: [
@@ -78,12 +81,15 @@ import { TruckFormComponent } from './components/form/truck-form/truck-form.comp
     ServiceTypeFormComponent,
     TruckSettingComponent,
     TruckFormComponent,
+    UserSettingComponent,
+    UserFormComponent
   ],
   providers: [
     StatusService,
     RoomService,
     HomeTypeService,
     ServiceTypeService,
+    UserService,
     ConstantService,
     TruckService,
     RoomService
