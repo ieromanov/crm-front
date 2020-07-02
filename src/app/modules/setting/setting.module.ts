@@ -22,25 +22,27 @@ import {
   DeleteOutline,
 } from '@ant-design/icons-angular/icons';
 
-import { StatusServiceProvider } from '@core/provider/status-service.provider';
-import { RoomServiceProvider } from '@core/provider/room-service.provider';
-import { HomeTypeServiceProvider } from '@core/provider/home-service.provider';
-import { ServiceTypeServiceProvider } from '@core/provider/service-type-service.provider';
-import { TruckServiceProvider } from '@core/provider/truck-service.provider';
-import { ConstantServiceProvider } from '@core/provider/constant-service.provider';
+
+import { ConstantService } from '@core/services/constant.service';
+import { TruckService } from '@core/services/truck.service';
+import { RoomService } from '@core/services/room.service';
+import { StatusService } from '@core/services/status.service';
+import { HomeTypeService } from '@core/services/home-type.service';
+import { ServiceTypeService } from '@core/services/service-type.service';
 
 import { GeneralSettingRoutingModule } from './setting-routing.module';
-import { GeneralSettingComponent } from './components/general-setting/general-setting.component';
-import { StatusSettingComponent } from './components/status-setting/status-setting.component';
-import { StatusFormComponent } from './components/status-form/status-form.component';
-import { RoomFormComponent } from './components/room-form/room-form.component';
-import { HomeSettingComponent } from './components/home-setting/home-setting.component';
-import { HomeFormComponent } from './components/home-form/home-form.component';
-import { RoomSettingComponent } from './components/room-setting/room-setting.component';
-import { ServiceTypeSettingComponent } from './components/service-type-setting/service-type-setting.component';
-import { ServiceTypeFormComponent } from './components/service-type-form/service-type-form.component';
-import { TruckSettingComponent } from './components/truck-setting/truck-setting.component';
-import { TruckFormComponent } from './components/truck-form/truck-form.component';
+import { GeneralSettingComponent } from './components/setting/general-setting/general-setting.component';
+import { StatusSettingComponent } from './components/setting/status-setting/status-setting.component';
+import { HomeSettingComponent } from './components/setting/home-setting/home-setting.component';
+import { RoomSettingComponent } from './components/setting/room-setting/room-setting.component';
+import { ServiceTypeSettingComponent } from './components/setting/service-type-setting/service-type-setting.component';
+import { TruckSettingComponent } from './components/setting/truck-setting/truck-setting.component';
+
+import { StatusFormComponent } from './components/form/status-form/status-form.component';
+import { RoomFormComponent } from './components/form/room-form/room-form.component';
+import { HomeFormComponent } from './components/form/home-form/home-form.component';
+import { ServiceTypeFormComponent } from './components/form/service-type-form/service-type-form.component';
+import { TruckFormComponent } from './components/form/truck-form/truck-form.component';
 
 @NgModule({
   imports: [
@@ -75,15 +77,16 @@ import { TruckFormComponent } from './components/truck-form/truck-form.component
     ServiceTypeSettingComponent,
     ServiceTypeFormComponent,
     TruckSettingComponent,
-    TruckFormComponent
+    TruckFormComponent,
   ],
   providers: [
-    StatusServiceProvider,
-    RoomServiceProvider,
-    HomeTypeServiceProvider,
-    ServiceTypeServiceProvider,
-    TruckServiceProvider,
-    ConstantServiceProvider
+    StatusService,
+    RoomService,
+    HomeTypeService,
+    ServiceTypeService,
+    ConstantService,
+    TruckService,
+    RoomService
   ],
 })
 export class SettingModule {}

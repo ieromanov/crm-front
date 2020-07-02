@@ -3,5 +3,6 @@ export type UserInfo = {
   firstName: string;
   lastName: string;
   email: string;
+  emailVerified: boolean;
   phone: string;
 }

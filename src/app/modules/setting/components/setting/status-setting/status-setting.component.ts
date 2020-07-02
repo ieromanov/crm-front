@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { NzModalService } from 'ng-zorro-antd';
 import { Observable } from 'rxjs';
 
-import { StatusFormComponent } from '../status-form/status-form.component';
+import { StatusFormComponent } from '../../form/status-form/status-form.component';
 import { IStatus } from '@shared/interfaces/entity/status.interface';
 import { StatusService } from '@core/services/status.service';
 

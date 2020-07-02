@@ -6,7 +6,7 @@ import { IApiService } from '@shared/interfaces/service/api-service.interface';
 import { API_SERVICE } from '@core/di-tokens';
 import { CrudService } from '@shared/crud/crud-abstract.service';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class StatusService extends CrudService<IStatus>
   implements IStatusService {
   constructor(

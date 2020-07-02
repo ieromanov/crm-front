@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { GeneralSettingComponent } from './components/general-setting/general-setting.component';
-import { StatusSettingComponent } from './components/status-setting/status-setting.component';
-import { HomeSettingComponent } from './components/home-setting/home-setting.component';
-import { RoomSettingComponent } from './components/room-setting/room-setting.component';
-import { ServiceTypeSettingComponent } from './components/service-type-setting/service-type-setting.component';
-import { TruckSettingComponent } from './components/truck-setting/truck-setting.component';
+import { GeneralSettingComponent } from './components/setting/general-setting/general-setting.component';
+import { StatusSettingComponent } from './components/setting/status-setting/status-setting.component';
+import { HomeSettingComponent } from './components/setting/home-setting/home-setting.component';
+import { RoomSettingComponent } from './components/setting/room-setting/room-setting.component';
+import { ServiceTypeSettingComponent } from './components/setting/service-type-setting/service-type-setting.component';
+import { TruckSettingComponent } from './components/setting/truck-setting/truck-setting.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'general' },

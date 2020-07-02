@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 
 import { IServiceType } from '@shared/interfaces/entity/service-type.interface';
 
-import { ServiceTypeFormComponent } from '../service-type-form/service-type-form.component';
+import { ServiceTypeFormComponent } from '../../form/service-type-form/service-type-form.component';
 import { ServiceTypeService } from '@core/services/service-type.service';
 
 import { State } from '@core/store';

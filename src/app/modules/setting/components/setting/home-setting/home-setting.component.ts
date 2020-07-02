@@ -1,11 +1,11 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { CONSTANT_SERVICE } from '@core/di-tokens';
 import { HomeTypeService } from '@core/services/home-type.service';
-import { IConstantService } from '@shared/interfaces/service/constant-service.interface';
+import { ConstantService } from '@core/services/constant.service';
+
 import { IHomeType } from '@shared/interfaces/entity/home.interface';
 import { IRoom } from '@shared/interfaces/entity/room.interface';
 import { validateForm } from "@shared/helpers/validate-form-group.helper"
@@ -18,7 +18,7 @@ import {
   removeOneAction,
 } from '@store/dictionaries/home-type-dictionary/home-type-dictionary.action';
 
-import { HomeFormComponent } from '../home-form/home-form.component';
+import { HomeFormComponent } from '../../form/home-form/home-form.component';
 
 @Component({
   selector: 'crm-home-setting',
@@ -36,8 +36,7 @@ export class HomeSettingComponent {
   }
 
   constructor(
-    @Inject(CONSTANT_SERVICE)
-    private readonly _constantService: IConstantService,
+    private readonly _constantService: ConstantService,
     private readonly _homeTypeService: HomeTypeService,
     private readonly _modalService: NzModalService,
     private readonly _store: Store<State>

@@ -1,13 +1,13 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ROOM_SERVICE, CONSTANT_SERVICE } from '@core/di-tokens';
 import { NzTableQueryParams, NzModalService } from 'ng-zorro-antd';
-import { IRoomService } from '@shared/interfaces/service/room-service.interface';
-import { IConstantService } from '@shared/interfaces/service/constant-service.interface';
+
+import { RoomService } from '@core/services/room.service';
+import { ConstantService } from '@core/services/constant.service';
 import { IRoom } from '@shared/interfaces/entity/room.interface';
 
-import { RoomFormComponent } from '../room-form/room-form.component';
+import { RoomFormComponent } from '../../form/room-form/room-form.component';
 
 @Component({
   selector: 'crm-room-setting',
@@ -22,11 +22,9 @@ export class RoomSettingComponent {
   public pageIndex: number = 1;
 
   constructor(
-    @Inject(ROOM_SERVICE)
-    private readonly roomService: IRoomService,
-    @Inject(CONSTANT_SERVICE)
-    private readonly _constantService: IConstantService,
-    private readonly modalService: NzModalService
+    private readonly _roomService: RoomService,
+    private readonly _constantService: ConstantService,
+    private readonly _modalService: NzModalService
   ) {}
 
   public get colorsConstants() {
@@ -40,7 +38,7 @@ export class RoomSettingComponent {
   }
 
   public showDeleteConfirmModal(id: string) {
-    this.modalService.confirm({
+    this._modalService.confirm({
       nzTitle: 'Do you want to delete these room?',
       nzContent: 'When clicked the OK button, this room will be deleted',
       nzOkType: 'danger',
@@ -49,7 +47,7 @@ export class RoomSettingComponent {
   }
 
   public showCreateRoomModal() {
-    this.modalService.create({
+    this._modalService.create({
       nzTitle: 'Create room',
       nzContent: RoomFormComponent,
       nzFooter: [
@@ -67,7 +65,7 @@ export class RoomSettingComponent {
   }
 
   public showUpdateRoomModal(room: IRoom) {
-    this.modalService.create({
+    this._modalService.create({
       nzTitle: 'Update room',
       nzContent: RoomFormComponent,
       nzComponentParams: { room },
@@ -120,7 +118,7 @@ export class RoomSettingComponent {
 
   private _getAll() {
     this.loading = true;
-    return this.roomService
+    return this._roomService
       .findAll({
         limit: this.pageSize,
         page: this.pageIndex,
@@ -133,14 +131,14 @@ export class RoomSettingComponent {
   }
 
   private _delete(id: string) {
-    return this.roomService.delete(id);
+    return this._roomService.delete(id);
   }
 
   private _create(room: IRoom): Observable<IRoom> {
-    return this.roomService.create(room);
+    return this._roomService.create(room);
   }
 
   private _update(id: string, room: IRoom): Observable<IRoom> {
-    return this.roomService.update(id, room);
+    return this._roomService.update(id, room);
   }
 }

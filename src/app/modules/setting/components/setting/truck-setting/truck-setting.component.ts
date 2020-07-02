@@ -1,13 +1,13 @@
-import { Component, Inject } from '@angular/core';
-
-import { TRUCK_SERVICE, CONSTANT_SERVICE } from '@core/di-tokens';
+import { Component } from '@angular/core';
 import { NzTableQueryParams, NzModalService } from 'ng-zorro-antd';
-import { ITruckService } from '@shared/interfaces/service/truck-service.interface';
-import { IConstantService } from '@shared/interfaces/service/constant-service.interface';
+
+
+import { TruckService } from '@core/services/truck.service';
+import { ConstantService } from '@core/services/constant.service';
+
 import { ITruck } from '@shared/interfaces/entity/truck.interface';
 
-import { TruckFormComponent } from '../truck-form/truck-form.component';
-import { Observable } from 'rxjs';
+import { TruckFormComponent } from '../../form/truck-form/truck-form.component';
 
 @Component({
   selector: 'crm-truck-setting',
@@ -22,10 +22,8 @@ export class TruckSettingComponent {
   public pageIndex: number = 1;
 
   constructor(
-    @Inject(TRUCK_SERVICE)
-    private readonly _truckService: ITruckService,
-    @Inject(CONSTANT_SERVICE)
-    private readonly _constantService: IConstantService,
+    private readonly _truckService: TruckService,
+    private readonly _constantService: ConstantService,
     private readonly _modalService: NzModalService
   ) {}
 
@@ -87,14 +85,14 @@ export class TruckSettingComponent {
 
   private _handleOnConfirmDelete(id: string) {
     return async () => {
-      await this._delete(id).toPromise();
+      await this._truckService.delete(id).toPromise();
       this._getAll();
     }
   }
 
   private _handleOnConfirmCreate(componentInstance: TruckFormComponent) {
     if (componentInstance.form.valid) {
-      this._create(componentInstance.form.value)
+      this._truckService.create(componentInstance.form.value)
         .subscribe(() => {
           componentInstance.closeModal();
           this._getAll();
@@ -105,7 +103,7 @@ export class TruckSettingComponent {
   private _handleOnConfirmUpdate(id: string) {
     return (componentInstance: TruckFormComponent) => {
       if (componentInstance.form.valid) {
-        this._update(id, componentInstance.form.value)
+        this._truckService.update(id, componentInstance.form.value)
           .subscribe(() => {
             componentInstance.closeModal();
             this._getAll();
@@ -130,17 +128,5 @@ export class TruckSettingComponent {
         this.totalResults = trucks.total;
         this.loading = false;
       });
-  }
-
-  private _delete(id: string) {
-    return this._truckService.delete(id);
-  }
-
-  private _create(truck: ITruck): Observable<ITruck> {
-    return this._truckService.create(truck);
-  }
-
-  private _update(id: string, truck: ITruck): Observable<ITruck> {
-    return this._truckService.update(id, truck);
   }
 }
