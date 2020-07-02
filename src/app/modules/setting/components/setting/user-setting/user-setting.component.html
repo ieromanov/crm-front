@@ -34,7 +34,7 @@
           nz-icon
           [nzType]="user.emailVerified ? 'check-circle' : 'stop'"
           nzTheme="twotone"
-          [nzTwotoneColor]="colorsConstants[user.active ? 'success' : 'danger']"
+          [nzTwotoneColor]="colorsConstants[user.emailVerified ? 'success' : 'danger']"
         ></i>
       </td>
       <td>

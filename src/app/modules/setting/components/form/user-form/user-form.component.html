@@ -1,22 +1,36 @@
 <form nz-form [formGroup]="form">
   <nz-form-item>
-    <nz-form-label [nzSpan]="4" nzRequired>Name</nz-form-label>
-    <nz-form-control nzHasFeedback [nzSpan]="20">
-      <input formControlName="name" nz-input />
+    <nz-form-label [nzSpan]="6" nzRequired>First name</nz-form-label>
+    <nz-form-control nzHasFeedback [nzSpan]="18">
+      <input formControlName="firstName" nz-input />
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSpan]="4">Description</nz-form-label>
-    <nz-form-control [nzSpan]="20">
-      <textarea rows="4" nz-input formControlName="description"></textarea>
+    <nz-form-label [nzSpan]="6" nzRequired>Last Name</nz-form-label>
+    <nz-form-control [nzSpan]="18">
+      <input formControlName="lastName" nz-input />
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSpan]="4">Active</nz-form-label>
-    <nz-form-control [nzSpan]="20">
-      <nz-switch formControlName="active"></nz-switch>
+    <nz-form-label [nzSpan]="6" nzRequired>Email</nz-form-label>
+    <nz-form-control [nzSpan]="18">
+      <input formControlName="email" nz-input />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6">Email Verified</nz-form-label>
+    <nz-form-control [nzSpan]="18">
+      <nz-switch formControlName="emailVerified"></nz-switch>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzRequired>Phone</nz-form-label>
+    <nz-form-control [nzSpan]="18">
+      <input formControlName="phone" nz-input />
     </nz-form-control>
   </nz-form-item>
 </form>
