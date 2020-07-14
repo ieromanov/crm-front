@@ -1,8 +1,8 @@
 export type UserInfo = {
-  id: string;
+  id?: string;
   firstName: string;
   lastName: string;
   email: string;
-  emailVerified: boolean;
+  emailVerified?: boolean;
   phone: string;
 }

@@ -83,19 +83,22 @@ export class UserSettingComponent {
   }
 
   private _handleOnConfirmDelete(id: string) {
-    return async () => {
-      // await this._delete(id).toPromise();
-      // this._getAll();
+    return () => {
+      this._userService.delete(id).subscribe(() => {
+        this._getAll();
+      });
     }
   }
 
   private _handleOnConfirmCreate(componentInstance: UserFormComponent) {
     if (componentInstance.form.valid) {
-      // this._create(componentInstance.form.value)
-      //   .subscribe(() => {
-      //     componentInstance.closeModal();
-      //     this._getAll();
-      //   });
+      this._userService.create(componentInstance.form.value)
+        .subscribe(() => {
+          componentInstance.closeModal();
+          this._getAll();
+        }, (error) => {
+          console.log(error)
+        });
     }
   }
 

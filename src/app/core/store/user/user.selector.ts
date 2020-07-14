@@ -8,3 +8,8 @@ export const userInfoSelector = createSelector(
   selectUserState,
   (state: IUserState) => state.info
 )
+
+export const loginErrorSelector = createSelector(
+  selectUserState,
+  (state: IUserState) => state.loginError
+)

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,6 +28,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzResultModule } from 'ng-zorro-antd/result';
 import {
   MenuFoldOutline,
   MenuUnfoldOutline,
@@ -42,14 +43,16 @@ import { CoreModule } from '@core/core.module';
 import { GeoService } from '@core/services/geo.service';
 import { UserService } from '@core/services/user.service';
 import { StatusService } from '@core/services/status.service';
+import { RequestService } from '@core/services/request.service';
 
+import { environment } from '@env/environment';
 import { reducers, effects } from '@store/index';
 import { HeaderComponent } from '@shared/components/header/header.component';
 import { LayoutComponent } from '@shared/components/layout/layout.component';
 import { GlobalPreloaderComponent } from '@shared/components/global-preloader/global-preloader.component';
-import { environment } from '@env/environment';
 import { CreateRequestFormComponent } from '@shared/components/forms/create-request-form/create-request-form.component';
 import { AddressInputComponent } from '@shared/components/address-input/address-input.component';
+import { ResultComponent } from '@shared/components/result/result.component';
 
 registerLocaleData(en);
 
@@ -77,6 +80,7 @@ registerLocaleData(en);
     NzCheckboxModule,
     NzDividerModule,
     NzMessageModule,
+    NzResultModule,
     NzIconModule.forRoot([
       MenuFoldOutline,
       MenuUnfoldOutline,
@@ -98,7 +102,8 @@ registerLocaleData(en);
     HeaderComponent,
     GlobalPreloaderComponent,
     CreateRequestFormComponent,
-    AddressInputComponent
+    AddressInputComponent,
+    ResultComponent
   ],
   providers: [
     {
@@ -107,7 +112,8 @@ registerLocaleData(en);
     },
     GeoService,
     UserService,
-    StatusService
+    StatusService,
+    RequestService
   ],
   bootstrap: [AppComponent],
 })

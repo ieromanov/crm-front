@@ -10,17 +10,6 @@ import { State } from '@store/index';
   selector: 'crm-global-preloader',
   templateUrl: 'global-preloader.component.html',
   styleUrls: ['./global-preloader.component.scss'],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate(160, style({ opacity: 1 }))
-      ]),
-      transition(':leave', [
-        animate(160, style({ opacity: 0 }))
-      ])
-    ])
-  ]
 })
 
 export class GlobalPreloaderComponent {

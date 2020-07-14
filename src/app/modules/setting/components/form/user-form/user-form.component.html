@@ -2,35 +2,28 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired>First name</nz-form-label>
     <nz-form-control nzHasFeedback [nzSpan]="18">
-      <input formControlName="firstName" nz-input />
+      <input formControlName="firstName" nz-input autocomplete="given-name"/>
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired>Last Name</nz-form-label>
     <nz-form-control [nzSpan]="18">
-      <input formControlName="lastName" nz-input />
+      <input formControlName="lastName" nz-input autocomplete="family-name" />
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired>Email</nz-form-label>
     <nz-form-control [nzSpan]="18">
-      <input formControlName="email" nz-input />
-    </nz-form-control>
-  </nz-form-item>
-
-  <nz-form-item>
-    <nz-form-label [nzSpan]="6">Email Verified</nz-form-label>
-    <nz-form-control [nzSpan]="18">
-      <nz-switch formControlName="emailVerified"></nz-switch>
+      <input formControlName="email" nz-input autocomplete="email" />
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
     <nz-form-label [nzSpan]="6" nzRequired>Phone</nz-form-label>
     <nz-form-control [nzSpan]="18">
-      <input formControlName="phone" nz-input />
+      <input formControlName="phone" nz-input autocomplete="tel" />
     </nz-form-control>
   </nz-form-item>
 </form>

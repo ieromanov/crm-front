@@ -6,5 +6,5 @@ export const selectAppState =  createFeatureSelector<State, IAppState>('app');
 
 export const loadingAppSelector = createSelector(
   selectAppState,
-  (state: IAppState) => state.loadingCount > 0
+  (state: IAppState) => !state.firstLoadingFinished && state.loadingCount > 0
 )

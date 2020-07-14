@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { UserInfo } from '@shared/types/user-info.type';
 import { LoginPayload } from '@shared/interfaces/login-payload.interface';
+import { HttpErrorType } from '@shared/types/error.type';
 
 export enum UserActionTypes {
   login = '[User] login user',
@@ -24,7 +25,10 @@ export const loginSuccessAction = createAction(
   UserActionTypes.loginSuccess,
   props<UserInfo>()
 );
-export const loginFailAction = createAction(UserActionTypes.loginFail);
+export const loginFailAction = createAction(
+  UserActionTypes.loginFail,
+  props<{ error: string }>()
+);
 
 export const getUserInfoAction = createAction(UserActionTypes.getUserInfo);
 export const getUserInfoSuccessAction = createAction(

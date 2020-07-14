@@ -53,7 +53,6 @@ import { UserFormComponent } from './components/form/user-form/user-form.compone
     FormsModule,
     ReactiveFormsModule,
     GeneralSettingRoutingModule,
-    HttpClientModule,
 
     NzButtonModule,
     NzInputModule,

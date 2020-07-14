@@ -1,10 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { UpdatePasswordFormComponent } from '@shared/components/forms/update-password-form/update-password-form.component';
 import { AuthComponent } from './auth.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'login' },
-  { path: 'login', component: AuthComponent },
+  {
+    path: '',
+    component: AuthComponent,
+    children: [
+      { path: 'login', component: LoginFormComponent },
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+    ]
+  },
 ];
 
 @NgModule({

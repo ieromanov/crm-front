@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { State } from '@store/index';
 import { Store } from '@ngrx/store';
+
+import { validateForm } from '@shared/helpers/validate-form-group.helper';
+
+import { State } from '@store/index';
 import { loginAction } from '@store/user/user.action';
+import { loginErrorSelector } from '@store/user/user.selector';
 
 @Component({
   selector: 'crm-login-form',
@@ -10,8 +14,9 @@ import { loginAction } from '@store/user/user.action';
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements OnInit {
-  public validateForm!: FormGroup;
+  public form!: FormGroup;
   public passwordVisible: boolean = false
+  public loginError$ = this._store.select(loginErrorSelector)
 
   constructor(
     private readonly _store: Store<State>,
@@ -19,15 +24,15 @@ export class LoginFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.validateForm = this._formBuilder.group({
+    this.form = this._formBuilder.group({
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required]],
     });
   }
 
   login() {
-    if (this.validateForm.valid) {
-      const { email, password } = this.validateForm.value
+    if (validateForm(this.form)) {
+      const { email, password } = this.form.value
       this._store.dispatch(loginAction({ email, password }))
     }
   }

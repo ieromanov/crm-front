@@ -6,15 +6,15 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpErrorInterceptor implements HttpInterceptor {
-  constructor(private readonly notificationService: NzNotificationService) {}
+  constructor(private readonly _router: Router) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -23,19 +23,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   }
 
   handleError(error: HttpErrorResponse) {
-    let errorTitle = 'Error';
-    let errorMessage = 'Error message';
-    if (error.error instanceof ErrorEvent) {
-      errorTitle = error.error.error;
-      errorMessage = error.error.message;
-    } else {
-      errorTitle = 'Error code: ' + error.status;
-      errorMessage = error.message;
+    if (error.status === 500) {
+      this._router.navigate(['/error'])
     }
-    this.notificationService.create('error', errorTitle, errorMessage, {
-      nzDuration: 0,
-      nzPlacement: 'bottomRight',
-    });
-    return throwError(error);
+    return throwError(error)
   }
 }

@@ -26,6 +26,7 @@ import {
   logoutFailAction,
   logoutAction,
 } from './user.action';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class UserEffects {
@@ -37,20 +38,25 @@ export class UserEffects {
   ) {}
 
   login$ = createEffect(() =>
-    this._actions$.pipe<LoginPayload, any>(
+    this._actions$.pipe(
       ofType(loginAction),
       mergeMap(({ email, password }: LoginPayload) =>
         this._authService.login(email, password).pipe(
           map((userInfo) => loginSuccessAction(userInfo)),
-          catchError(() => of(loginFailAction()))
+          catchError((error: HttpErrorResponse) => {
+            if (error instanceof HttpErrorResponse) {
+              return of(loginFailAction({ error: error.error.message }))
+            } else {
+              return of(loginFailAction({ error: 'Unknown error' }))
+            }
+          })
         )
       )
     )
   );
 
-  loginSuccess$ = createEffect(
-    () =>
-      this._actions$.pipe<any, any>(
+  loginSuccess$ = createEffect(() =>
+      this._actions$.pipe(
         ofType(loginSuccessAction),
         tap(() => this._router.navigate(['/']))
       ),
@@ -58,7 +64,7 @@ export class UserEffects {
   );
 
   logout$ = createEffect(() =>
-    this._actions$.pipe<LoginPayload, any>(
+    this._actions$.pipe(
       ofType(logoutAction),
       mergeMap(() =>
         this._authService.logout().pipe(
@@ -69,9 +75,8 @@ export class UserEffects {
     )
   );
 
-  logoutSuccess$ = createEffect(
-    () =>
-      this._actions$.pipe<any, any>(
+  logoutSuccess$ = createEffect(() =>
+      this._actions$.pipe(
         ofType(logoutSuccessAction),
         tap(() => this._router.navigate(['/auth/login']))
       ),
@@ -79,7 +84,7 @@ export class UserEffects {
   );
 
   getUserInfo$ = createEffect(() =>
-    this._actions$.pipe<any, any>(
+    this._actions$.pipe(
       ofType(getUserInfoAction),
       concatMap(() => concat(
           of(startLoadingAction()),
@@ -94,7 +99,7 @@ export class UserEffects {
   );
 
   getUserInfoFail$ = createEffect(() =>
-    this._actions$.pipe<any, any>(
+    this._actions$.pipe(
       ofType(getUserInfoFailAction),
       map(() => finishLoadingAction())
     )

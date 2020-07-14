@@ -6,9 +6,8 @@ import {
   HOME_NAME_MAX_LENGTH,
   HOME_DESCRIPTION_MAX_LENGTH,
 } from './home-form.constants';
-import { ROOM_SERVICE } from '@core/di-tokens';
-import { IRoomService } from '@shared/interfaces/service/room-service.interface';
 import { IRoom } from '@shared/interfaces/entity/room.interface';
+import { RoomService } from '@core/services/room.service';
 
 @Component({
   selector: 'crm-home-form',
@@ -22,8 +21,7 @@ export class HomeFormComponent implements OnInit {
   public selectedRooms: IRoom[]
 
   constructor(
-    @Inject(ROOM_SERVICE)
-    private readonly _roomService: IRoomService,
+    private readonly _roomService: RoomService,
     private readonly _modalRef: NzModalRef,
     private readonly _formBuilder: FormBuilder
   ) {}

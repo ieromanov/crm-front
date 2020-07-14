@@ -26,7 +26,7 @@ import { Address } from '@shared/types/address.type';
   ],
 })
 export class AddressInputComponent implements ControlValueAccessor, OnDestroy {
-  public place_id: string;
+  public placeId: string;
   public address: string;
   public numberOfFloor: number = 0;
   
@@ -40,14 +40,14 @@ export class AddressInputComponent implements ControlValueAccessor, OnDestroy {
 
   public get value(): Address {
     return {
-      place_id: this.place_id,
+      placeId: this.placeId,
       address: this.address,
       numberOfFloor: this.numberOfFloor,
       withElevator: this.withElevator
     };
   }
   public set value(value: Address) {
-    this.place_id = value.place_id;
+    this.placeId = value.placeId;
     this.address = value.address;
     this.numberOfFloor = value.numberOfFloor;
     this.withElevator = value.withElevator
@@ -72,11 +72,11 @@ export class AddressInputComponent implements ControlValueAccessor, OnDestroy {
   }
   registerOnTouched(fn: any): void {}
 
-  public onAddressChange(place_id: string) {
-    if (isEmpty(place_id)) {
+  public onAddressChange(placeId: string) {
+    if (isEmpty(placeId)) {
       this.address = null
     } else {
-      const address = this.addresses.find((address) => address.place_id === place_id)
+      const address = this.addresses.find((address) => address.place_id === placeId)
       this.address = address.description
     }
     this._onChange(this.value);
@@ -93,6 +93,10 @@ export class AddressInputComponent implements ControlValueAccessor, OnDestroy {
       this.withElevatorCheckboxDisabled = false;
     }
     this._onChange(this.value);
+  }
+  public onWithElevatorChanged() {
+    this.withElevator = !this.withElevator
+    this._onChange(this.value)
   }
 
   private _getValueFromEvent(event: Event): string {

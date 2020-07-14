@@ -3,12 +3,12 @@ import { createAction } from '@ngrx/store';
 enum AppActionTypes {
   startLoading = '[App] loading start',
   finishLoading = '[App] loading finish',
-  
-  loadInitialData = '[App] load initial data'
+
+  finishFirstLoading = '[App] finish first loading',
 }
 
 export const startLoadingAction = createAction(AppActionTypes.startLoading);
 
 export const finishLoadingAction = createAction(AppActionTypes.finishLoading);
 
-export const loadInitialDataAction = createAction(AppActionTypes.loadInitialData);
+export const finishFirstLoadingAction = createAction(AppActionTypes.finishFirstLoading);

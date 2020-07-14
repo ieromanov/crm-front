@@ -35,20 +35,18 @@ export class UserFormComponent implements OnInit {
         user.lastName,
         [Validators.required, Validators.maxLength(LAST_NAME_MAX_LENGTH)],
       ],
-      email: [user.email, [Validators.maxLength(EMAIL_MAX_LENGTH)]],
-      emailVerified: [user.emailVerified],
-      phone: [user.phone, [Validators.maxLength(PHONE_MAX_LENGTH)]],
+      email: [user.email, [Validators.required, Validators.email, Validators.maxLength(EMAIL_MAX_LENGTH)]],
+      phone: [user.phone, [Validators.required, Validators.maxLength(PHONE_MAX_LENGTH)]],
     });
   }
 
-  init(): Omit<UserInfo, 'id'> {
+  init(): Omit<UserInfo, 'id' | 'emailVerified'> {
     return this.user !== null
       ? this.user
       : {
           firstName: '',
           lastName: '',
           email: '',
-          emailVerified: false,
           phone: '',
         };
   }

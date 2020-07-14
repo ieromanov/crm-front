@@ -11,12 +11,16 @@ import { catchError } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { State } from '@core/store';
 import { logoutAction } from '@core/store/user/user.action';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private readonly _store: Store<State>) {}
+  constructor(
+    private readonly _store: Store<State>,
+    private readonly _router: Router
+  ) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -31,6 +35,8 @@ export class AuthInterceptor implements HttpInterceptor {
   private handleAuthError(err: HttpErrorResponse): Observable<any> {
     if (err.status === 401) {
       this._store.dispatch(logoutAction());
+    } else if (err.status === 403) {
+      this._router.navigate(['/no-access'])
     }
     return throwError(err);
   }

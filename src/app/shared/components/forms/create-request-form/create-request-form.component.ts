@@ -50,8 +50,9 @@ export class CreateRequestFormComponent implements OnInit {
       serviceTypeControl: [null, [Validators.required]],
       moveDateControl: [null, [Validators.required]],
       homeControl: [null, [Validators.required]],
-      roomsControl: [null],
-      addressControl: [null, [Validators.required]],
+      extraRoomsControl: [[]],
+      originControl: [null, [Validators.required]],
+      destinationControl: [null, [Validators.required]],
 
       firstNameControl: [null, [Validators.required]],
       lastNameControl: [null, [Validators.required]],

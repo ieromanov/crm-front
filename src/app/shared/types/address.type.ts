@@ -1,5 +1,5 @@
 export type Address = {
-  place_id: string;
+  placeId: string;
   address: string;
   numberOfFloor: number
   withElevator: boolean

@@ -3,8 +3,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { mergeMap } from 'rxjs/operators';
 import { of, merge } from 'rxjs';
 
-import { loadInitialDataAction } from '@store/app/app.action';
-import { getUserInfoAction } from '@store/user/user.action';
+import { finishFirstLoadingAction } from '@store/app/app.action';
+import { getUserInfoSuccessAction } from '@store/user/user.action';
 import { loadAction as loadStatusesAction } from '@store/dictionaries/status-dictionary/status-dictionary.action';
 import { loadAction as loadHomeTypesAction } from '@store/dictionaries/home-type-dictionary/home-type-dictionary.action';
 import { loadAction as loadServiceTypesAction } from '@store/dictionaries/service-type-dictionary/service-type-dictionary.action';
@@ -16,14 +16,14 @@ export class AppEffects {
 
   loadInitialData$ = createEffect(() =>
     this._actions$.pipe<any, any>(
-      ofType(loadInitialDataAction),
+      ofType(getUserInfoSuccessAction),
       mergeMap(() =>
         merge(
-          of(getUserInfoAction()),
           of(loadStatusesAction()),
           of(loadHomeTypesAction()),
           of(loadServiceTypesAction()),
-          of(loadRoomAction())
+          of(loadRoomAction()),
+          of(finishFirstLoadingAction())
         )
       )
     )

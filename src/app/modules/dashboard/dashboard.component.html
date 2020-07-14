@@ -1,1 +1,55 @@
-<h1 nz-title>Dashboard Page</h1>
+<nz-table
+  #table
+  nzBordered
+  [nzData]="requests"
+  [nzLoading]="loading"
+  [nzFrontPagination]="false"
+  [nzTotal]="totalResults"
+  [nzPageSize]="pageSize"
+  [nzPageIndex]="pageIndex"
+  (nzQueryParams)="onQueryParamsChange($event)"
+>
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Status</th>
+      <th>Lead source</th>
+      <th>Service type</th>
+      <th>Move Date</th>
+      <th>Customer</th>
+      <th>Phone</th>
+      <th>Moving From</th>
+      <th>Moving To</th>
+      <th>Size to move</th>
+      <th>Crew</th>
+      <th>Create Date</th>
+      <th>Update Date</th>
+      <th>C.F. / LBS</th>
+      <th>Est. Quote</th>
+      <th>Assigned</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let request of table.data">
+      <td> #Number# </td>
+      <td>
+        <nz-tag nzColor="red">{{ request.status.name }}</nz-tag>
+      </td>
+      <td>{{ request.leadSource }}</td>
+      <td>{{ request.serviceType.name }}</td>
+      <td>{{ request.moveDate }}</td>
+      <td>{{ request.client.firstName + ' ' + request.client.lastName }}</td>
+      <td>{{ request.client.phone }}</td>
+      <td>{{ request.origin.address }}</td>
+      <td>{{ request.destination.address }}</td>
+
+      <td> #Size to move# </td>
+      <td> #Crew# </td>
+      <td> #Create date# </td>
+      <td> #Update date# </td>
+      <td> #C.F. / LBS# </td>
+      <td> #Est. Quote# </td>
+      <td> {{ request.assignedManager }} </td>
+    </tr>
+  </tbody>
+</nz-table>

@@ -5,7 +5,7 @@
       nzAllowClear
       nzShowSearch
       nzServerSearch
-      [(ngModel)]="place_id"
+      [(ngModel)]="placeId"
       (ngModelChange)="onAddressChange($event)"
       (nzOnSearch)="onAddressSearch($event)"
     >
@@ -30,8 +30,9 @@
     />
     <label
       nz-checkbox
-      [(ngModel)]="withElevator"
+      [ngModel]="withElevator"
       [nzDisabled]="withElevatorCheckboxDisabled"
+      (ngModelChanged)="onWithElevatorChanged()"
     >with elevator</label>
   </div>
 </div>

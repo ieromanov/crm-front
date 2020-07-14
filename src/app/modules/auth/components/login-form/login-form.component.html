@@ -1,13 +1,14 @@
-<form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="login()">
+<form nz-form [formGroup]="form" class="login-form" (ngSubmit)="login()">
   <nz-form-item>
-    <nz-form-control nzErrorTip="Please input your correct email!">
+    <nz-form-control nzErrorTip="Please input your correct email">
       <nz-input-group nzPrefixIcon="user">
         <input type="text" nz-input formControlName="email" placeholder="email" autocomplete="email" />
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
+
   <nz-form-item>
-    <nz-form-control nzErrorTip="Please input your Password!">
+    <nz-form-control nzErrorTip="Please input your password">
       <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
         <input
           [type]="passwordVisible ? 'text' : 'password'"
@@ -22,5 +23,13 @@
       </ng-template>
     </nz-form-control>
   </nz-form-item>
+
   <button nz-button class="login-form-button login-form-margin" nzType="primary">Log in</button>
+
+  <nz-alert
+    *ngIf="(loginError$ | async) !== null"
+    nzShowIcon
+    nzType="error"
+    [nzMessage]="loginError$ | async"
+  ></nz-alert>
 </form>

@@ -3,12 +3,16 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { NzModalService } from 'ng-zorro-antd';
 
+import { RequestService } from '@core/services/request.service';
+
 import { State } from '@store/index';
 import { userInfoSelector } from '@store/user/user.selector';
 import { logoutAction } from '@store/user/user.action';
+
 import { UserInfo } from '@shared/types/user-info.type';
 import { validateForm } from '@shared/helpers/validate-form-group.helper';
 import { CreateRequestFormComponent } from '@shared/components/forms/create-request-form/create-request-form.component';
+import { CreateRequestDTO } from '@shared/dto/create-request.dto';
 
 @Component({
   selector: 'crm-header',
@@ -22,7 +26,8 @@ export class HeaderComponent {
 
   constructor(
     private readonly _store: Store<State>,
-    private readonly modalService: NzModalService
+    private readonly _modalService: NzModalService,
+    private readonly _requestService: RequestService
   ) {}
 
   public get menuIcon() {
@@ -38,9 +43,10 @@ export class HeaderComponent {
   }
 
   public showCreateRequestModal() {
-    this.modalService.create({
+    this._modalService.create({
       nzTitle: 'Create Request',
       nzContent: CreateRequestFormComponent,
+      nzStyle: { top: '20px' },
       nzWidth: 600,
       nzFooter: [
         {
@@ -52,21 +58,19 @@ export class HeaderComponent {
         {
           label: 'Create',
           type: 'primary',
-          onClick: (componentInstance: CreateRequestFormComponent) => {
-            const formValid = validateForm(componentInstance.form)
-            if (formValid) {
-              console.log(
-                componentInstance.form.valid,
-                componentInstance.form.value
-              );
-            }
-          },
+          onClick: this._handleOnConfirmCreate.bind(this),
         },
       ],
     });
   }
 
-  private _createRequest() {
-
+  private _handleOnConfirmCreate(componentInstance: CreateRequestFormComponent) {
+    const formValid = validateForm(componentInstance.form)
+    if (formValid) {
+      this._requestService.create(new CreateRequestDTO(componentInstance.form.value))
+      .subscribe(() => {
+        debugger
+      })
+    }
   }
 }
