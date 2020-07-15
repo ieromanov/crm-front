@@ -101,13 +101,14 @@ export class CreateRequestModalComponent {
   private _fetchUserInfo(dto: FindUserDTO) {
     this._userService
         .find(dto)
-        .subscribe(
-          this._updateClientInfo.bind(this),
-          () => this._nzMessageService.create('warning', `User not found`)
-        );
+        .subscribe(this._updateClientInfo.bind(this));
   }
 
   private _updateClientInfo(userInfo: UserInfo) {
+    if (userInfo === null) {
+      this._nzMessageService.create('warning', `User not found`);
+      return;
+    }
     this.form.controls.firstNameControl.setValue(userInfo.firstName);
     this.form.controls.lastNameControl.setValue(userInfo.lastName);
     this.form.controls.emailControl.setValue(userInfo.email);
