@@ -30,8 +30,8 @@ export class UserService {
     return this._apiService.delete(this._controllerName + '/delete/' + id)
   }
 
-  find(dto: FindUserDTO): Observable<UserInfo> {
-    return this._apiService.post<FindUserDTO, UserInfo>(this._controllerName + '/find', dto)
+  find(params: FindUserDTO): Observable<UserInfo> {
+    return this._apiService.get<UserInfo>(this._controllerName + '/find', { params })
   }
 
   findAll(params?: PagingRequestDto<UserInfo>): Observable<PagingResponseDto<UserInfo>> {
