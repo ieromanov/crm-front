@@ -15,14 +15,10 @@ import {
   NzSelectModule,
   NzFormModule,
 } from 'ng-zorro-antd';
-import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
-import { NzAvatarModule } from 'ng-zorro-antd/avatar';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import {
@@ -43,11 +39,10 @@ import { RequestService } from '@core/services/request.service';
 
 import { environment } from '@env/environment';
 import { reducers, effects } from '@store/index';
-import { HeaderComponent } from '@shared/components/header/header.component';
 import { LayoutComponent } from '@shared/components/layout/layout.component';
 import { GlobalPreloaderComponent } from '@shared/components/global-preloader/global-preloader.component';
 import { ResultComponent } from '@shared/components/result/result.component';
-import { CreateRequestModalModule } from '@shared/components/modal/create-request-modal/create-request-modal.module';
+import { HeaderModule } from '@shared/components/header/header.module';
 
 registerLocaleData(en);
 
@@ -63,12 +58,8 @@ registerLocaleData(en);
     NzFormModule,
     NzSelectModule,
     NzSpinModule,
-    NzDropDownModule,
-    NzAvatarModule,
-    NzButtonModule,
     NzMenuModule,
     NzLayoutModule,
-    NzPageHeaderModule,
     NzModalModule,
     NzMessageModule,
     NzResultModule,
@@ -79,7 +70,7 @@ registerLocaleData(en);
       SettingOutline,
     ]),
 
-    CreateRequestModalModule,
+    HeaderModule,
 
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
@@ -92,7 +83,6 @@ registerLocaleData(en);
   declarations: [
     AppComponent,
     LayoutComponent,
-    HeaderComponent,
     GlobalPreloaderComponent,
     ResultComponent,
   ],
