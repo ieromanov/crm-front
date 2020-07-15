@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzTagModule } from 'ng-zorro-antd/tag';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 
 import { ConstantService } from '@core/services/constant.service';
 import { RequestService } from '@core/services/request.service';
@@ -16,6 +17,7 @@ import { DashboardComponent } from './dashboard.component';
     CommonModule,
     DashboardRoutingModule,
 
+    NzBadgeModule,
     NzTableModule,
     NzModalModule,
     NzTagModule

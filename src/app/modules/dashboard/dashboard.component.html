@@ -35,7 +35,9 @@
       <td>
         <nz-tag nzColor="red">{{ request.status.name }}</nz-tag>
       </td>
-      <td>{{ request.leadSource }}</td>
+      <td>
+        <nz-badge [nzCount]="request.leadScore" nzShowZero></nz-badge>
+      </td>
       <td>{{ request.serviceType.name }}</td>
       <td>{{ request.moveDate }}</td>
       <td>{{ request.client.firstName + ' ' + request.client.lastName }}</td>
