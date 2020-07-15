@@ -23,10 +23,6 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
-import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
-import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import {
@@ -50,9 +46,8 @@ import { reducers, effects } from '@store/index';
 import { HeaderComponent } from '@shared/components/header/header.component';
 import { LayoutComponent } from '@shared/components/layout/layout.component';
 import { GlobalPreloaderComponent } from '@shared/components/global-preloader/global-preloader.component';
-import { CreateRequestFormComponent } from '@shared/components/forms/create-request-form/create-request-form.component';
-import { AddressInputComponent } from '@shared/components/address-input/address-input.component';
 import { ResultComponent } from '@shared/components/result/result.component';
+import { CreateRequestModalModule } from '@shared/components/modal/create-request-modal/create-request-modal.module';
 
 registerLocaleData(en);
 
@@ -75,10 +70,6 @@ registerLocaleData(en);
     NzLayoutModule,
     NzPageHeaderModule,
     NzModalModule,
-    NzInputModule,
-    NzDatePickerModule,
-    NzCheckboxModule,
-    NzDividerModule,
     NzMessageModule,
     NzResultModule,
     NzIconModule.forRoot([
@@ -87,6 +78,8 @@ registerLocaleData(en);
       DashboardOutline,
       SettingOutline,
     ]),
+
+    CreateRequestModalModule,
 
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
@@ -101,9 +94,7 @@ registerLocaleData(en);
     LayoutComponent,
     HeaderComponent,
     GlobalPreloaderComponent,
-    CreateRequestFormComponent,
-    AddressInputComponent,
-    ResultComponent
+    ResultComponent,
   ],
   providers: [
     {

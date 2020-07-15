@@ -2,7 +2,6 @@ import { Component, forwardRef, OnDestroy } from '@angular/core';
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
-  FormControl,
 } from '@angular/forms';
 import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
@@ -58,6 +57,7 @@ export class AddressInputComponent implements ControlValueAccessor, OnDestroy {
       .pipe(debounceTime(500), distinctUntilChanged())
       .subscribe(this._getAddressesByInput.bind(this));
   }
+
   ngOnDestroy() {
     this._addressInputUpdateSub.unsubscribe();
   }
@@ -67,9 +67,11 @@ export class AddressInputComponent implements ControlValueAccessor, OnDestroy {
       this.value = value;
     }
   }
+
   registerOnChange(fn: (address: Address) => void): void {
     this._onChange = fn;
   }
+
   registerOnTouched(fn: any): void {}
 
   public onAddressChange(placeId: string) {
@@ -81,9 +83,11 @@ export class AddressInputComponent implements ControlValueAccessor, OnDestroy {
     }
     this._onChange(this.value);
   }
+
   public onAddressSearch(value: string) {
     this.addressInputUpdate.next(value);
   }
+
   public onNumberOfFloorChanged(event: InputEvent) {
     this.numberOfFloor = +this._getValueFromEvent(event);
     if (this.numberOfFloor === 0) {
@@ -94,6 +98,7 @@ export class AddressInputComponent implements ControlValueAccessor, OnDestroy {
     }
     this._onChange(this.value);
   }
+
   public onWithElevatorChanged() {
     this.withElevator = !this.withElevator
     this._onChange(this.value)
