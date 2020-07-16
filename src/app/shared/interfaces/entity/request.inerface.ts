@@ -7,6 +7,8 @@ import { UserInfo } from '@shared/types/user-info.type';
 import { Address } from '@shared/types/address.type';
 
 export interface IRequest {
+  number: number;
+
   client: UserInfo;
 
   leadScore: number;

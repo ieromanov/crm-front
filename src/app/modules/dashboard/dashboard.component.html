@@ -11,7 +11,7 @@
 >
   <thead>
     <tr>
-      <th>Number</th>
+      <th>№</th>
       <th>Status</th>
       <th>Lead source</th>
       <th>Service type</th>
@@ -20,7 +20,7 @@
       <th>Phone</th>
       <th>Moving From</th>
       <th>Moving To</th>
-      <th>Size to move</th>
+      <th>Home Type</th>
       <th>Crew</th>
       <th>Create Date</th>
       <th>Update Date</th>
@@ -31,7 +31,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let request of table.data">
-      <td> #Number# </td>
+      <td> {{ request.number }} </td>
       <td>
         <nz-tag nzColor="red">{{ request.status.name }}</nz-tag>
       </td>
@@ -45,7 +45,7 @@
       <td>{{ request.origin.address }}</td>
       <td>{{ request.destination.address }}</td>
 
-      <td> #Size to move# </td>
+      <td> {{ request.home.name }} </td>
       <td> #Crew# </td>
       <td> #Create date# </td>
       <td> #Update date# </td>
