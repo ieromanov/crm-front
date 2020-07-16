@@ -18,14 +18,14 @@ import {
   removeOneAction,
 } from '@store/dictionaries/home-type-dictionary/home-type-dictionary.action';
 
-import { HomeFormComponent } from '../../form/home-form/home-form.component';
+import { HomeTypeFormComponent } from './components/home-type-form/home-type-form.component';
 
 @Component({
-  selector: 'crm-home-setting',
-  templateUrl: './home-setting.component.html',
-  styleUrls: ['./home-setting.component.scss'],
+  selector: 'crm-home-type-setting',
+  templateUrl: './home-type-setting.component.html',
+  styleUrls: ['./home-type-setting.component.scss'],
 })
-export class HomeSettingComponent {
+export class HomeTypeSettingComponent {
   public loading: boolean = false;
   public homeTypes$: Observable<IHomeType[]> = this._store.select(
     homeTypesDictionaryEntitiesSelector
@@ -55,7 +55,7 @@ export class HomeSettingComponent {
   public showCreateModal() {
     this._modalService.create({
       nzTitle: 'Create service type',
-      nzContent: HomeFormComponent,
+      nzContent: HomeTypeFormComponent,
       nzFooter: [
         {
           label: 'Cancel',
@@ -70,10 +70,10 @@ export class HomeSettingComponent {
     });
   }
 
-  public showUpdateModal(homeType: IHomeType) {
+  public showEditModal(homeType: IHomeType) {
     this._modalService.create({
-      nzTitle: 'Update home type',
-      nzContent: HomeFormComponent,
+      nzTitle: 'Edit home type',
+      nzContent: HomeTypeFormComponent,
       nzComponentParams: { homeType },
       nzFooter: [
         {
@@ -81,15 +81,15 @@ export class HomeSettingComponent {
           onClick: this._handleCloseModal,
         },
         {
-          label: 'Update',
+          label: 'Save',
           type: 'primary',
-          onClick: this._handleOnConfirmUpdate(homeType.id),
+          onClick: this._handleOnConfirmEdit(homeType.id),
         },
       ],
     });
   }
 
-  private _handleOnConfirmCreate(componentInstance: HomeFormComponent) {
+  private _handleOnConfirmCreate(componentInstance: HomeTypeFormComponent) {
     const formValid = validateForm(componentInstance.form)
     if (formValid) {
       this.loading = true;
@@ -109,8 +109,8 @@ export class HomeSettingComponent {
     }
   }
 
-  private _handleOnConfirmUpdate(id: string) {
-    return (componentInstance: HomeFormComponent) => {
+  private _handleOnConfirmEdit(id: string) {
+    return (componentInstance: HomeTypeFormComponent) => {
       const formValid = validateForm(componentInstance.form)
       if (formValid) {
         this.loading = true;
@@ -141,7 +141,7 @@ export class HomeSettingComponent {
     };
   }
 
-  private _handleCloseModal(componentInstance: HomeFormComponent) {
+  private _handleCloseModal(componentInstance: HomeTypeFormComponent) {
     componentInstance.closeModal();
   }
 }

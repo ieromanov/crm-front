@@ -91,6 +91,9 @@ export class CreateRequestModalComponent {
       .subscribe(() => {
         this.loading = false
         this.handleCancel()
+      }, () => {
+        this._nzMessageService.create('error', 'request not created');
+        this.loading = false
       })
     }
   }

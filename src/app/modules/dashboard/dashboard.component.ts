@@ -5,9 +5,9 @@ import { RequestService } from '@core/services/request.service';
 import { ConstantService } from '@core/services/constant.service';
 import { RequestSocketService } from '@core/socket-services/request.socket-service';
 
-import { IRequest } from '@shared/interfaces/entity/request.inerface';
+import { IRequest } from '@shared/interfaces/entity/request.interface';
 import { OrderTypeEmum } from '@shared/enum/order-type.enum';
-import { SocketResponse } from '@shared/types/soket-response.type';
+import { SocketResponse } from '@shared/types/socket-response.type';
 
 @Component({
   selector: 'crm-dashboard',

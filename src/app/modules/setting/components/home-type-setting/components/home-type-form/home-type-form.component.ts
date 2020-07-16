@@ -5,15 +5,15 @@ import { IHomeType } from '@shared/interfaces/entity/home.interface';
 import {
   HOME_NAME_MAX_LENGTH,
   HOME_DESCRIPTION_MAX_LENGTH,
-} from './home-form.constants';
+} from './home-type-form.constants';
 import { IRoom } from '@shared/interfaces/entity/room.interface';
 import { RoomService } from '@core/services/room.service';
 
 @Component({
-  selector: 'crm-home-form',
-  templateUrl: 'home-form.component.html',
+  selector: 'crm-home-type-form',
+  templateUrl: 'home-type-form.component.html',
 })
-export class HomeFormComponent implements OnInit {
+export class HomeTypeFormComponent implements OnInit {
   @Input() public homeType: IHomeType = null;
 
   public form: FormGroup;

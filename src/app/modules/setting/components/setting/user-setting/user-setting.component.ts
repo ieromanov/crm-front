@@ -84,9 +84,12 @@ export class UserSettingComponent {
 
   private _handleOnConfirmDelete(id: string) {
     return () => {
-      this._userService.delete(id).subscribe(() => {
-        this._getAll();
-      });
+      this._userService.delete(id).subscribe(
+        this._getAll.bind(this),
+        (error) => {
+          console.log(error)
+        }
+      );
     }
   }
 

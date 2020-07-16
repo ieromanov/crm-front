@@ -5,7 +5,7 @@ import { API_SERVICE } from '@core/di-tokens';
 import { IApiService } from '@shared/interfaces/service/api-service.interface';
 import { PagingRequestDto, PagingResponseDto } from '@shared/dto/paging.dto';
 import { CreateRequestDTO } from '@shared/dto/create-request.dto';
-import { IRequest } from '@shared/interfaces/entity/request.inerface';
+import { IRequest } from '@shared/interfaces/entity/request.interface';
 
 @Injectable()
 export class RequestService {
