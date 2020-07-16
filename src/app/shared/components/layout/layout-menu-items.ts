@@ -24,12 +24,8 @@ export const menuItems: MenuItem[] = [
         title: 'Status',
       },
       {
-        link: '/setting/room',
-        title: 'Room',
-      },
-      {
-        link: '/setting/home',
-        title: 'Home',
+        link: '/setting/move-size',
+        title: 'Move size settings',
       },
       {
         link: '/setting/service-type',

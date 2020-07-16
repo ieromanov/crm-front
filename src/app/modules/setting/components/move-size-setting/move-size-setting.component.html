@@ -1,0 +1,22 @@
+<div nz-row [nzGutter]="20">
+  <div nz-col nzSpan="12">
+    <h2>Home types size</h2>
+    <crm-home-type-list
+      [homeTypes]="homeTypes$ | async"
+      (onSuccessCreate)="handleOnSuccessCreateHomeType($event)"
+      (onSuccessUpdate)="handleOnSuccessUpdateHomeType($event)"
+      (onSuccessDelete)="handleOnSuccessDeleteHomeType($event)"
+    ></crm-home-type-list>
+  </div>
+  <div nz-col nzSpan="12">
+    <h2>Room types size</h2>
+    <crm-room-type-list
+      [rooms]="rooms$ | async"
+      (onSuccessCreate)="handleOnSuccessCreateRoom($event)"
+      (onSuccessUpdate)="handleOnSuccessUpdateRoom($event)"
+      (onSuccessDelete)="handleOnSuccessDeleteRoom($event)"
+    ></crm-room-type-list>
+  </div>
+</div>
+
+

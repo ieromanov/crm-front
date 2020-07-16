@@ -1,35 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 
-import { HomeTypeService } from '@core/services/home-type.service';
 import { ConstantService } from '@core/services/constant.service';
+import { HomeTypeService } from '@core/services/home-type.service';
 
-import { IHomeType } from '@shared/interfaces/entity/home.interface';
 import { IRoom } from '@shared/interfaces/entity/room.interface';
-import { validateForm } from "@shared/helpers/validate-form-group.helper"
+import { IHomeType } from '@shared/interfaces/entity/home.interface';
+import { validateForm } from '@shared/helpers/validate-form-group.helper';
 
-import { State } from "@store/index";
-import { homeTypesDictionaryEntitiesSelector } from '@store/dictionaries/dictionaries.selector';
-import {
-  addOneAction,
-  updateOneAction,
-  removeOneAction,
-} from '@store/dictionaries/home-type-dictionary/home-type-dictionary.action';
-
-import { HomeTypeFormComponent } from './components/home-type-form/home-type-form.component';
+import { HomeTypeFormComponent } from '../home-type-form/home-type-form.component';
 
 @Component({
-  selector: 'crm-home-type-setting',
-  templateUrl: './home-type-setting.component.html',
-  styleUrls: ['./home-type-setting.component.scss'],
+  selector: 'crm-home-type-list',
+  templateUrl: 'home-type-list.component.html',
 })
-export class HomeTypeSettingComponent {
-  public loading: boolean = false;
-  public homeTypes$: Observable<IHomeType[]> = this._store.select(
-    homeTypesDictionaryEntitiesSelector
-  );
+export class HomeTypeListComponent {
+  @Input() homeTypes: IHomeType[] = []
+
+  @Output() onSuccessCreate: EventEmitter<IHomeType> = new EventEmitter<IHomeType>()
+  @Output() onSuccessDelete: EventEmitter<string> = new EventEmitter<string>()
+  @Output() onSuccessUpdate: EventEmitter<{ id: string, changes: IHomeType }> = new EventEmitter<{ id: string, changes: IHomeType }>()
 
   public get colorsConstants() {
     return this._constantService.colors;
@@ -39,10 +29,9 @@ export class HomeTypeSettingComponent {
     private readonly _constantService: ConstantService,
     private readonly _homeTypeService: HomeTypeService,
     private readonly _modalService: NzModalService,
-    private readonly _store: Store<State>
   ) {}
 
-  public showDeleteConfirmModal(id: string) {
+  public showConfirmDeleteModal(id: string) {
     this._modalService.confirm({
       nzTitle: 'Do you want to delete these home type?',
       nzContent:
@@ -54,7 +43,7 @@ export class HomeTypeSettingComponent {
 
   public showCreateModal() {
     this._modalService.create({
-      nzTitle: 'Create service type',
+      nzTitle: 'Create home type',
       nzContent: HomeTypeFormComponent,
       nzFooter: [
         {
@@ -70,9 +59,9 @@ export class HomeTypeSettingComponent {
     });
   }
 
-  public showEditModal(homeType: IHomeType) {
+  public showUpdateModal(homeType: IHomeType) {
     this._modalService.create({
-      nzTitle: 'Edit home type',
+      nzTitle: 'Update home type',
       nzContent: HomeTypeFormComponent,
       nzComponentParams: { homeType },
       nzFooter: [
@@ -83,7 +72,7 @@ export class HomeTypeSettingComponent {
         {
           label: 'Save',
           type: 'primary',
-          onClick: this._handleOnConfirmEdit(homeType.id),
+          onClick: this._handleOnConfirmUpdate(homeType.id),
         },
       ],
     });
@@ -92,7 +81,6 @@ export class HomeTypeSettingComponent {
   private _handleOnConfirmCreate(componentInstance: HomeTypeFormComponent) {
     const formValid = validateForm(componentInstance.form)
     if (formValid) {
-      this.loading = true;
       const data = {
         ...componentInstance.form.value,
         rooms: componentInstance.rooms.filter(
@@ -103,29 +91,24 @@ export class HomeTypeSettingComponent {
         .create(data)
         .subscribe((homeType: IHomeType) => {
           componentInstance.closeModal();
-          this._store.dispatch(addOneAction(homeType));
-          this.loading = false;
+          this.onSuccessCreate.emit(homeType)
         });
     }
   }
 
-  private _handleOnConfirmEdit(id: string) {
+  private _handleOnConfirmUpdate(id: string) {
     return (componentInstance: HomeTypeFormComponent) => {
       const formValid = validateForm(componentInstance.form)
       if (formValid) {
-        this.loading = true;
         const data = {
           ...componentInstance.form.value,
           rooms: componentInstance.rooms.filter(
             ({ id }: IRoom) => componentInstance.form.value.rooms.includes(id)
           )
         }
-        this._homeTypeService.update(id, data).subscribe((homeType: IHomeType) => {
+        this._homeTypeService.update(id, data).subscribe((changes: IHomeType) => {
           componentInstance.closeModal();
-          this._store.dispatch(
-            updateOneAction({ id, changes: homeType })
-          );
-          this.loading = false;
+          this.onSuccessUpdate.emit({ id, changes })
         });
       }
     };
@@ -133,10 +116,8 @@ export class HomeTypeSettingComponent {
 
   private _handleOnConfirmDelete(id: string) {
     return () => {
-      this.loading = true;
       this._homeTypeService.delete(id).subscribe(() => {
-        this._store.dispatch(removeOneAction({ id }));
-        this.loading = false;
+        this.onSuccessDelete.emit(id)
       });
     };
   }

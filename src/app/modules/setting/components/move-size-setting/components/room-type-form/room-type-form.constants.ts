@@ -1,0 +1,2 @@
+export const ROOM_NAME_MAX_LENGTH = 64
+export const ROOM_DESCRIPTION_MAX_LENGTH = 256

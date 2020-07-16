@@ -1,0 +1,24 @@
+<button nz-button nzBlock nzType="dashed" (click)="showCreateModal()">
+  <i nz-icon nzType="plus" nzTheme="outline"></i> Add room type
+</button>
+
+<nz-list>
+  <nz-list-item *ngFor="let room of rooms">
+    <nz-list-item-meta>
+      <nz-list-item-meta-title>
+        {{ room.name }}
+      </nz-list-item-meta-title>
+      <nz-list-item-meta-description>
+        <span>Volume: {{ room.volume }} cubic feet</span>
+      </nz-list-item-meta-description>
+    </nz-list-item-meta>
+
+    <button nz-button nzType="link" nzShape="circle" (click)="showUpdateModal(room)">
+      <i nz-icon nzType="edit" nzTheme="outline"></i>
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzDanger nzType="link" nzShape="circle" (click)="showConfirmDeleteModal(room.id)">
+      <i nz-icon nzType="delete" nzTheme="outline"></i>
+    </button>
+  </nz-list-item>
+</nz-list>

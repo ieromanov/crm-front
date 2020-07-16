@@ -11,28 +11,33 @@ import {
   NzListModule,
   NzSelectModule,
   NzIconModule,
-  NzCardModule,
   NzDescriptionsModule,
+  NzDividerModule,
+  NzGridModule,
 } from 'ng-zorro-antd';
-
 import { DeleteOutline, EditOutline } from '@ant-design/icons-angular/icons';
 
+import { RoomService } from '@core/services/room.service';
+import { HomeTypeService } from '@core/services/home-type.service';
 import { ConstantService } from '@core/services/constant.service';
 
 import { HomeTypeFormComponent } from './components/home-type-form/home-type-form.component';
-import { HomeTypeCardComponent } from './components/home-type-card/home-type-card.component';
-import { HomeTypeSettingRoutingModule } from './home-type-setting-routing.module';
-import { HomeTypeSettingComponent } from './home-type-setting.component';
+import { HomeTypeListComponent } from './components/home-type-list/home-type-list.component';
+import { RoomTypeListComponent } from './components/room-type-list/room-type-list.component';
+import { RoomTypeFormComponent } from './components/room-type-form/room-type-form.component';
+
+import { MoveSizeSettingComponent } from './move-size-setting.component';
+import { MoveSizeSettingRoutingModule } from './move-size-setting-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HomeTypeSettingRoutingModule,
+    MoveSizeSettingRoutingModule,
 
-    NzCardModule,
     NzButtonModule,
+    NzGridModule,
     NzInputModule,
     NzInputNumberModule,
     NzFormModule,
@@ -40,15 +45,18 @@ import { HomeTypeSettingComponent } from './home-type-setting.component';
     NzSwitchModule,
     NzListModule,
     NzSelectModule,
+    NzDividerModule,
     NzDescriptionsModule,
     NzIconModule.forChild([EditOutline, DeleteOutline]),
   ],
-  exports: [HomeTypeSettingComponent],
+  exports: [MoveSizeSettingComponent],
   declarations: [
-    HomeTypeSettingComponent,
+    MoveSizeSettingComponent,
     HomeTypeFormComponent,
-    HomeTypeCardComponent,
+    HomeTypeListComponent,
+    RoomTypeFormComponent,
+    RoomTypeListComponent,
   ],
-  providers: [ConstantService],
+  providers: [ConstantService, RoomService, HomeTypeService],
 })
-export class HomeTypeSettingModule {}
+export class MoveSizeSettingModule {}
