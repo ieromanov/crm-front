@@ -50,6 +50,9 @@ export class DashboardComponent implements OnDestroy {
       .findAll({
         limit: this.pageSize,
         page: this.pageIndex,
+        order: {
+          number: OrderTypeEmum.DESC
+        }
       })
       .subscribe(requests => {
         this.requests = requests.data;

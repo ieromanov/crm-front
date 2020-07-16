@@ -20,7 +20,7 @@ export class RequestService {
     return this._apiService.post<CreateRequestDTO, IRequest>(this._controllerName + '/create', dto)
   }
 
-  findAll(params?: PagingRequestDto<IRequest>): Observable<PagingResponseDto<IRequest>> {
-    return this._apiService.get<PagingResponseDto<IRequest>>(this._controllerName + '/find-all', { params })
+  findAll(dto?: PagingRequestDto<IRequest>): Observable<PagingResponseDto<IRequest>> {
+    return this._apiService.post<PagingRequestDto<IRequest>, PagingResponseDto<IRequest>>(this._controllerName + '/find-all', dto)
   }
 }
