@@ -6,8 +6,11 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 
+import { SocketIoModule } from 'ngx-socket-io';
+
 import { ConstantService } from '@core/services/constant.service';
 import { RequestService } from '@core/services/request.service';
+import { RequestSocketService } from '@core/socket-services/request.socket-service';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
@@ -17,12 +20,13 @@ import { DashboardComponent } from './dashboard.component';
     CommonModule,
     DashboardRoutingModule,
 
+    SocketIoModule,
+
     NzBadgeModule,
     NzTableModule,
-    NzModalModule,
     NzTagModule
   ],
-  providers: [RequestService, ConstantService],
+  providers: [RequestService, ConstantService, RequestSocketService],
   declarations: [DashboardComponent],
   exports: [DashboardComponent],
 })

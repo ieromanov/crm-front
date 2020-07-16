@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { NzModalService, NzTableQueryParams } from 'ng-zorro-antd';
+import { Component, OnDestroy } from '@angular/core';
+import { NzTableQueryParams } from 'ng-zorro-antd';
 
 import { RequestService } from '@core/services/request.service';
 import { ConstantService } from '@core/services/constant.service';
+import { RequestSocketService } from '@core/socket-services/request.socket-service';
 
 import { IRequest } from '@shared/interfaces/entity/request.inerface';
-import { RequestFormComponent } from '@shared/components/forms/request-form/request-form.component';
+import { OrderTypeEmum } from '@shared/enum/order-type.enum';
+import { SocketResponse } from '@shared/types/soket-response.type';
 
 @Component({
   selector: 'crm-dashboard',
   templateUrl: 'dashboard.component.html',
   styleUrls: ['dashboard.component.scss'],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnDestroy {
   public totalResults: number;
   public requests: IRequest[] = [];
   public loading: boolean = false;
@@ -21,9 +23,16 @@ export class DashboardComponent {
 
   constructor(
     private readonly _requestService: RequestService,
-    private readonly _constantService: ConstantService,
-    private readonly _modalService: NzModalService
-  ) {}
+    private readonly _requestSocketService: RequestSocketService,
+    private readonly _constantService: ConstantService
+  ) {
+    this._requestSocketService.requestCreated$.subscribe(({ data }: SocketResponse<IRequest>) => {
+      this.requests.unshift(data)
+    })
+  }
+  ngOnDestroy(): void {
+    this._requestSocketService.disconnect()
+  }
 
   public get colorsConstants() {
     return this._constantService.colors
@@ -33,76 +42,6 @@ export class DashboardComponent {
     const { pageIndex } = params;
     this.pageIndex = pageIndex;
     this._getAll();
-  }
-
-  public showDeleteConfirmModal(id: string) {
-    this._modalService.confirm({
-      nzTitle: 'Do you want to delete these request?',
-      nzContent: 'When clicked the OK button, this request will be deleted',
-      nzOkType: 'danger',
-      nzOnOk: this._handleOnConfirmDelete(id),
-    });
-  }
-
-  public showCreateModal() {
-    this._modalService.create({
-      nzTitle: 'Create room',
-      nzContent: RequestFormComponent,
-      nzFooter: [
-        {
-          label: 'Cancel',
-          onClick: this._handleCloseModal,
-        },
-        {
-          label: 'Create',
-          type: 'primary',
-          onClick: this._handleOnConfirmCreate.bind(this),
-        },
-      ],
-    });
-  }
-
-  public showUpdateModal(request: IRequest) {
-    // this._modalService.create({
-    //   nzTitle: 'Update request',
-    //   nzContent: RequestFormComponent,
-    //   nzComponentParams: { request },
-    //   nzFooter: [
-    //     {
-    //       label: 'Cancel',
-    //       onClick: this._handleCloseModal,
-    //     },
-    //     {
-    //       label: 'Update',
-    //       type: 'primary',
-    //       onClick: this._handleOnConfirmUpdate(request.id),
-    //     },
-    //   ],
-    // });
-  }
-
-  private _handleOnConfirmDelete(id: string) {
-    return () => {
-      // this._requestService.delete(id).subscribe(() => {
-      //   this._getAll();
-      // });
-    }
-  }
-
-  private _handleOnConfirmCreate(componentInstance: RequestFormComponent) {
-    // if (componentInstance.form.valid) {
-    //   this._requestService.create(componentInstance.form.value)
-    //     .subscribe(() => {
-    //       componentInstance.closeModal();
-    //       this._getAll();
-    //     }, (error) => {
-    //       console.log(error)
-    //     });
-    // }
-  }
-
-  private _handleCloseModal(componentInstance: RequestFormComponent) {
-    // componentInstance.closeModal();
   }
 
   private _getAll() {
