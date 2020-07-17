@@ -9,6 +9,19 @@
   <ng-template #modalContent>
     <form nz-form [formGroup]="form">
       <nz-form-item>
+        <nz-form-label nzSpan="7" nzRequired>Status</nz-form-label>
+        <nz-form-control nzSpan="17">
+          <nz-select formControlName="statusControl">
+            <nz-option
+              *ngFor="let status of statuses$ | async"
+              [nzLabel]="status.name"
+              [nzValue]="status.id"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
         <nz-form-label nzSpan="7" nzRequired>Service Type</nz-form-label>
         <nz-form-control nzSpan="17">
           <nz-select formControlName="serviceTypeControl">

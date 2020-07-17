@@ -5,23 +5,26 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import isEmpty from 'lodash/isEmpty';
 
+import { UserService } from '@core/services/user.service';
+import { RequestService } from '@core/services/request.service';
+
 import { State } from '@core/store';
 import {
   serviceTypesDictionaryEntitiesSelector,
   homeTypesDictionaryEntitiesSelector,
-  roomDictionaryEntitiesSelector
+  roomDictionaryEntitiesSelector,
+  statusDictionaryEntitiesSelector,
 } from '@store/dictionaries/dictionaries.selector';
-import { UserService } from '@core/services/user.service';
-import { RequestService } from '@core/services/request.service';
 
-import { getValueFromEvent } from '@shared/helpers/get-value-from-event.helper';
-import { validateForm } from '@shared/helpers/validate-form-group.helper';
 import { CreateRequestDTO } from '@shared/dto/create-request.dto';
 import { FindUserDTO } from '@shared/dto/find-user.dto';
+import { getValueFromEvent } from '@shared/helpers/get-value-from-event.helper';
+import { validateForm } from '@shared/helpers/validate-form-group.helper';
 import { UserInfo } from '@shared/types/user-info.type';
 import { IServiceType } from '@shared/interfaces/entity/service-type.interface';
 import { IHomeType } from '@shared/interfaces/entity/home.interface';
 import { IRoom } from '@shared/interfaces/entity/room.interface';
+import { IStatus } from '@shared/interfaces/entity/status.interface';
 
 @Component({
   selector: 'crm-create-request-modal',
@@ -32,6 +35,9 @@ export class CreateRequestModalComponent {
   @Input() public isVisible: boolean
   @Output() public onClose: EventEmitter<void> = new EventEmitter<void>()
 
+  public statuses$: Observable<IStatus[]> = this._store.select(
+    statusDictionaryEntitiesSelector
+  );
   public serviceTypes$: Observable<IServiceType[]> = this._store.select(
     serviceTypesDictionaryEntitiesSelector
   );
@@ -53,6 +59,7 @@ export class CreateRequestModalComponent {
     private readonly _requestService: RequestService
   ) {
     this.form = this._formBuilder.group({
+      statusControl: [null, [Validators.required]],
       serviceTypeControl: [null, [Validators.required]],
       moveDateControl: [null, [Validators.required]],
       homeControl: [null, [Validators.required]],
