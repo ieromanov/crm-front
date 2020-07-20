@@ -11,22 +11,18 @@
 >
   <thead>
     <tr>
-      <th>№</th>
-      <th>Status</th>
-      <th>Lead source</th>
-      <th>Service type</th>
-      <th>Move Date</th>
-      <th>Customer</th>
-      <th>Phone</th>
-      <th>Moving From</th>
-      <th>Moving To</th>
-      <th>Home Type</th>
-      <th>Crew</th>
-      <th>Create Date</th>
-      <th>Update Date</th>
-      <th>C.F. / LBS</th>
-      <th>Est. Quote</th>
-      <th>Assigned</th>
+      <th nzWidth="5%">№</th>
+      <th nzWidth="10%">Status</th>
+      <th nzWidth="5%">Lead source</th>
+      <th nzWidth="8%">Service type</th>
+      <th nzWidth="8%">Move Date</th>
+      <th nzWidth="10%">Customer</th>
+      <th nzWidth="10%">Phone</th>
+      <th nzWidth="10%">Moving From</th>
+      <th nzWidth="10%">Moving To</th>
+      <th nzWidth="10%">Home Type</th>
+      <th nzWidth="7%">C.F. / LBS</th>
+      <th nzWidth="7%">Assigned</th>
     </tr>
   </thead>
   <tbody>
@@ -46,11 +42,7 @@
       <td>{{ request.destination.address }}</td>
 
       <td> {{ request.home.name }} </td>
-      <td> #Crew# </td>
-      <td> #Create date# </td>
-      <td> #Update date# </td>
-      <td> #C.F. / LBS# </td>
-      <td> #Est. Quote# </td>
+      <td> {{ request.salesWeight }} </td>
       <td> {{ request.assignedManager }} </td>
     </tr>
   </tbody>
