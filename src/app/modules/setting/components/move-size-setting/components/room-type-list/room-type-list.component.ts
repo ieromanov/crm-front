@@ -32,9 +32,9 @@ export class RoomTypeListComponent {
 
   public showConfirmDeleteModal(id: string) {
     this._modalService.confirm({
-      nzTitle: 'Do you want to delete these home type?',
+      nzTitle: 'Do you want to delete these room type?',
       nzContent:
-        'When clicked the OK button, this home type will be deleted',
+        'When clicked the OK button, this room type will be deleted',
       nzOkType: 'danger',
       nzOnOk: this._handleOnConfirmDelete(id),
     });
@@ -42,7 +42,7 @@ export class RoomTypeListComponent {
 
   public showCreateModal() {
     this._modalService.create({
-      nzTitle: 'Create home type',
+      nzTitle: 'Create room type',
       nzContent: RoomTypeFormComponent,
       nzFooter: [
         {
@@ -60,7 +60,7 @@ export class RoomTypeListComponent {
 
   public showUpdateModal(room: IRoom) {
     this._modalService.create({
-      nzTitle: 'Update home type',
+      nzTitle: 'Update room type',
       nzContent: RoomTypeFormComponent,
       nzComponentParams: { room },
       nzFooter: [
