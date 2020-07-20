@@ -18,7 +18,7 @@ export class DashboardComponent implements OnDestroy {
   public totalResults: number;
   public requests: IRequest[] = [];
   public loading: boolean = false;
-  public pageSize: number = 9;
+  public pageSize: number = 10;
   public pageIndex: number = 1;
 
   constructor(
