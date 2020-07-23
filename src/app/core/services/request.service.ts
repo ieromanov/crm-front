@@ -1,19 +1,17 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { API_SERVICE } from '@core/di-tokens';
-import { IApiService } from '@shared/interfaces/service/api-service.interface';
 import { PagingRequestDto, PagingResponseDto } from '@shared/dto/paging.dto';
 import { CreateRequestDTO } from '@shared/dto/create-request.dto';
 import { IRequest } from '@shared/interfaces/entity/request.interface';
+import { ApiService } from './api.service';
 
 @Injectable()
 export class RequestService {
   private readonly _controllerName: string = 'request'
 
   constructor(
-    @Inject(API_SERVICE)
-    private readonly _apiService: IApiService
+    private readonly _apiService: ApiService
   ) {}
 
   create(dto: CreateRequestDTO) {

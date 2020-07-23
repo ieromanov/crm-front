@@ -1,16 +1,14 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { API_SERVICE } from '@core/di-tokens';
-import { IApiService } from '@shared/interfaces/service/api-service.interface';
 import { UserInfo } from '@shared/types/user-info.type';
 import { LoginPayload } from '@shared/interfaces/login-payload.interface';
+import { ApiService } from './api.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   constructor(
-    @Inject(API_SERVICE)
-    private readonly _apiService: IApiService
+    private readonly _apiService: ApiService
   ) {}
   
   login(email: string, password: string): Observable<UserInfo> {
