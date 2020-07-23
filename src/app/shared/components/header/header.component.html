@@ -4,17 +4,23 @@
   </nz-page-header-title>
 
   <nz-page-header-extra>
-    <button nz-button nzType="primary" (click)="showCreateRequestModal()">Create request</button>
+    <button nz-button nzType="primary" (click)="showCreateRequestModal()">
+      Create request
+    </button>
 
     <span>
       {{ (user$ | async)?.email }}
-      <nz-avatar nzSize="large" nzIcon="user" nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomRight"></nz-avatar>
+      <nz-avatar
+        nzSize="large"
+        nzIcon="user"
+        nz-dropdown
+        [nzDropdownMenu]="menu"
+        nzPlacement="bottomRight"
+      ></nz-avatar>
     </span>
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
-        <li nz-menu-item>
-          <i nz-icon nzType="user"></i> Profile
-        </li>
+        <li nz-menu-item><i nz-icon nzType="user"></i> Profile</li>
         <li nz-menu-item (click)="handleLogout()">
           <i nz-icon nzType="logout" nzTheme="outline"></i> Logout
         </li>
@@ -23,4 +29,7 @@
   </nz-page-header-extra>
 </nz-page-header>
 
-<crm-create-request-modal [isVisible]="createRequestModalVisible" (onClose)="hideCreateRequestModal()"></crm-create-request-modal>
+<crm-create-request-modal
+  [isVisible]="createRequestModalVisible"
+  (onClose)="hideCreateRequestModal()"
+></crm-create-request-modal>
