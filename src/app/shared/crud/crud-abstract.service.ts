@@ -1,12 +1,13 @@
 import { Observable } from 'rxjs';
-import { ICrudService } from './crud-service.interface';
-import { IApiService } from '@shared/interfaces/service/api-service.interface';
+
+import { ApiService } from '@core/services/api.service';
 import { PagingRequestDto, PagingResponseDto } from '@shared/dto/paging.dto';
+import { ICrudService } from './crud-service.interface';
 
 export abstract class CrudService<T> implements ICrudService<T> {
   constructor(
     protected readonly _controllerName: string,
-    protected readonly _apiService: IApiService,
+    protected readonly _apiService: ApiService,
   ) {}
 
   create<T, P>(dto: T): Observable<P> {
@@ -17,6 +18,11 @@ export abstract class CrudService<T> implements ICrudService<T> {
   update(id: string, t: T): Observable<T> {
     return this._apiService
       .put<T>(this._controllerName + "/" + id, t, {})
+  }
+
+  patch(id: string, t: Partial<T>): Observable<T> {
+    return this._apiService
+      .patch<T>(this._controllerName + "/" + id, t, {})
   }
 
   findById(id: string): Observable<T> {

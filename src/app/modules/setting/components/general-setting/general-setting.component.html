@@ -1,0 +1,14 @@
+<nz-spin [nzSpinning]="loading">
+  <div *ngFor="let settingGroup of settings | keyvalue">
+    <nz-divider [nzText]="settingGroup.key" nzOrientation="left"></nz-divider>
+
+    <crm-setting-form
+      [formGroup]="formGroups[settingGroup.key]"
+      [settings]="settingGroup.value"
+      [slugsChangedValues]="changedValues"
+      (onSave)="handleSave($event)"
+      (onUndo)="handleUndo($event)"
+      (onChange)="handleChange($event)"
+    ></crm-setting-form>
+  </div>
+</nz-spin>

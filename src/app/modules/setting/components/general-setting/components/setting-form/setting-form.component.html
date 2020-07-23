@@ -1,0 +1,40 @@
+<form nz-form [formGroup]="formGroup">
+  <nz-form-item *ngFor="let setting of settings">
+    <nz-form-label [nzSpan]="3" nzRequired [nzFor]="setting.slug">
+      {{ setting.name }}
+    </nz-form-label>
+    <nz-form-control [nzSpan]="10">
+      <div nz-row [nzGutter]="8">
+        <div nz-col [nzSpan]="12">
+          <input
+            nz-input
+            type="text"
+            [formControlName]="setting.slug"
+            (input)="change(setting.slug)"
+          />
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-button-group *ngIf="slugsChangedValues.has(setting.slug)">
+            <button
+              nz-button
+              nzType="link"
+              nzShape="circle"
+              (click)="save(setting)"
+            >
+              <i nz-icon nzType="check" nzTheme="outline"></i>
+            </button>
+            <button
+              nz-button
+              nzType="link"
+              nzShape="circle"
+              nzDanger
+              (click)="undo(setting)"
+            >
+              <i nz-icon nzType="stop" nzTheme="outline"></i>
+            </button>
+          </nz-button-group>
+        </div>
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+</form>

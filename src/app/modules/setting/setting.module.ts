@@ -30,8 +30,7 @@ import { StatusService } from '@core/services/status.service';
 import { HomeTypeService } from '@core/services/home-type.service';
 import { ServiceTypeService } from '@core/services/service-type.service';
 
-import { GeneralSettingRoutingModule } from './setting-routing.module';
-import { GeneralSettingComponent } from './components/setting/general-setting/general-setting.component';
+import { SettingRoutingModule } from './setting-routing.module';
 import { StatusSettingComponent } from './components/setting/status-setting/status-setting.component';
 import { ServiceTypeSettingComponent } from './components/setting/service-type-setting/service-type-setting.component';
 import { TruckSettingComponent } from './components/setting/truck-setting/truck-setting.component';
@@ -45,7 +44,7 @@ import { TruckFormComponent } from './components/form/truck-form/truck-form.comp
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    GeneralSettingRoutingModule,
+    SettingRoutingModule,
 
     NzButtonModule,
     NzInputModule,
@@ -62,7 +61,6 @@ import { TruckFormComponent } from './components/form/truck-form/truck-form.comp
     NzIconModule.forChild([EditOutline, DeleteOutline, PlusOutline]),
   ],
   declarations: [
-    GeneralSettingComponent,
     StatusSettingComponent,
     StatusFormComponent,
     ServiceTypeSettingComponent,
