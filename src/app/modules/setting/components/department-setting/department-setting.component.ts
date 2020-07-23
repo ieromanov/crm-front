@@ -1,19 +1,22 @@
 import { Component } from '@angular/core';
-import { NzModalService, NzTableQueryParams } from 'ng-zorro-antd';
+import {
+  NzModalService,
+  NzTableQueryParams,
+  NzNotificationService,
+} from 'ng-zorro-antd';
 
 import { ConstantService } from '@core/services/constant.service';
 import { UserService } from '@core/services/user.service';
 
 import { UserInfo } from '@shared/types/user-info.type';
 
-import { UserFormComponent } from '../../form/user-form/user-form.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
 
 @Component({
-  selector: 'crm-user-setting',
-  templateUrl: 'user-setting.component.html'
+  selector: 'crm-department-setting',
+  templateUrl: 'department-setting.component.html',
 })
-
-export class UserSettingComponent {
+export class DepartmentSettingComponent {
   public totalResults: number;
   public users: UserInfo[] = [];
   public loading: boolean = false;
@@ -23,11 +26,12 @@ export class UserSettingComponent {
   constructor(
     private readonly _userService: UserService,
     private readonly _constantService: ConstantService,
-    private readonly _modalService: NzModalService
+    private readonly _modalService: NzModalService,
+    private readonly _notificationService: NzNotificationService
   ) {}
 
   public get colorsConstants() {
-    return this._constantService.colors
+    return this._constantService.colors;
   }
 
   onQueryParamsChange(params: NzTableQueryParams) {
@@ -84,24 +88,33 @@ export class UserSettingComponent {
 
   private _handleOnConfirmDelete(id: string) {
     return () => {
-      this._userService.delete(id).subscribe(
-        this._getAll.bind(this),
-        (error) => {
-          console.log(error)
-        }
-      );
-    }
+      this._userService
+        .delete(id)
+        .subscribe(this._getAll.bind(this), (error) => {
+          this._notificationService.create(
+            'error',
+            'User not deleted',
+            error.detail
+          );
+        });
+    };
   }
 
   private _handleOnConfirmCreate(componentInstance: UserFormComponent) {
     if (componentInstance.form.valid) {
-      this._userService.create(componentInstance.form.value)
-        .subscribe(() => {
+      this._userService.create(componentInstance.form.value).subscribe(
+        () => {
           componentInstance.closeModal();
           this._getAll();
-        }, (error) => {
-          console.log(error)
-        });
+        },
+        (error) => {
+          this._notificationService.create(
+            'error',
+            'User not created',
+            error.detail
+          );
+        }
+      );
     }
   }
 
@@ -114,7 +127,7 @@ export class UserSettingComponent {
         //     this._getAll();
         //   });
       }
-    }
+    };
   }
 
   private _handleCloseModal(componentInstance: UserFormComponent) {
@@ -128,7 +141,7 @@ export class UserSettingComponent {
         limit: this.pageSize,
         page: this.pageIndex,
       })
-      .subscribe(users => {
+      .subscribe((users) => {
         this.users = users.data;
         this.totalResults = users.total;
         this.loading = false;

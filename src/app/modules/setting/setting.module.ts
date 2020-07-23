@@ -35,12 +35,10 @@ import { GeneralSettingComponent } from './components/setting/general-setting/ge
 import { StatusSettingComponent } from './components/setting/status-setting/status-setting.component';
 import { ServiceTypeSettingComponent } from './components/setting/service-type-setting/service-type-setting.component';
 import { TruckSettingComponent } from './components/setting/truck-setting/truck-setting.component';
-import { UserSettingComponent } from './components/setting/user-setting/user-setting.component';
 
 import { StatusFormComponent } from './components/form/status-form/status-form.component';
 import { ServiceTypeFormComponent } from './components/form/service-type-form/service-type-form.component';
 import { TruckFormComponent } from './components/form/truck-form/truck-form.component';
-import { UserFormComponent } from './components/form/user-form/user-form.component';
 
 @NgModule({
   imports: [
@@ -71,8 +69,6 @@ import { UserFormComponent } from './components/form/user-form/user-form.compone
     ServiceTypeFormComponent,
     TruckSettingComponent,
     TruckFormComponent,
-    UserSettingComponent,
-    UserFormComponent
   ],
   providers: [
     StatusService,

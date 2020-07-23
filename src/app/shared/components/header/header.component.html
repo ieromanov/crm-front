@@ -8,7 +8,7 @@
 
     <span>
       {{ (user$ | async)?.email }}
-      <nz-avatar nzSize="large" nzIcon="user" nz-dropdown [nzDropdownMenu]="menu"></nz-avatar>
+      <nz-avatar nzSize="large" nzIcon="user" nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomRight"></nz-avatar>
     </span>
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
