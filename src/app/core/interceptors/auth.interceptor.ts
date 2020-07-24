@@ -18,25 +18,24 @@ import { Router } from '@angular/router';
 })
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
-    private readonly _store: Store<State>,
     private readonly _router: Router
   ) {}
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    request = request.clone({ withCredentials: true });;
+  ): Observable<HttpEvent<HttpErrorResponse>> {
+    request = request.clone({ withCredentials: true });
     return next
       .handle(request)
       .pipe(catchError(this.handleAuthError.bind(this)));
   }
 
-  private handleAuthError(err: HttpErrorResponse): Observable<any> {
+  private handleAuthError(err: HttpErrorResponse): Observable<HttpErrorResponse> {
     if (err.status === 401) {
-      this._store.dispatch(logoutAction());
+      this._router.navigate(['/auth/login']);
     } else if (err.status === 403) {
-      this._router.navigate(['/no-access'])
+      this._router.navigate(['/no-access']);
     }
     return throwError(err);
   }
