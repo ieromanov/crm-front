@@ -1,0 +1,35 @@
+<nz-spin [nzSpinning]="loading">
+  <nz-page-header nzBackIcon *ngIf="requestLoaded">
+    <nz-page-header-title>Request № {{ request.number }}</nz-page-header-title>
+    <nz-page-header-extra>
+      <button nz-button nzType="primary">Save changes</button>
+      <button nz-button nzType="primary" nzDanger>Delete request</button>
+    </nz-page-header-extra>
+    <nz-page-header-content>
+      <nz-row nzType="flex">
+        <nz-statistic
+          class="request__meta_info"
+          nzTitle="Status"
+          [nzValue]="request.status.name"
+        ></nz-statistic>
+        <nz-statistic
+          class="request__meta_info"
+          nzTitle="Weight"
+          [nzValue]="request.salesWeight"
+          nzSuffix="cubic feet"
+        ></nz-statistic>
+        <nz-statistic
+          class="request__meta_info"
+          nzTitle="Rate"
+          [nzValue]="request.rate"
+          nzPrefix="$"
+        ></nz-statistic>
+        <nz-statistic
+          class="request__meta_info"
+          nzTitle="Travel Time"
+          [nzValue]="request.travelTimeInSeconds | secondsToTime"
+        ></nz-statistic>
+      </nz-row>
+    </nz-page-header-content>
+  </nz-page-header>
+</nz-spin>

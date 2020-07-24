@@ -8,17 +8,27 @@ import { ApiService } from './api.service';
 
 @Injectable()
 export class RequestService {
-  private readonly _controllerName: string = 'request'
+  private readonly _controllerName: string = 'request';
 
-  constructor(
-    private readonly _apiService: ApiService
-  ) {}
+  constructor(private readonly _apiService: ApiService) {}
 
   create(dto: CreateRequestDTO) {
-    return this._apiService.post<CreateRequestDTO, IRequest>(this._controllerName + '/create', dto)
+    return this._apiService.post<CreateRequestDTO, IRequest>(
+      this._controllerName,
+      dto
+    );
   }
 
-  findAll(dto?: PagingRequestDto<IRequest>): Observable<PagingResponseDto<IRequest>> {
-    return this._apiService.post<PagingRequestDto<IRequest>, PagingResponseDto<IRequest>>(this._controllerName + '/find-all', dto)
+  findAll(
+    dto?: PagingRequestDto<IRequest>
+  ): Observable<PagingResponseDto<IRequest>> {
+    return this._apiService.post<
+      PagingRequestDto<IRequest>,
+      PagingResponseDto<IRequest>
+    >(this._controllerName + '/find-all', dto);
+  }
+
+  findById(id: string) {
+    return this._apiService.get<IRequest>(this._controllerName + '/' + id);
   }
 }

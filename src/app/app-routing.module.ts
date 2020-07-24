@@ -27,6 +27,13 @@ const routes: Routes = [
           import('./modules/setting/setting.module').then(
             (m) => m.SettingModule
           ),
+	  },
+	  {
+        path: 'request/:id',
+        loadChildren: () =>
+          import('./modules/request-details/request-details.module').then(
+            (m) => m.RequestDetailsModule
+          ),
       },
       {
         path: 'error',

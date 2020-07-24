@@ -19,7 +19,7 @@ export interface IRequest {
   pickupEndTime: Date;
   pickupWorkTime: Date;
 
-  travelTime: number;
+  travelTimeInSeconds: number;
 
   movers: UserInfo[];
 
@@ -46,6 +46,8 @@ export interface IRequest {
   clientNotes?: string;
 
   dispatchNotes?: string;
+
+  salesWeight: number;
 
   assignedManager: UserInfo;
 }

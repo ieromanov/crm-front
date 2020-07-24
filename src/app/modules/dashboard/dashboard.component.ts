@@ -49,6 +49,10 @@ export class DashboardComponent implements OnDestroy {
     this._getAll();
   }
 
+  public goToRequest(id: string) {
+	this._router.navigate(['/request/' + id])
+  }
+
   private _getAll() {
     this.loading = true;
     return this._requestService
