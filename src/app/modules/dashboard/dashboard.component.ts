@@ -1,5 +1,7 @@
+import { Router } from '@angular/router';
 import { Component, OnDestroy } from '@angular/core';
 import { NzTableQueryParams } from 'ng-zorro-antd';
+import { Subscription } from 'rxjs';
 
 import { RequestService } from '@core/services/request.service';
 import { ConstantService } from '@core/services/constant.service';
@@ -7,7 +9,6 @@ import { RequestSocketService } from '@core/socket-services/request.socket-servi
 
 import { IRequest } from '@shared/interfaces/entity/request.interface';
 import { OrderTypeEmum } from '@shared/enum/order-type.enum';
-import { SocketResponse } from '@shared/types/socket-response.type';
 
 @Component({
   selector: 'crm-dashboard',
@@ -21,24 +22,28 @@ export class DashboardComponent implements OnDestroy {
   public pageSize: number = 10;
   public pageIndex: number = 1;
 
+  private _requestCreatedSub: Subscription;
+
   constructor(
+	private readonly _router: Router,
     private readonly _requestService: RequestService,
     private readonly _requestSocketService: RequestSocketService,
     private readonly _constantService: ConstantService
   ) {
-    this._requestSocketService.requestCreated$.subscribe(({ data }: SocketResponse<IRequest>) => {
-      this.requests.unshift(data)
-    })
+    this._requestCreatedSub = this._requestSocketService.requestCreated$.subscribe(
+      this._getAll.bind(this)
+    );
   }
   ngOnDestroy(): void {
-    this._requestSocketService.disconnect()
+    this._requestCreatedSub.unsubscribe();
+    this._requestSocketService.disconnect();
   }
 
   public get colorsConstants() {
-    return this._constantService.colors
+    return this._constantService.colors;
   }
 
-  onQueryParamsChange(params: NzTableQueryParams) {
+  public onQueryParamsChange(params: NzTableQueryParams) {
     const { pageIndex } = params;
     this.pageIndex = pageIndex;
     this._getAll();
@@ -51,10 +56,10 @@ export class DashboardComponent implements OnDestroy {
         limit: this.pageSize,
         page: this.pageIndex,
         order: {
-          number: OrderTypeEmum.DESC
-        }
+          number: OrderTypeEmum.DESC,
+        },
       })
-      .subscribe(requests => {
+      .subscribe((requests) => {
         this.requests = requests.data;
         this.totalResults = requests.total;
         this.loading = false;
