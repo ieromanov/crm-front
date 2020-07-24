@@ -1,4 +1,4 @@
-<nz-page-header [nzBackIcon]="menuIcon" (nzBack)="handleMenuCollapse()">
+<nz-page-header [nzBackIcon]="menuIcon" (nzBack)="collapseMenu()">
   <nz-page-header-title>
     <h2>Title</h2>
   </nz-page-header-title>
@@ -20,8 +20,10 @@
     </span>
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
-        <li nz-menu-item><i nz-icon nzType="user"></i> Profile</li>
-        <li nz-menu-item (click)="handleLogout()">
+        <li nz-menu-item>
+          <a routerLink="/profile"> <i nz-icon nzType="user"></i> Profile </a>
+        </li>
+        <li nz-menu-item (click)="logout()">
           <i nz-icon nzType="logout" nzTheme="outline"></i> Logout
         </li>
       </ul>

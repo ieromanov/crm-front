@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import { State } from '@store/index';
 import { userInfoSelector } from '@store/user/user.selector';
@@ -17,28 +18,29 @@ export class HeaderComponent {
   @Output() collapsedMenu: EventEmitter<void> = new EventEmitter();
 
   public user$: Observable<UserInfo> = this._store.select(userInfoSelector);
-  public createRequestModalVisible: boolean = false
+  public createRequestModalVisible: boolean = false;
 
   constructor(
-    private readonly _store: Store<State>
+    private readonly _store: Store<State>,
+    private readonly _router: Router
   ) {}
 
   public get menuIcon() {
     return this.menuCollapsed ? 'menu-unfold' : 'menu-fold';
   }
 
-  public handleMenuCollapse(): void {
+  public collapseMenu(): void {
     this.collapsedMenu.emit();
   }
 
-  public handleLogout(): void {
+  public logout(): void {
     this._store.dispatch(logoutAction());
   }
 
   public showCreateRequestModal() {
-    this.createRequestModalVisible = true
+    this.createRequestModalVisible = true;
   }
   public hideCreateRequestModal() {
-    this.createRequestModalVisible = false
+    this.createRequestModalVisible = false;
   }
 }

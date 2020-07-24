@@ -1,0 +1,17 @@
+<nz-descriptions nzTitle="User Info" nzLayout="vertical" *ngIf="user !== null">
+  <nz-descriptions-item nzTitle="First name">
+    {{ user.firstName }}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Last name">
+    {{ user.lastName }}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Email">
+    {{ user.email }}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Phone">
+    {{ user.phone }}
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="Email verified">
+    {{ user.emailVerified }}
+  </nz-descriptions-item>
+</nz-descriptions>

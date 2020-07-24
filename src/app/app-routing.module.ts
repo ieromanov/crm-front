@@ -22,17 +22,24 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'setting',
-        loadChildren: () =>
-          import('./modules/setting/setting.module').then(
-            (m) => m.SettingModule
-          ),
-	  },
-	  {
         path: 'request/:id',
         loadChildren: () =>
           import('./modules/request-details/request-details.module').then(
             (m) => m.RequestDetailsModule
+          ),
+      },
+      {
+        path: 'profile',
+        loadChildren: () =>
+          import('./modules/profile/profile.module').then(
+            (m) => m.ProfileModule
+          ),
+      },
+      {
+        path: 'setting',
+        loadChildren: () =>
+          import('./modules/setting/setting.module').then(
+            (m) => m.SettingModule
           ),
       },
       {
