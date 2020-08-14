@@ -1,7 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Router,
+  NavigationEnd,
+  ActivationEnd,
+  ActivatedRoute,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs/operators';
 
 import { State } from '@store/index';
 import { userInfoSelector } from '@store/user/user.selector';
@@ -20,10 +26,27 @@ export class HeaderComponent {
   public user$: Observable<UserInfo> = this._store.select(userInfoSelector);
   public createRequestModalVisible: boolean = false;
 
+  private _heading: string = '';
+  public get heading(): string {
+    return this._heading;
+  }
+
   constructor(
     private readonly _store: Store<State>,
-    private readonly _router: Router
-  ) {}
+    private readonly _router: Router,
+    private readonly _activatedRoute: ActivatedRoute
+  ) {
+    this._router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        map(() => this._activatedRoute),
+        map((route) => route.firstChild),
+        switchMap((route) => route.data)
+      )
+      .subscribe((data) => {
+        this._heading = data.header || '';
+      });
+  }
 
   public get menuIcon() {
     return this.menuCollapsed ? 'menu-unfold' : 'menu-fold';

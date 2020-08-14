@@ -20,6 +20,9 @@ const routes: Routes = [
           import('./modules/dashboard/dashboard.module').then(
             (m) => m.DashboardModule
           ),
+        data: {
+          header: 'Dashboard',
+        },
       },
       {
         path: 'request/:id',
@@ -27,6 +30,9 @@ const routes: Routes = [
           import('./modules/request-details/request-details.module').then(
             (m) => m.RequestDetailsModule
           ),
+        data: {
+          header: 'Request info',
+        },
       },
       {
         path: 'profile',
@@ -34,6 +40,9 @@ const routes: Routes = [
           import('./modules/profile/profile.module').then(
             (m) => m.ProfileModule
           ),
+        data: {
+          header: 'Profile info',
+        },
       },
       {
         path: 'setting',
@@ -41,12 +50,16 @@ const routes: Routes = [
           import('./modules/setting/setting.module').then(
             (m) => m.SettingModule
           ),
+        data: {
+          header: 'Setting',
+        },
       },
       {
         path: 'error',
         component: ResultComponent,
         data: {
           status: '500',
+          header: 'Server error',
           title: '500 Error',
           subtitle: 'Sorry, there is an error on server.',
         },
@@ -56,6 +69,7 @@ const routes: Routes = [
         component: ResultComponent,
         data: {
           status: '403',
+          header: 'Access denied',
           title: '403 No Access',
           subtitle: 'Sorry, you are not authorized to access this page.',
         },
@@ -65,6 +79,7 @@ const routes: Routes = [
         component: ResultComponent,
         data: {
           status: '404',
+          header: 'Page not found',
           title: '404 Not Found',
           subtitle:
             "Oops... We can't find the page you are looking for. May be the page is moved from here or deleted.",

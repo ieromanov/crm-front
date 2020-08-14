@@ -1,6 +1,7 @@
 export type MenuItem = {
-  title: string; 
+  title: string;
   link?: string;
   icon?: string;
-  children?: MenuItem[]
-}
+  children?: MenuItem[];
+  data?: { header: string };
+};

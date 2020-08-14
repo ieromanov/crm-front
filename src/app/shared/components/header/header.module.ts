@@ -4,20 +4,26 @@ import {
   NzPageHeaderModule,
   NzDropDownModule,
   NzAvatarModule,
-  NzButtonModule
+  NzButtonModule,
+  NzIconModule,
 } from 'ng-zorro-antd';
+
+import { LogoutOutline } from '@ant-design/icons-angular/icons';
 
 import { CreateRequestModalModule } from '@shared/components/modal/create-request-modal/create-request-modal.module';
 
 import { HeaderComponent } from './header.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule,
+
     NzPageHeaderModule,
-    NzDropDownModule,
     NzAvatarModule,
     NzButtonModule,
+    NzIconModule.forChild([LogoutOutline]),
 
     CreateRequestModalModule,
   ],

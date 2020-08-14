@@ -1,16 +1,37 @@
 <nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
-    [nzTrigger]="null">
+  <nz-sider
+    class="menu-sidebar"
+    nzCollapsible
+    nzWidth="256px"
+    nzBreakpoint="md"
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null"
+  >
     <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
-        <img src="assets/images/esquire-logo.png" alt="Esquire Moving logo">
+      <a href="https://esquiremoving.com/" target="_blank">
+        <img src="assets/images/esquire-logo.png" alt="Esquire Moving logo" />
         <h1>Esquire Moving</h1>
       </a>
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li *ngFor="let menuItem of menuItems" nz-submenu nzOpen [nzTitle]="menuItem.title" [nzIcon]="menuItem.icon">
+    <ul
+      nz-menu
+      nzTheme="dark"
+      nzMode="inline"
+      [nzInlineCollapsed]="isCollapsed"
+    >
+      <li
+        *ngFor="let menuItem of menuItems"
+        nz-submenu
+        nzOpen
+        [nzTitle]="menuItem.title"
+        [nzIcon]="menuItem.icon"
+      >
         <ul>
-          <li *ngFor="let menuItemChild of menuItem.children" nz-menu-item nzMatchRouter>
+          <li
+            *ngFor="let menuItemChild of menuItem.children"
+            nz-menu-item
+            nzMatchRouter
+          >
             <a [routerLink]="menuItemChild.link">{{ menuItemChild.title }}</a>
           </li>
         </ul>
@@ -18,7 +39,10 @@
     </ul>
   </nz-sider>
   <nz-layout>
-    <crm-header [menuCollapsed]="isCollapsed" (collapsedMenu)="toggleMenuCollapsed()"></crm-header>
+    <crm-header
+      [menuCollapsed]="isCollapsed"
+      (collapsedMenu)="toggleMenuCollapsed()"
+    ></crm-header>
     <nz-content>
       <div class="inner-content">
         <router-outlet></router-outlet>
