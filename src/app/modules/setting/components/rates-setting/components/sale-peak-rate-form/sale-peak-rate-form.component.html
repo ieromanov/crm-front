@@ -1,0 +1,65 @@
+<form nz-form [formGroup]="form">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="8" nzRequired>Name</nz-form-label>
+    <nz-form-control nzHasFeedback [nzSpan]="16">
+      <input formControlName="name" nz-input />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="8" nzRequired>Color</nz-form-label>
+    <nz-form-control [nzSpan]="16">
+      <crm-color-picker formControlName="color"></crm-color-picker>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="8" nzRequired>2 Movers + Truck</nz-form-label>
+    <nz-form-control [nzSpan]="16">
+      <nz-input-number
+        formControlName="twoMovers"
+        [nzMin]="1"
+      ></nz-input-number> $
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="8" nzRequired>3 Movers + Truck</nz-form-label>
+    <nz-form-control [nzSpan]="16">
+      <nz-input-number
+        formControlName="threeMovers"
+        [nzMin]="1"
+      ></nz-input-number> $
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="8" nzRequired>4 Movers + Truck</nz-form-label>
+    <nz-form-control [nzSpan]="16">
+      <nz-input-number
+        formControlName="fourMovers"
+        [nzMin]="1"
+      ></nz-input-number> $
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="8" nzRequired>Additional mover</nz-form-label>
+    <nz-form-control [nzSpan]="16">
+      <nz-input-number
+        formControlName="additionalMover"
+        [nzMin]="1"
+      ></nz-input-number> $
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="8" nzRequired>Additional truck</nz-form-label>
+    <nz-form-control [nzSpan]="16">
+      <nz-input-number
+        formControlName="additionalTruck"
+        [nzMin]="1"
+      ></nz-input-number> $
+    </nz-form-control>
+  </nz-form-item>
+</form>

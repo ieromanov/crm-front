@@ -1,0 +1,64 @@
+<button
+  class="create-button"
+  nz-button
+  nzType="primary"
+  (click)="showCreateModal()"
+>
+  <i nz-icon nzType="plus" nzTheme="outline"></i> Add Sale Peak
+</button>
+
+<nz-table #table [nzData]="rates" [nzLoading]="loading">
+  <thead>
+    <tr>
+      <th>Hourly Rates</th>
+      <th>3 Movers + Truck / hr</th>
+      <th>2 Movers + Truck / hr</th>
+      <th>4 Movers + Truck / hr</th>
+      <th>Additional mover / hr</th>
+      <th>Additional truck / hr</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let rate of table.data">
+      <td>
+        <div
+          [style]="{
+            backgroundColor: rate.color,
+            width: '20px',
+            height: '20px',
+            float: 'left',
+            marginRight: '8px',
+            borderRadius: '50%'
+          }"
+        ></div>
+        {{ rate.name }}
+      </td>
+      <td>{{ rate.twoMovers }}</td>
+      <td>{{ rate.threeMovers }}</td>
+      <td>{{ rate.fourMovers }}</td>
+      <td>{{ rate.additionalMover }}</td>
+      <td>{{ rate.additionalTruck }}</td>
+      <td>
+        <button
+          nz-button
+          nzType="link"
+          nzShape="circle"
+          (click)="showUpdateModal(rate)"
+        >
+          <i nz-icon nzType="edit" nzTheme="outline"></i>
+        </button>
+        <nz-divider nzType="vertical"></nz-divider>
+        <button
+          nz-button
+          nzDanger
+          nzType="link"
+          nzShape="circle"
+          (click)="showDeleteConfirmModal(rate.id)"
+        >
+          <i nz-icon nzType="delete" nzTheme="outline"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

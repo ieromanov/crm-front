@@ -31,6 +31,13 @@ const routes: Routes = [
         (m) => m.DepartmentSettingModule
       ),
   },
+  {
+    path: 'rates',
+    loadChildren: () =>
+      import('./components/rates-setting/rates-setting.module').then(
+        (m) => m.RatesSettingModule
+      ),
+  },
 ];
 
 @NgModule({

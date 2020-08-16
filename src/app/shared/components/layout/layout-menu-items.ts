@@ -24,6 +24,10 @@ export const menuItems: MenuItem[] = [
         title: 'Status',
       },
       {
+        link: '/setting/rates',
+        title: 'Rates',
+      },
+      {
         link: '/setting/move-size',
         title: 'Move size settings',
       },
