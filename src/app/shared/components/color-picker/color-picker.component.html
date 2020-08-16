@@ -1,0 +1,10 @@
+<div class="color-picker" clickOutside (onClickOutside)="handleClickOutside()">
+  <div class="color-picker__preview" [style.backgroundColor]="value" (click)="toggleShowColorPicker()"></div>
+  <div class="color-picker__overlay" *ngIf="showColorPicker">
+    <color-chrome
+      [disableAlpha]="true"
+      [color]="value"
+      (onChangeComplete)="handleChange($event)"
+    ></color-chrome>
+  </div>
+</div>

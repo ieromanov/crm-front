@@ -1,8 +1,5 @@
 import { Component, forwardRef, OnDestroy } from '@angular/core';
-import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-} from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
 import { Subject, Subscription } from 'rxjs';
@@ -28,7 +25,7 @@ export class AddressInputComponent implements ControlValueAccessor, OnDestroy {
   public placeId: string;
   public address: string;
   public numberOfFloor: number = 0;
-  
+
   public withElevator = false;
   public withElevatorCheckboxDisabled = true;
 
@@ -42,14 +39,14 @@ export class AddressInputComponent implements ControlValueAccessor, OnDestroy {
       placeId: this.placeId,
       address: this.address,
       numberOfFloor: this.numberOfFloor,
-      withElevator: this.withElevator
+      withElevator: this.withElevator,
     };
   }
   public set value(value: Address) {
     this.placeId = value.placeId;
     this.address = value.address;
     this.numberOfFloor = value.numberOfFloor;
-    this.withElevator = value.withElevator
+    this.withElevator = value.withElevator;
   }
 
   constructor(private readonly _geoService: GeoService) {
@@ -76,10 +73,12 @@ export class AddressInputComponent implements ControlValueAccessor, OnDestroy {
 
   public onAddressChange(placeId: string) {
     if (isEmpty(placeId)) {
-      this.address = null
+      this.address = null;
     } else {
-      const address = this.addresses.find((address) => address.place_id === placeId)
-      this.address = address.description
+      const address = this.addresses.find(
+        (address) => address.place_id === placeId
+      );
+      this.address = address.description;
     }
     this._onChange(this.value);
   }
@@ -100,8 +99,8 @@ export class AddressInputComponent implements ControlValueAccessor, OnDestroy {
   }
 
   public onWithElevatorChanged() {
-    this.withElevator = !this.withElevator
-    this._onChange(this.value)
+    this.withElevator = !this.withElevator;
+    this._onChange(this.value);
   }
 
   private _getValueFromEvent(event: Event): string {
@@ -113,7 +112,7 @@ export class AddressInputComponent implements ControlValueAccessor, OnDestroy {
     if (input.length > 3) {
       this.addressIsSearching = true;
       this._geoService.place(input).subscribe((data: any) => {
-        this.addresses = data.status === 'OK' ? data.predictions : []
+        this.addresses = data.status === 'OK' ? data.predictions : [];
         this.addressIsSearching = false;
       });
     }
